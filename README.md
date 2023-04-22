@@ -21,6 +21,6 @@ Poprzez użycie poniższych klas program będzie pozwalał na przemieszczanie po
 
 
 ## Aktualny podział zadań
-Angelika Ostrowska - klasa Vehicle
-Kacper Straszak - klasa User, Location
-Adrian Murawski - klasa Station, Service
+    Angelika Ostrowska - klasa Vehicle
+    Kacper Straszak - klasa User, Location
+    Adrian Murawski - klasa Station, Service
