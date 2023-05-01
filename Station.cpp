@@ -4,6 +4,15 @@
 
 #include "Station.h"
 
+Station::Station(string name, string code, Location location, vector < Vehicle > currentVehicles, int maxVehicles, int numberOfRentals) {
+    this->name = name;
+    this->code = code;
+    this->location = location;
+    this->currentVehicles = currentVehicles;
+    this->maxVehiclesNumber = maxVehicles;
+    this->numberOfRentals = numberOfRentals;
+}
+
 
 bool Station::addToStation(Vehicle vehicle) {
     if (this->currentVehicles.size() < this->maxVehiclesNumber){
@@ -22,13 +31,17 @@ bool Station::changeLimit(int newLimit) {
 bool Station::deleteVehicle(Vehicle vehicle) {
     for (int i = 0; i <= currentVehicles.size(); i++){
         if (currentVehicles[i] == vehicle){
-            deleteVehicleByIndex(i);
+            if (deleteVehicleByIndex(i)){
+                return true;
+            }
+            break;
         }
     }
+    return false;
 }
 
 bool Station::deleteVehicleByIndex(int index) {
-    if (index > this->currentVehicles.size()){
+    if (index > this->currentVehicles.size() or index < 0){
         return false;
     }
     this->currentVehicles.erase(currentVehicles.begin() + index);
