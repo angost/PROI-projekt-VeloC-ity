@@ -15,7 +15,6 @@ bool User::checkSolvency() {
 	if (minBalance <= balance) {
 		return true;
 	}
-	throw invalid_argument("You don't have enough money.");
 	return false;
 }
 
@@ -50,7 +49,6 @@ bool User::checkAvailability(Vehicle vehicle){
 	else if (checkReserved(vehicle)) {
 		return true;
 	}
-	throw invalid_argument("This vehicle is already taken.");
 	return false;
 }
 
@@ -87,3 +85,8 @@ bool User::checkReserveSpace() {
 void User::increaseVehicleCounter() {
     vehicleCounter++;
 }
+
+void User::addDrivingLicense(std::string drivingLicense) {
+    this->drivingLicense = drivingLicense;
+}
+

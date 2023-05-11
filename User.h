@@ -38,6 +38,7 @@ public:
 	bool checkRentSpace();
 	bool checkReserveSpace();
     void increaseVehicleCounter();
+    void addDrivingLicense(string drivingLicense);
 };
 
 #endif //PROI_VETURILO_USER_H
