@@ -13,18 +13,25 @@ Station::Station(string name, string code, Location location, vector < Vehicle >
     this->numberOfRentals = numberOfRentals;
 }
 
+bool Station::checkIfSpaceAvailable(){
+    if (this->currentVehicles.size() < this->maxVehiclesNumber){
+        return true;
+    }
+    return false;
+}
+
 
 bool Station::addToStation(Vehicle vehicle) {
-    if (this->currentVehicles.size() < this->maxVehiclesNumber){
-        this->currentVehicles.push_back(vehicle);
-    } else {
-        return false;
-    }
-    return true;
+    this->currentVehicles.push_back(vehicle);
 }
 
 bool Station::changeLimit(int newLimit) {
     this->maxVehiclesNumber = newLimit;
+    return true;
+}
+
+bool Station::checkIfVehicleInStation(Vehicle veh){
+    //TODO
     return true;
 }
 

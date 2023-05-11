@@ -31,7 +31,8 @@ public:
     void incrementCounter();
     bool changeLocation(Location newLocation);
     int countAvailableSpots() const;
-    
+    bool checkIfSpaceAvailable();
+    bool checkIfVehicleInStation(Vehicle veh);
 };
 
 
