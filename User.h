@@ -37,6 +37,7 @@ public:
 	bool checkReserved(Vehicle vehicle);
 	bool checkRentSpace();
 	bool checkReserveSpace();
+    void increaseVehicleCounter();
 };
 
 #endif //PROI_VETURILO_USER_H
