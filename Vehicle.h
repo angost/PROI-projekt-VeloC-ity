@@ -1,6 +1,7 @@
 #ifndef PROI_VETURILO_VEHICLE_H
 #define PROI_VETURILO_VEHICLE_H
 
+#include <stdexcept>
 using namespace std;
 
 class Vehicle {
@@ -22,7 +23,6 @@ public:
     bool checkReservedStatus();
     int checkTechnicalCondition();
     bool checkAbleToUse();
-    //virtual 
 };
 
 
