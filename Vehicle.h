@@ -21,7 +21,7 @@ private:
     bool ableToUse;
 
 public:
-    Vehicle(int id, float rentalPrice, int maxSpeed, Station currentStation, Location currentLocation, int numberOfRentals = 0, int technicalCondition = 5);
+    Vehicle(int id, Station currentStation, Location currentLocation, int numberOfRentals = 0, int technicalCondition = 5);
     // co jak aktualnie nie ma usera? obiekt User reprezentuj¹cy no user?
     void setRentedStatus(bool newStatus);
     void setReservedStatus(bool newStatus);

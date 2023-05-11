@@ -3,19 +3,14 @@
 
 using namespace std;
 
-Vehicle::Vehicle(int id, float rentalPrice, int maxSpeed, Station currentStation, Location location, int numberOfRentals, int technicalCondition)
+Vehicle::Vehicle(int id, Station currentStation, Location location, int numberOfRentals, int technicalCondition)
 {
 	if (id < 0)
 		throw invalid_argument("Id cannot be negative");
 	this->id = id;
 
-	if (rentalPrice < 0)
-		throw invalid_argument("Rental price cannot be negative");
-	this->rentalPrice = rentalPrice;
-
-	if (maxSpeed <= 0)
-		throw invalid_argument("Max speed has to be greater than 0");
-	this->maxSpeed = maxSpeed;
+	rentalPrice = 5;
+	maxSpeed = 20;
 
 	// na poczatku nie powinno byc usera -> zrobic User None? -> empty constructor usera tworzy noUsera?
 	User noUser();

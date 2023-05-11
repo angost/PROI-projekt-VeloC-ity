@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef PROI_VETURILO_VEHICLE_H
-#define PROI_VETURILO_VEHICLE_H
+#ifndef PROI_VETURILO_USER_H
+#define PROI_VETURILO_USER_H
 
 #include <string>
 #include <vector>
@@ -40,4 +40,4 @@ public:
 	bool checkReserved(Vehicle);
 };
 
-#endif //PROI_VETURILO_VEHICLE_H
+#endif //PROI_VETURILO_USER_H
