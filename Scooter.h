@@ -7,6 +7,7 @@ using namespace std;
 class Scooter : public Vehicle {
 public:
     Scooter(int id, int numberOfRentals = 0, int technicalCondition = 5);
+    void takeOff();
 };
 
 

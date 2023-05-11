@@ -6,8 +6,9 @@ using namespace std;
 
 class Bike: public Vehicle {
 public:
-    Bike(int id, int numberOfRentals = 0, int technicalCondition = 5);
     bool hasBasket;
+    Bike(int id, int numberOfRentals = 0, int technicalCondition = 5);
+    void takeOff();
 };
 
 

@@ -1,5 +1,6 @@
 
 #include "Bike.h"
+#include <iostream>
 using namespace std;
 
 Bike::Bike(int id, int numberOfRentals, int technicalCondition) : Vehicle(id, numberOfRentals, technicalCondition)
@@ -7,4 +8,11 @@ Bike::Bike(int id, int numberOfRentals, int technicalCondition) : Vehicle(id, nu
 	rentalPrice = 4;
 	maxSpeed = 20;
 	hasBasket = true;
+}
+
+void Bike::takeOff()
+{
+	cout << "Velocity: 0" << endl;
+	cout << "Start pedaling..." << endl;
+	cout << "Velocity: " << this->maxSpeed / 4 << endl;
 }
