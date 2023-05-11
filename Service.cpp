@@ -7,6 +7,12 @@
 
 using namespace std;
 
+Service::Service() {
+    vector < Station > stations;
+    this->supportedStations = stations;
+}
+
+
 Service::Service(vector<Station> stations) {
     this->supportedStations = stations;
 }
