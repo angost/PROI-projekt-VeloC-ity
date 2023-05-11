@@ -25,19 +25,18 @@ private:
 
 public:
 	User(string username = "NoUser", string driving_license = "None");
-	bool checkSolvency(Vehicle);
+	bool checkSolvency();
 	void withdraw(float amount);
 	void makeDeposit(float amount);
 	void addVehicle(Vehicle);
 	void removeVehicle(Vehicle);
 	void reserveVehicle(Vehicle);
 	void cancelReserveVehicle(Vehicle);
-	/*void vehicleReservation(Vehicle, Station);
-	void rentVehicle(Vehicle, Station);
-	void returnVehicle(Vehicle, Station);*/
 	bool checkAvailability(Vehicle);
 	bool checkRented(Vehicle);
 	bool checkReserved(Vehicle);
+	bool checkRentSpace();
+	bool checkReserveSpace();
 };
 
 #endif //PROI_VETURILO_USER_H

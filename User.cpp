@@ -11,8 +11,8 @@ User::User(string username, string drivingLicense) {
 	maxRentedVehicles = 3;
 }
 
-bool User::checkSolvency(Vehicle vehicle) {
-	if (vehicle.rentalPrice <= balance) {
+bool User::checkSolvency() {
+	if (minBalance <= balance) {
 		return true;
 	}
 	throw invalid_argument("You don't have enough money.");
@@ -43,40 +43,8 @@ void User::cancelReserveVehicle(Vehicle vehicle) {
 	reservedVehicles.erase(std::remove(reservedVehicles.begin(), reservedVehicles.end(), vehicle), reservedVehicles.end());
 }
 
-/*void User::vehicleReservation(Vehicle vehicle, Station station) {
-	if (reservedVehicles.size() < maxResVehicles) {
-		auto checkVehicle = find(station.currentVehicles.begin(), station.currentVehicles.end(), vehicle);
-		if (checkVehicle != station.currentVehicles.end()) {
-			if (checkAvailability(vehicle) and checkSolvency(vehicle)) {
-
-			}
-		}
-		else {
-			throw invalid_argument("No vehicles like this in given station.");
-		}
-	}
-}
-
-void User::rentVehicle(Vehicle vehicle, Station station) {
-	if (rentedVehicles.size() < maxRentedVehicles) {
-		auto checkVehicle = find(station.currentVehicles.begin(), station.currentVehicles.end(), vehicle);
-		if (checkVehicle != station.currentVehicles.end()) {
-			if (checkAvailability(vehicle) and checkSolvency(vehicle)) {
-
-			}
-		}
-		else {
-			throw invalid_argument("No vehicles like this in given station.");
-		}
-	}
-}
-
-void User::returnVehicle(Vehicle vehicle, Station station) {
-	
-}*/
-
 bool User::checkAvailability(Vehicle vehicle){
-	if ((vehicle.rentedStatus == false) and (vehicle.reservedStatus == false)) {
+	if (!vehicle.chechRentedStatus() and !vehicle.chceckReservedStatus()) {
 		return true;
 	}
 	else if (checkReserved(vehicle)) {
@@ -97,6 +65,20 @@ bool User::checkRented(Vehicle vehicle) {
 bool User::checkReserved(Vehicle vehicle) {
 	auto checkVehicle = find(reservedVehicles.begin(), reservedVehicles.end(), vehicle);
 	if (checkVehicle != reservedVehicles.end()) {
+		return true;
+	}
+	return false;
+}
+
+bool User::checkRentSpace() {
+	if (maxRentedVehicles < rentedVehicles.size()) {
+		return true;
+	}
+	return false;
+}
+
+bool User::checkReserveSpace() {
+	if (maxResVehicles < (reservedVehicles.size() + rentedVehicles.size())) {
 		return true;
 	}
 	return false;
