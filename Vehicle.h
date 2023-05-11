@@ -14,7 +14,6 @@ public:
     int numberOfRentals;
     int technicalCondition;
     bool ableToUse;
-
     Vehicle(int id, int numberOfRentals = 0, int technicalCondition = 5);
     void setRentedStatus(bool newStatus);
     void setReservedStatus(bool newStatus);
@@ -24,7 +23,8 @@ public:
     bool checkReservedStatus();
     int checkTechnicalCondition();
     bool checkAbleToUse();
-    virtual void takeOff() = 0;
+//    virtual void takeOff() = 0;
+    bool operator==(Vehicle other) const;
 };
 
 

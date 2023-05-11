@@ -74,3 +74,7 @@ bool Vehicle::checkAbleToUse()
 {
 	return this->ableToUse;
 }
+
+bool Vehicle::operator==(Vehicle other) const{
+    return (this->id == other.id);
+}

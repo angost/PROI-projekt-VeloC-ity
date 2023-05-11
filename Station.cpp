@@ -31,8 +31,12 @@ bool Station::changeLimit(int newLimit) {
 }
 
 bool Station::checkIfVehicleInStation(Vehicle veh){
-    //TODO
-    return true;
+    for (int i = 0; i <= currentVehicles.size(); i++){
+        if (currentVehicles[i] == veh){
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Station::deleteVehicle(Vehicle vehicle) {
