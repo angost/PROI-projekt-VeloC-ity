@@ -44,7 +44,7 @@ void User::cancelReserveVehicle(Vehicle vehicle) {
 }
 
 bool User::checkAvailability(Vehicle vehicle){
-	if (!vehicle.chechRentedStatus() and !vehicle.chceckReservedStatus()) {
+	if (!vehicle.checkRentedStatus() and !vehicle.checkReservedStatus()) {
 		return true;
 	}
 	else if (checkReserved(vehicle)) {
