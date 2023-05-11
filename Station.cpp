@@ -56,3 +56,8 @@ bool Station::changeLocation(Location newLocation) {
     this->location = newLocation;
     return true;
 }
+
+int Station::countAvailableSpots() const
+{
+    return this->maxVehiclesNumber - this->currentVehicles.size();
+}

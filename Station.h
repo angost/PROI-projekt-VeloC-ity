@@ -30,6 +30,8 @@ public:
     bool changeLimit(int newLimit);
     void incrementCounter();
     bool changeLocation(Location newLocation);
+    int countAvailableSpots() const;
+    
 };
 
 
