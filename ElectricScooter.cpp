@@ -12,7 +12,7 @@ ElectricScooter::ElectricScooter(int id, int numberOfRentals, int technicalCondi
 	this->charged = charged;
 }
 
-void Scooter::takeOff()
+void ElectricScooter::takeOff()
 {
 	cout << "Velocity: 0" << endl;
 	cout << "Turn the scooter on" << endl;
