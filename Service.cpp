@@ -18,10 +18,6 @@ Service::Service(vector<Station> stations) {
 }
 
 bool Service::checkVehicleCanBeMoved(Vehicle veh, Station fromStation, Station toStation){
-    if (std::find(supportedStations.begin(), supportedStations.end(), fromStation) == supportedStations.end()
-        or std::find(supportedStations.begin(), supportedStations.end(), toStation) == supportedStations.end()) {
-        return false;
-    }
     if (not fromStation.checkIfVehicleInStation(veh)){
         return false;
     }
@@ -43,7 +39,6 @@ bool Service::moveVehicle(Vehicle vehicle, Station fromStation, Station toStatio
 }
 
 bool Service::repairVehicle(Vehicle vehicle){
-//TODO when class Vehicle is finished
     vehicle.setTechnicalCondition(5);
     return true;
 }
