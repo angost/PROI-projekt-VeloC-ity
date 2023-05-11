@@ -22,6 +22,7 @@ public:
     bool checkReservedStatus();
     int checkTechnicalCondition();
     bool checkAbleToUse();
+    //virtual 
 };
 
 

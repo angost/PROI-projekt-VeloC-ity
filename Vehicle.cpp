@@ -11,8 +11,8 @@ Vehicle::Vehicle(int id, int numberOfRentals, int technicalCondition)
 
 	rentalPrice = 5;
 	maxSpeed = 5;
-	rented = false;
-	reserved = false;
+	rentedStatus = false;
+	reservedStatus = false;
 
 	if (numberOfRentals < 0)
 		throw invalid_argument("Number of rentals cannot be negative");
