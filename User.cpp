@@ -84,3 +84,6 @@ bool User::checkReserveSpace() {
 	return false;
 }
 
+void User::increaseVehicleCounter() {
+    vehicleCounter++;
+}
