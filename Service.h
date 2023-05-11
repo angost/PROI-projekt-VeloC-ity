@@ -15,6 +15,7 @@ public:
     Service(vector < Station > stations);
     bool moveVehicle(Vehicle vehicle, Station fromStation, Station toStation);
     bool repairVehicle(Vehicle vehicle);
+    bool checkVehicleCanBeMoved(Vehicle veh, Station fromStation, Station toStation);
 };
 
 
