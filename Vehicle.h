@@ -3,11 +3,8 @@
 
 using namespace std;
 
-#include "Location.h"
-#include "User.h"
-
 class Vehicle {
-private:
+public:
     int id;
     float rentalPrice;
     int maxSpeed;
@@ -17,7 +14,6 @@ private:
     int technicalCondition;
     bool ableToUse;
 
-public:
     Vehicle(int id, int numberOfRentals = 0, int technicalCondition = 5);
     void setRentedStatus(bool newStatus);
     void setReservedStatus(bool newStatus);

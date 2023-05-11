@@ -10,7 +10,7 @@ Vehicle::Vehicle(int id, int numberOfRentals, int technicalCondition)
 	this->id = id;
 
 	rentalPrice = 5;
-	maxSpeed = 20;
+	maxSpeed = 5;
 	rented = false;
 	reserved = false;
 
