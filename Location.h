@@ -16,6 +16,7 @@ private:
 	int x_coord;
 	int y_coord;
 public:
+    Location() = default;
 	Location(string city, string district, string street_name, string street_number, int x_coord, int y_coord);
 };
 
