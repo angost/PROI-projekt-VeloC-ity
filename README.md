@@ -1,4 +1,4 @@
-### Projekt PROI
+### Projekt PROI - VeloC++ity
 
 ## Główne założenia
 Celem projektu jest wykonanie programu, który będzie miejskim systemem wypożyczeń pojazdów (na przykład rowerów).
