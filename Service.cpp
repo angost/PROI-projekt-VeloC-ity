@@ -7,14 +7,33 @@
 
 using namespace std;
 
+Service::Service() {
+    vector < Station > stations;
+    this->supportedStations = stations;
+}
+
+
 Service::Service(vector<Station> stations) {
     this->supportedStations = stations;
 }
 
-bool Service::moveVehicle(int vehicle, Station fromStation, Station toStation) {
+bool Service::checkVehicleCanBeMoved(Vehicle veh, Station fromStation, Station toStation){
     if (std::find(supportedStations.begin(), supportedStations.end(), fromStation) == supportedStations.end()
-    or std::find(supportedStations.begin(), supportedStations.end(), toStation) == supportedStations.end()) {
+        or std::find(supportedStations.begin(), supportedStations.end(), toStation) == supportedStations.end()) {
         return false;
+    }
+    if (not fromStation.checkIfVehicleInStation(veh)){
+        return false;
+    }
+    if (not toStation.checkIfSpaceAvailable()){
+        return false;
+    }
+    return true;
+}
+
+
+bool Service::moveVehicle(Vehicle vehicle, Station fromStation, Station toStation) {
+
     if (fromStation.deleteVehicle(vehicle)){
         if (toStation.addToStation(vehicle)){
             return true;
@@ -23,8 +42,8 @@ bool Service::moveVehicle(int vehicle, Station fromStation, Station toStation) {
     return false;
 }
 
-bool Service::repairVehicle(int vehicle){
+bool Service::repairVehicle(Vehicle vehicle){
 //TODO when class Vehicle is finished
-    vehicle.repair();
+    vehicle.setTechnicalCondition(5);
     return true;
 }
