@@ -18,11 +18,13 @@ public:
     Vehicle(int id, int numberOfRentals = 0, int technicalCondition = 5);
     void setRentedStatus(bool newStatus);
     void setReservedStatus(bool newStatus);
+    void increaseNumberOfRentals();
     void setTechnicalCondition(int technicalCondition);
     bool checkRentedStatus();
     bool checkReservedStatus();
     int checkTechnicalCondition();
     bool checkAbleToUse();
+    virtual void takeOff() = 0;
 };
 
 
