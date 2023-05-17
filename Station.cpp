@@ -23,6 +23,7 @@ bool Station::checkIfSpaceAvailable(){
 
 bool Station::addToStation(Vehicle* vehicle) {
     this->currentVehicles.push_back(vehicle);
+    return true;
 }
 
 bool Station::changeLimit(int newLimit) {
