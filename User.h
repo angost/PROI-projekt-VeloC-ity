@@ -5,8 +5,8 @@
 
 #include <string>
 #include <vector>
-#include "Vehicle.h"
-#include "Station.h"
+#include "vehicle/Vehicle.h"
+#include "station/Station.h"
 
 using namespace std;
 
@@ -16,8 +16,8 @@ private:
 	float balance;
 	float minBalance;
 	string drivingLicense;
-	vector <Vehicle> reservedVehicles;
-	vector <Vehicle> rentedVehicles;
+	vector <Vehicle*> reservedVehicles;
+	vector <Vehicle*> rentedVehicles;
 	int vehicleCounter;
 	int maxResVehicles;
 	int maxRentedVehicles;
@@ -28,13 +28,13 @@ public:
 	bool checkSolvency();
 	void withdraw(float amount);
 	void makeDeposit(float amount);
-	void addVehicle(Vehicle vehicle);
-	void removeVehicle(Vehicle vehicle);
-	void reserveVehicle(Vehicle vehicle);
-	void cancelReserveVehicle(Vehicle vehicle);
-	bool checkAvailability(Vehicle vehicle);
-	bool checkRented(Vehicle vehicle);
-	bool checkReserved(Vehicle vehicle);
+	void addVehicle(Vehicle* vehicle);
+	void removeVehicle(Vehicle* vehicle);
+	void reserveVehicle(Vehicle* vehicle);
+	void cancelReserveVehicle(Vehicle* vehicle);
+	bool checkAvailability(Vehicle* vehicle);
+	bool checkRented(Vehicle* vehicle);
+	bool checkReserved(Vehicle* vehicle);
 	bool checkRentSpace();
 	bool checkReserveSpace();
     void increaseVehicleCounter();

@@ -26,24 +26,24 @@ void User::makeDeposit(float amount) {
 	balance += amount;
 }
 
-void User::addVehicle(Vehicle vehicle) {
+void User::addVehicle(Vehicle* vehicle) {
 	rentedVehicles.push_back(vehicle);
 }
 
-void User::removeVehicle(Vehicle vehicle) {
+void User::removeVehicle(Vehicle* vehicle) {
 	rentedVehicles.erase(std::remove(rentedVehicles.begin(), rentedVehicles.end(), vehicle), rentedVehicles.end());
 }
 
-void User::reserveVehicle(Vehicle vehicle) {
+void User::reserveVehicle(Vehicle* vehicle) {
 	reservedVehicles.push_back(vehicle);
 }
 
-void User::cancelReserveVehicle(Vehicle vehicle) {
+void User::cancelReserveVehicle(Vehicle* vehicle) {
 	reservedVehicles.erase(std::remove(reservedVehicles.begin(), reservedVehicles.end(), vehicle), reservedVehicles.end());
 }
 
-bool User::checkAvailability(Vehicle vehicle){
-	if (!vehicle.checkRentedStatus() and !vehicle.checkReservedStatus()) {
+bool User::checkAvailability(Vehicle* vehicle){
+	if (!vehicle->checkRentedStatus() and !vehicle->checkReservedStatus()) {
 		return true;
 	}
 	else if (checkReserved(vehicle)) {
@@ -52,7 +52,7 @@ bool User::checkAvailability(Vehicle vehicle){
 	return false;
 }
 
-bool User::checkRented(Vehicle vehicle) {
+bool User::checkRented(Vehicle* vehicle) {
 	auto checkVehicle = find(rentedVehicles.begin(), rentedVehicles.end(), vehicle);
 	if (checkVehicle != rentedVehicles.end()) {
 		return true;
@@ -60,7 +60,7 @@ bool User::checkRented(Vehicle vehicle) {
 	return false;
 }
 
-bool User::checkReserved(Vehicle vehicle) {
+bool User::checkReserved(Vehicle* vehicle) {
 	auto checkVehicle = find(reservedVehicles.begin(), reservedVehicles.end(), vehicle);
 	if (checkVehicle != reservedVehicles.end()) {
 		return true;
