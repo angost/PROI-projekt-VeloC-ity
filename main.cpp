@@ -1,7 +1,7 @@
-#include "Vehicle.h"
-#include "Bike.h"
-#include "Scooter.h"
-#include "ElectricScooter.h"
+#include "vehicle/Vehicle.h"
+#include "vehicle/Bike.h"
+#include "vehicle/Scooter.h"
+#include "vehicle/ElectricScooter.h"
 
 #include "station/Station.h"
 #include "station/MainStation.h"

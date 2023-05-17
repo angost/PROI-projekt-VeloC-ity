@@ -9,7 +9,7 @@
 #include <string>
 
 #include "Location.h"
-#include "Vehicle.h"
+#include "vehicle/Vehicle.h"
 
 using namespace std;
 

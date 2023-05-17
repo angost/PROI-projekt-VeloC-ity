@@ -6,7 +6,7 @@
 #define PROI_VETURILO_SERVICE_H
 
 #include "Station.h"
-#include "Vehicle.h"
+#include "vehicle/Vehicle.h"
 
 class Service {
 private:
