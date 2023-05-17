@@ -9,11 +9,13 @@ using namespace std;
 
 Service::Service() {
     vector < Station* > stations;
+    this->identifier = "";
     this->supportedStations = stations;
 }
 
 
-Service::Service(vector<Station*> stations) {
+Service::Service(string identifier, vector<Station*> stations) {
+    this->identifier = identifier;
     this->supportedStations = stations;
 }
 

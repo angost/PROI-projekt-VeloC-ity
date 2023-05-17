@@ -9,11 +9,12 @@
 #include "vehicle/Vehicle.h"
 
 class Service {
-private:
-    vector < Station* > supportedStations;
 public:
+    string identifier;
+    vector < Station* > supportedStations;
+
     Service();
-    Service(vector < Station* > stations);
+    Service(string id, vector < Station* > stations);
     bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
     bool repairVehicle(Vehicle* vehicle);
     bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
