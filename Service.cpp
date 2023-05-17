@@ -17,7 +17,7 @@ Service::Service(vector<Station> stations) {
     this->supportedStations = stations;
 }
 
-bool Service::checkVehicleCanBeMoved(Vehicle veh, Station fromStation, Station toStation){
+bool Service::checkVehicleCanBeMoved(Vehicle* veh, Station fromStation, Station toStation){
     if (not fromStation.checkIfVehicleInStation(veh)){
         return false;
     }
@@ -28,7 +28,7 @@ bool Service::checkVehicleCanBeMoved(Vehicle veh, Station fromStation, Station t
 }
 
 
-bool Service::moveVehicle(Vehicle vehicle, Station fromStation, Station toStation) {
+bool Service::moveVehicle(Vehicle* vehicle, Station fromStation, Station toStation) {
 
     if (fromStation.deleteVehicle(vehicle)){
         if (toStation.addToStation(vehicle)){
@@ -38,7 +38,7 @@ bool Service::moveVehicle(Vehicle vehicle, Station fromStation, Station toStatio
     return false;
 }
 
-bool Service::repairVehicle(Vehicle vehicle){
-    vehicle.setTechnicalCondition(5);
+bool Service::repairVehicle(Vehicle* vehicle){
+    vehicle->setTechnicalCondition(5);
     return true;
 }

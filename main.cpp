@@ -3,9 +3,30 @@
 #include "Bike.h"
 #include "Scooter.h"
 #include "ElectricScooter.h"
+#include "Station.h"
+#include "Location.h"
 #include <iostream>
 #include <vector>
 using namespace std;
+
+
+void testStation(){
+    string city = "Warsaw";
+    string district = "Mokotow";
+    string street = "Ogrodowa";
+    string number = "1A";
+    int x = 0;
+    int y = 10;
+    Location loc(city, district, street, number, x, y);
+    vector < Vehicle* > vec;
+    string name = "testname";
+    string code = "A01";
+    Station stat(name, code, loc, vec);
+
+    Bike bike0(0);
+    stat.addToStation(&bike0);
+    cout << stat.countAvailableSpots() << endl;
+}
 
 
 void print(Vehicle* vehicle)
@@ -15,6 +36,8 @@ void print(Vehicle* vehicle)
 
 int main() {
 
+    testStation();
+
 	Bike bike0(0);
 	print(&bike0);
 	Scooter scooter1(1);
@@ -22,7 +45,7 @@ int main() {
 	vector<Vehicle*> rentedVehicles;
 	rentedVehicles.push_back(&bike0);
 	rentedVehicles.push_back(&scooter1);
-	
+
 	cout << endl;
 
 

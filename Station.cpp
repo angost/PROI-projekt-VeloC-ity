@@ -4,7 +4,7 @@
 
 #include "Station.h"
 
-Station::Station(string name, string code, Location location, vector < Vehicle > currentVehicles, int maxVehicles, int numberOfRentals) {
+Station::Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles, int numberOfRentals) {
     this->name = name;
     this->code = code;
     this->location = location;
@@ -21,7 +21,7 @@ bool Station::checkIfSpaceAvailable(){
 }
 
 
-bool Station::addToStation(Vehicle vehicle) {
+bool Station::addToStation(Vehicle* vehicle) {
     this->currentVehicles.push_back(vehicle);
 }
 
@@ -30,7 +30,7 @@ bool Station::changeLimit(int newLimit) {
     return true;
 }
 
-bool Station::checkIfVehicleInStation(Vehicle veh){
+bool Station::checkIfVehicleInStation(Vehicle* veh){
     for (int i = 0; i <= currentVehicles.size(); i++){
         if (currentVehicles[i] == veh){
             return true;
@@ -39,7 +39,7 @@ bool Station::checkIfVehicleInStation(Vehicle veh){
     return false;
 }
 
-bool Station::deleteVehicle(Vehicle vehicle) {
+bool Station::deleteVehicle(Vehicle* vehicle) {
     for (int i = 0; i <= currentVehicles.size(); i++){
         if (currentVehicles[i] == vehicle){
             if (deleteVehicleByIndex(i)){
@@ -70,5 +70,5 @@ bool Station::changeLocation(Location newLocation) {
 
 int Station::countAvailableSpots() const
 {
-    return this->maxVehiclesNumber - this->currentVehicles.size();
+    return this->maxVehiclesNumber - (int) this->currentVehicles.size();
 }
