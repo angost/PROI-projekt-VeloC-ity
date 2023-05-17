@@ -42,3 +42,12 @@ bool Service::repairVehicle(Vehicle* vehicle){
     vehicle->setTechnicalCondition(5);
     return true;
 }
+
+vector< Station* >::iterator Service::begin() {
+    return supportedStations.begin();
+}
+
+
+vector < Station* >::iterator Service::end() {
+    return supportedStations.end();
+}

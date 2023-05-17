@@ -17,6 +17,8 @@ public:
     bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
     bool repairVehicle(Vehicle* vehicle);
     bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
+    vector< Station* >::iterator begin();
+    vector< Station* >::iterator end();
 };
 
 
