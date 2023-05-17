@@ -23,6 +23,7 @@ bool Station::checkIfSpaceAvailable(){
 
 bool Station::addToStation(Vehicle* vehicle) {
     this->currentVehicles.push_back(vehicle);
+    return true;
 }
 
 bool Station::changeLimit(int newLimit) {
@@ -71,4 +72,8 @@ bool Station::changeLocation(Location newLocation) {
 int Station::countAvailableSpots() const
 {
     return this->maxVehiclesNumber - (int) this->currentVehicles.size();
+}
+
+bool Station::operator==(Station *other) const {
+    return (this->code == other->code);
 }

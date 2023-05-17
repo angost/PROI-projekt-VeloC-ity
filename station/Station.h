@@ -9,20 +9,20 @@
 #include <string>
 
 #include "Location.h"
-#include "Vehicle.h"
+#include "vehicle/Vehicle.h"
 
 using namespace std;
 
 
 class Station {
-private:
+public:
     string name;
     string code;
     Location location;
     int maxVehiclesNumber;
     vector < Vehicle* > currentVehicles;
     int numberOfRentals;
-public:
+
     Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 10, int numberOfRentals = 0);
     bool addToStation(Vehicle* vehicle);
     bool deleteVehicle(Vehicle* vehicle);
@@ -33,6 +33,8 @@ public:
     int countAvailableSpots() const;
     bool checkIfSpaceAvailable();
     bool checkIfVehicleInStation(Vehicle* veh);
+    virtual void getDesc() = 0;
+    bool operator==(Station* other) const;
 };
 
 
