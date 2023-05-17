@@ -77,3 +77,12 @@ int Station::countAvailableSpots() const
 bool Station::operator==(Station *other) const {
     return (this->code == other->code);
 }
+
+vector<Vehicle *>::iterator Station::begin() {
+    return currentVehicles.begin();
+}
+
+
+vector < Vehicle* >::iterator Station::end() {
+    return currentVehicles.end();
+}
