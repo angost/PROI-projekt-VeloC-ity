@@ -13,6 +13,7 @@
 #include "Location.h"
 #include <iostream>
 #include <vector>
+#include <fstream>
 using namespace std;
 
 void testStationService() {
@@ -29,6 +30,18 @@ void testStationService() {
     }
     cout << "Repair station: " << myMainStation.repairStation << endl;
     cout << "Wheel pump: " << myMainStation.wheelPump << endl;
+
+    cout << myMainStation << endl;
+
+    // ZAPIS
+    ofstream file("../savedfile.txt");
+    if (file.is_open()) {
+        file << myMainStation;
+        file.close();
+        cout << "Obiekt zapisany do pliku." << endl;
+    } else {
+        cout << "Nie można otworzyć pliku." << endl;
+    }
 
     cout << endl;
     // SubStation
