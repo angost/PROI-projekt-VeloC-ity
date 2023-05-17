@@ -5,7 +5,9 @@
 #include "AdminService.h"
 
 
-AdminService::AdminService(string identifier, vector<Station *> stations) : Service(identifier, stations){}
+AdminService::AdminService(string identifier, vector<Station *> stations, vector < Service > serviceTeams) : Service(identifier, stations){
+    this->serviceTeams = serviceTeams;
+}
 
 
 void AdminService::assignStation(Station station, Service serviceCrew) {

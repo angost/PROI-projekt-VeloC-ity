@@ -7,21 +7,24 @@
 #include "station/station/SubStation.h"
 #include "station/station/LocalStation.h"
 
+#include "station/service/Service.h"
+#include "station/service/AdminService.h"
+
 #include "Location.h"
 #include <iostream>
 #include <vector>
 using namespace std;
 
-void testStation(){
+void testStationService() {
     // MainStation
-    vector < Vehicle* > vec;
+    vector<Vehicle *> vec;
     MainStation myMainStation("testname", "A01", Location("Warsaw", "Mokotow", "Ogrodowa", "1A", 0, 10), vec);
     myMainStation.getDesc();
     Bike bike(1);
     Scooter scooter(2);
     myMainStation.addToStation(&bike);
     myMainStation.addToStation(&scooter);
-    for (auto i : myMainStation){
+    for (auto i: myMainStation) {
         cout << i->id << endl;
     }
     cout << "Repair station: " << myMainStation.repairStation << endl;
@@ -29,31 +32,47 @@ void testStation(){
 
     cout << endl;
     // SubStation
-    vector < Vehicle* > vecSub;
+    vector<Vehicle *> vecSub;
     SubStation mySubStation("testnameSub", "B01", Location("Warsaw", "Mokotow", "Ogrodowa", "1B", 0, 20), vecSub);
     mySubStation.getDesc();
     Bike bikeSub(3);
     Scooter scooterSub(4);
     mySubStation.addToStation(&bikeSub);
     mySubStation.addToStation(&scooterSub);
-    for (auto i : mySubStation){
+    for (auto i: mySubStation) {
         cout << i->id << endl;
     }
     cout << "Vending machine: " << mySubStation.vendingMachine << endl;
 
     cout << endl;
     // LocalStation
-    vector < Vehicle* > vecLocal;
+    vector<Vehicle *> vecLocal;
     LocalStation myLocalStation("testnameLoc", "C01", Location("Warsaw", "Mokotow", "Ogrodowa", "1C", 0, 30), vecLocal);
     myLocalStation.getDesc();
     Bike bikeLocal(5);
     Scooter scooterLocal(6);
     myLocalStation.addToStation(&bikeLocal);
     myLocalStation.addToStation(&scooterLocal);
-    for (auto i : myLocalStation){
+    for (auto i: myLocalStation) {
         cout << i->id << endl;
     }
     cout << "Emergency phone: " << myLocalStation.emergencyPhone << endl;
+
+    cout << endl;
+    // -----------------------
+    // Service
+    vector < Station* > stations = {&myMainStation, &mySubStation, &myLocalStation};
+    Service serviceTeam("X01", stations);
+    cout << "Service team id: " << serviceTeam.identifier << endl;
+
+    cout << endl;
+    // AdminService
+    vector < Service > teams = {serviceTeam};
+    AdminService admin("S01", stations, teams);
+    cout << "Admin id: " << admin.identifier << endl;
+    for (auto i : admin){
+        cout << i->code << endl;
+    }
 }
 
 void print(Vehicle* vehicle)
@@ -63,7 +82,7 @@ void print(Vehicle* vehicle)
 
 int main() {
 
-    testStation();
+    testStationService();
 
 //	Bike bike0(0);
 //	print(&bike0);
