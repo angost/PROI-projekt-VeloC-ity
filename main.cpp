@@ -3,8 +3,8 @@
 #include "vehicle/Scooter.h"
 #include "vehicle/ElectricScooter.h"
 
-#include "station/Station.h"
-#include "station/MainStation.h"
+#include "station/station/Station.h"
+#include "station/station/MainStation.h"
 
 #include "Location.h"
 #include <iostream>

@@ -5,7 +5,7 @@
 #ifndef PROI_VETURILO_SERVICE_H
 #define PROI_VETURILO_SERVICE_H
 
-#include "Station.h"
+#include "station/station/Station.h"
 #include "vehicle/Vehicle.h"
 
 class Service {
