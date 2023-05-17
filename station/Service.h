@@ -10,13 +10,13 @@
 
 class Service {
 private:
-    vector < Station > supportedStations;
+    vector < Station* > supportedStations;
 public:
     Service();
-    Service(vector < Station > stations);
-    bool moveVehicle(Vehicle* vehicle, Station fromStation, Station toStation);
+    Service(vector < Station* > stations);
+    bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
     bool repairVehicle(Vehicle* vehicle);
-    bool checkVehicleCanBeMoved(Vehicle* veh, Station fromStation, Station toStation);
+    bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
 };
 
 

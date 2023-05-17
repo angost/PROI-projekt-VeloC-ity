@@ -33,6 +33,8 @@ public:
     int countAvailableSpots() const;
     bool checkIfSpaceAvailable();
     bool checkIfVehicleInStation(Vehicle* veh);
+    virtual void getDesc() = 0;
+    bool operator==(Station* other) const;
 };
 
 

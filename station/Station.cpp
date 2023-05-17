@@ -73,3 +73,7 @@ int Station::countAvailableSpots() const
 {
     return this->maxVehiclesNumber - (int) this->currentVehicles.size();
 }
+
+bool Station::operator==(Station *other) const {
+    return (this->code == other->code);
+}

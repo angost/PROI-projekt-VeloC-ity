@@ -8,30 +8,30 @@
 using namespace std;
 
 Service::Service() {
-    vector < Station > stations;
+    vector < Station* > stations;
     this->supportedStations = stations;
 }
 
 
-Service::Service(vector<Station> stations) {
+Service::Service(vector<Station*> stations) {
     this->supportedStations = stations;
 }
 
-bool Service::checkVehicleCanBeMoved(Vehicle* veh, Station fromStation, Station toStation){
-    if (not fromStation.checkIfVehicleInStation(veh)){
+bool Service::checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation){
+    if (not fromStation->checkIfVehicleInStation(veh)){
         return false;
     }
-    if (not toStation.checkIfSpaceAvailable()){
+    if (not toStation->checkIfSpaceAvailable()){
         return false;
     }
     return true;
 }
 
 
-bool Service::moveVehicle(Vehicle* vehicle, Station fromStation, Station toStation) {
+bool Service::moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation) {
 
-    if (fromStation.deleteVehicle(vehicle)){
-        if (toStation.addToStation(vehicle)){
+    if (fromStation->deleteVehicle(vehicle)){
+        if (toStation->addToStation(vehicle)){
             return true;
         }
     }

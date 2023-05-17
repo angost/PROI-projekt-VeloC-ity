@@ -1,31 +1,39 @@
-
 #include "Vehicle.h"
 #include "Bike.h"
 #include "Scooter.h"
 #include "ElectricScooter.h"
+
 #include "station/Station.h"
+#include "station/MainStation.h"
+
 #include "Location.h"
 #include <iostream>
 #include <vector>
 using namespace std;
 
 
-void testStation(){
-    string city = "Warsaw";
-    string district = "Mokotow";
-    string street = "Ogrodowa";
-    string number = "1A";
-    int x = 0;
-    int y = 10;
-    Location loc(city, district, street, number, x, y);
-    vector < Vehicle* > vec;
-    string name = "testname";
-    string code = "A01";
-    Station stat(name, code, loc, vec);
+//void testStation(){
+//    string city = "Warsaw";
+//    string district = "Mokotow";
+//    string street = "Ogrodowa";
+//    string number = "1A";
+//    int x = 0;
+//    int y = 10;
+//    Location loc(city, district, street, number, x, y);
+//    vector < Vehicle* > vec;
+//    string name = "testname";
+//    string code = "A01";
+//    Station stat(name, code, loc, vec);
+//
+//    Bike bike0(0);
+//    stat.addToStation(&bike0);
+//    cout << stat.countAvailableSpots() << endl;
+//}
 
-    Bike bike0(0);
-    stat.addToStation(&bike0);
-    cout << stat.countAvailableSpots() << endl;
+void testInhStation(){
+    vector < Vehicle* > vec;
+    MainStation myMainStation("testname", "A01", Location("Warsaw", "Mokotow", "Ogrodowa", "1B", 0, 10), vec);
+    myMainStation.getDesc();
 }
 
 
@@ -36,7 +44,7 @@ void print(Vehicle* vehicle)
 
 int main() {
 
-    testStation();
+    testInhStation();
 
 	Bike bike0(0);
 	print(&bike0);
