@@ -9,11 +9,13 @@ using namespace std;
 
 Service::Service() {
     vector < Station* > stations;
+    this->identifier = "";
     this->supportedStations = stations;
 }
 
 
-Service::Service(vector<Station*> stations) {
+Service::Service(string identifier, vector<Station*> stations) {
+    this->identifier = identifier;
     this->supportedStations = stations;
 }
 
@@ -41,4 +43,13 @@ bool Service::moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toSta
 bool Service::repairVehicle(Vehicle* vehicle){
     vehicle->setTechnicalCondition(5);
     return true;
+}
+
+vector< Station* >::iterator Service::begin() {
+    return supportedStations.begin();
+}
+
+
+vector < Station* >::iterator Service::end() {
+    return supportedStations.end();
 }

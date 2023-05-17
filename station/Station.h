@@ -35,6 +35,8 @@ public:
     bool checkIfVehicleInStation(Vehicle* veh);
     virtual void getDesc() = 0;
     bool operator==(Station* other) const;
+    vector< Vehicle* >::iterator begin();
+    vector< Vehicle* >::iterator end();
 };
 
 
