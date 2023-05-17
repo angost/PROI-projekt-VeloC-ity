@@ -23,8 +23,8 @@ public:
     bool checkReservedStatus();
     int checkTechnicalCondition();
     bool checkAbleToUse();
-//    virtual void takeOff() = 0;
-    bool operator==(Vehicle other) const;
+    virtual void takeOff() = 0;
+    bool operator==(Vehicle* other) const;
 };
 
 
