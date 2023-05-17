@@ -62,39 +62,21 @@ void testStationService() {
     // -----------------------
     // Service
     vector < Station* > stations = {&myMainStation, &mySubStation, &myLocalStation};
-    Service serviceTeam("X01", stations);
+    Service serviceTeam("S01", stations);
     cout << "Service team id: " << serviceTeam.identifier << endl;
 
     cout << endl;
     // AdminService
     vector < Service > teams = {serviceTeam};
-    AdminService admin("S01", stations, teams);
+    AdminService admin("X01", stations, teams);
     cout << "Admin id: " << admin.identifier << endl;
     for (auto i : admin){
         cout << i->code << endl;
     }
 }
 
-void print(Vehicle* vehicle)
-{
-	cout << vehicle->id << endl;
-}
-
 int main() {
-
     testStationService();
-
-//	Bike bike0(0);
-//	print(&bike0);
-//	Scooter scooter1(1);
-//
-//	vector<Vehicle*> rentedVehicles;
-//	rentedVehicles.push_back(&bike0);
-//	rentedVehicles.push_back(&scooter1);
-//
-//	cout << endl;
-
-
 	/*
 	cout << "Bike" << endl;
 	Bike bike0(0);
