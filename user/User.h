@@ -5,13 +5,13 @@
 
 #include <string>
 #include <vector>
-#include "vehicle/Vehicle.h"
-#include "station/station/Station.h"
+#include "../vehicle/Vehicle.h"
+#include "../station/Station.h"
 
 using namespace std;
 
 class User {
-private:
+public:
 	string username;
 	float balance;
 	float minBalance;
@@ -21,10 +21,9 @@ private:
 	int vehicleCounter;
 	int maxResVehicles;
 	int maxRentedVehicles;
+    int discount;
 
-
-public:
-	User(string username = "NoUser", string driving_license = "None");
+	User(string username = "NoUser", int maxResVehicles = 3, int maxRentedVehicles = 3, int discount = 0);
 	bool checkSolvency();
 	void withdraw(float amount);
 	void makeDeposit(float amount);
@@ -38,7 +37,7 @@ public:
 	bool checkRentSpace();
 	bool checkReserveSpace();
     void increaseVehicleCounter();
-    void addDrivingLicense(string drivingLicense);
+    virtual void accountStats() = 0;
 };
 
 #endif //PROI_VETURILO_USER_H

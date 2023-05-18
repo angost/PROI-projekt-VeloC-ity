@@ -1,14 +1,15 @@
 #include "User.h"
 #include <stdexcept>
 
-User::User(string username, string drivingLicense) {
+User::User(string username, int maxResVehicles, int maxRentedVehicles, int discount) {
 	this->username = username;
-	this->drivingLicense = drivingLicense;
+    this->maxResVehicles = maxResVehicles;
+    this->maxRentedVehicles = maxRentedVehicles;
+    this->discount = discount;
+    drivingLicense = "None";
 	balance = 0;
 	minBalance = 10;
 	vehicleCounter = 0;
-	maxResVehicles = 3;
-	maxRentedVehicles = 3;
 }
 
 bool User::checkSolvency() {
@@ -19,7 +20,7 @@ bool User::checkSolvency() {
 }
 
 void User::withdraw(float amount) {
-	balance -= amount;
+	balance -= (amount - (amount * discount / 100));
 }
 
 void User::makeDeposit(float amount) {
@@ -85,8 +86,3 @@ bool User::checkReserveSpace() {
 void User::increaseVehicleCounter() {
     vehicleCounter++;
 }
-
-void User::addDrivingLicense(std::string drivingLicense) {
-    this->drivingLicense = drivingLicense;
-}
-
