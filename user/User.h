@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include "../vehicle/Vehicle.h"
-#include "../station/Station.h"
+#include "../station/station/Station.h"
 
 using namespace std;
 
@@ -38,6 +38,8 @@ public:
 	bool checkReserveSpace();
     void increaseVehicleCounter();
     virtual void accountStats() = 0;
+    template <typename V, typename T>
+    void print(V value, T text);
 };
 
 #endif //PROI_VETURILO_USER_H

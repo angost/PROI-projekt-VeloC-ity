@@ -3,11 +3,11 @@
 
 #include "User.h"
 
-class SilverUser: public User{
+class GoldenUser: public User{
 public:
     string type;
     bool premiumAccess;
-    SilverUser(string username = "NoUser", int maxResVehicles = 5, int maxRentedVehicles = 5, int discount = 5);
+    GoldenUser(string username = "NoUser", int maxResVehicles = 5, int maxRentedVehicles = 5, int discount = 5);
     void accountStats();
     void addDrivingLicense(string drivingLicense);
 };
