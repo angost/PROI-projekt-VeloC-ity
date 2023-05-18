@@ -88,6 +88,10 @@ void testStationService() {
     }
 }
 
+void testUser(){
+
+}
+
 int main() {
     testStationService();
 	/*

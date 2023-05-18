@@ -38,6 +38,8 @@ public:
 	bool checkReserveSpace();
     void increaseVehicleCounter();
     virtual void accountStats() = 0;
+    template <typename V, typename T>
+    void print(V value, T text);
 };
 
 #endif //PROI_VETURILO_USER_H

@@ -1,5 +1,7 @@
 #include "User.h"
 #include <stdexcept>
+#include <algorithm>
+#include <iostream>
 
 User::User(string username, int maxResVehicles, int maxRentedVehicles, int discount) {
 	this->username = username;
@@ -85,4 +87,9 @@ bool User::checkReserveSpace() {
 
 void User::increaseVehicleCounter() {
     vehicleCounter++;
+}
+
+template <typename V, typename T>
+void User::print(V value, T text){
+    cout << text << value << endl;
 }
