@@ -3,6 +3,7 @@
 //
 
 #include "Station.h"
+#include <fstream>
 
 Station::Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles, int numberOfRentals) {
     this->name = name;
@@ -77,3 +78,23 @@ int Station::countAvailableSpots() const
 bool Station::operator==(Station *other) const {
     return (this->code == other->code);
 }
+
+vector<Vehicle *>::iterator Station::begin() {
+    return currentVehicles.begin();
+}
+
+
+vector < Vehicle* >::iterator Station::end() {
+    return currentVehicles.end();
+}
+
+ostream &operator<<(ostream &out, const Station &station) {
+    out << station.name << " " << station.code << " " << station.maxVehiclesNumber << " " << station.numberOfRentals;
+    return out;
+}
+
+istream &operator>>(istream &stream, Station &station) {
+    stream >> station.name >> station.code >> station.maxVehiclesNumber >> station.numberOfRentals;
+    return stream;
+}
+
