@@ -78,6 +78,7 @@ bool User::checkReserveSpace() {
 
 bool User::changeLocation(Location newLocation) {
     this->userLocation = newLocation;
+    return true;
 }
 
 void User::increaseVehicleCounter() {

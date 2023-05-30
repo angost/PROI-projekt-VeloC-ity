@@ -5,9 +5,9 @@
 
 #include <string>
 #include <vector>
-#include "../vehicle/Vehicle.h"
-#include "../station/station/Station.h"
-#include "../Location.h"
+#include "src/vehicle/Vehicle.h"
+#include "src/station/station/Station.h"
+#include "src/Location.h"
 
 using namespace std;
 

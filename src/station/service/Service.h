@@ -5,8 +5,8 @@
 #ifndef PROI_VETURILO_SERVICE_H
 #define PROI_VETURILO_SERVICE_H
 
-#include "station/station/Station.h"
-#include "vehicle/Vehicle.h"
+#include "src/station/station/Station.h"
+#include "src/vehicle/Vehicle.h"
 
 class Service {
 public:

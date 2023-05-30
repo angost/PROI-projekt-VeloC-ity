@@ -8,8 +8,8 @@
 #include <vector>
 #include <string>
 
-#include "Location.h"
-#include "vehicle/Vehicle.h"
+#include "src/Location.h"
+#include "src/vehicle/Vehicle.h"
 
 using namespace std;
 

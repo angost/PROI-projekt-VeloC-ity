@@ -1,33 +1,34 @@
-#include "vehicle/Vehicle.h"
-#include "vehicle/Bike.h"
-#include "vehicle/Scooter.h"
-#include "vehicle/ElectricScooter.h"
+#include "src/vehicle/Vehicle.h"
+#include "src/vehicle/Bike.h"
+#include "src/vehicle/Scooter.h"
+#include "src/vehicle/ElectricScooter.h"
 
-#include "station/station/Station.h"
-#include "station/station/MainStation.h"
-#include "station/station/SubStation.h"
-#include "station/station/LocalStation.h"
+#include "src/station/station/Station.h"
+#include "src/station/station/MainStation.h"
+#include "src/station/station/SubStation.h"
+#include "src/station/station/LocalStation.h"
 
-#include "station/service/Service.h"
-#include "station/service/AdminService.h"
+#include "src/station/service/Service.h"
+#include "src/station/service/AdminService.h"
 
-#include "user/User.h"
-#include "user/StandardUser.h"
-#include "user/SilverUser.h"
-#include "user/GoldenUser.h"
+#include "src/user/User.h"
+#include "src/user/StandardUser.h"
+#include "src/user/SilverUser.h"
+#include "src/user/GoldenUser.h"
 
-#include "Location.h"
+#include "src/Location.h"
 
-#include "Velocity.h"
+#include "src/Velocity.h"
 
 #include "interface/interface_functions.h"
-#include "InputParser.h"
+#include "src/InputParser.h"
 
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
 #include <cstring>
+
 using namespace std;
 
 int main(int argc, char **argv) {
