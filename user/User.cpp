@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-User::User(string username, int maxResVehicles, int maxRentedVehicles, int discount) {
+User::User(string username, Location loc, int maxResVehicles, int maxRentedVehicles, int discount) {
 	this->username = username;
     this->maxResVehicles = maxResVehicles;
     this->maxRentedVehicles = maxRentedVehicles;
@@ -12,6 +12,7 @@ User::User(string username, int maxResVehicles, int maxRentedVehicles, int disco
 	balance = 0;
 	minBalance = 10;
 	vehicleCounter = 0;
+    userLocation = loc;
 }
 
 bool User::checkSolvency() {
@@ -73,6 +74,10 @@ bool User::checkReserveSpace() {
 		return true;
 	}
 	return false;
+}
+
+bool User::changeLocation(Location newLocation) {
+    this->userLocation = newLocation;
 }
 
 void User::increaseVehicleCounter() {
