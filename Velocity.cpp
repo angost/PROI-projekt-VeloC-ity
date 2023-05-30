@@ -1,7 +1,6 @@
 //
 // Created by Adrian Murawski on 21/05/2023.
 //
-
 #include "Velocity.h"
 
 Velocity::Velocity(vector<Station *> stations, User *user) {
@@ -100,4 +99,26 @@ bool Velocity::cancelReservation(Vehicle *vehicle, Station *station) {
     vehicle->setReservedStatus(false);
     user->cancelReserveVehicle(vehicle);
     return true;
+}
+
+Station* Velocity::findNearestStation() {
+    int distance = 9999;
+    auto nearest = stations[0];
+    for (auto i: stations) {
+        int new_distance = user->userLocation.getDistanceBetweenLocations(i->getStationLocation());
+        if (new_distance > distance) {
+            distance = new_distance;
+            nearest = i;
+        }
+    }
+    return nearest;
+}
+
+map<int, vector<Station *>> Velocity::calculateDistanceToAllStations() {
+    map < int, vector < Station* > > distanceMap;
+    for (auto i : stations){
+        int distance = user->userLocation.getDistanceBetweenLocations(i->getStationLocation());
+        distanceMap[distance].push_back(i);
+    }
+    return distanceMap;
 }
