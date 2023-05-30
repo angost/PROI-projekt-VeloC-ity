@@ -21,6 +21,7 @@
 #include "Velocity.h"
 
 #include "interface/interface_functions.h"
+#include "InputParser.h"
 
 #include <iostream>
 #include <vector>
@@ -30,6 +31,7 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+    InputParser in(argc, argv);
     map<string, string> credentials = getAllCredentials();
     string username, password;
     if (argc == 1) {
@@ -43,7 +45,7 @@ int main(int argc, char **argv) {
             break;
         }
         mainScreenInterface();
-    } else if (!strcmp(argv[1], "-s")) {
+    } else if (in.cmdOptionExists("-s")) {
         cout << "Service " << endl;
         // service interface
     } else if (argc == 3) {
@@ -52,8 +54,9 @@ int main(int argc, char **argv) {
         password = argv[2];
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials" << endl;
+        } else {
+            mainScreenInterface();
         }
-        mainScreenInterface();
     } else {
         cout << "Incorrect init value" << endl;
     }
