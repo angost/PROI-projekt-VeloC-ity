@@ -1,16 +1,9 @@
 //
 // Created by Adrian Murawski on 30/05/2023.
 //
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <map>
-#include <vector>
+#include "interface_functions.h"
 
-
-using namespace std;
-
-string CREDENTIAL_FILE_NAME = "data/credentials.txt";
+string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 
 void loginInterface(string &username, string &password){
     cout << "Enter username >> ";
@@ -48,4 +41,6 @@ map < string, string > getAllCredentials(){
     return credentials;
 }
 
-void mainScreenInterface();
+void mainScreenInterface(){
+    cout << "Main screen " << endl;
+}
