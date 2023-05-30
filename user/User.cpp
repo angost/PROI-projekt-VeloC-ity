@@ -45,16 +45,6 @@ void User::cancelReserveVehicle(Vehicle* vehicle) {
 	reservedVehicles.erase(std::remove(reservedVehicles.begin(), reservedVehicles.end(), vehicle), reservedVehicles.end());
 }
 
-bool User::checkAvailability(Vehicle* vehicle){
-	if (!vehicle->checkRentedStatus() and !vehicle->checkReservedStatus()) {
-		return true;
-	}
-	else if (checkReserved(vehicle)) {
-		return true;
-	}
-	return false;
-}
-
 bool User::checkRented(Vehicle* vehicle) {
 	auto checkVehicle = find(rentedVehicles.begin(), rentedVehicles.end(), vehicle);
 	if (checkVehicle != rentedVehicles.end()) {
@@ -88,8 +78,8 @@ bool User::checkReserveSpace() {
 void User::increaseVehicleCounter() {
     vehicleCounter++;
 }
-
-template <typename V, typename T>
-void User::print(V value, T text){
-    cout << text << value << endl;
-}
+//
+//template <typename V, typename T>
+//void User::print(V value, T text){
+//    cout << text << value << endl;
+//}

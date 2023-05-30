@@ -7,7 +7,7 @@ StandardUser::StandardUser(string username, int maxResVehicles, int maxRentedVeh
 }
 
 void StandardUser::accountStats() {
-    print(this->type, "Your account type: ");
-    print(this->vehicleCounter, "Vehicles rented: ");
-    print(this->balance, "Your Balance: ");
+//    print(this->type, "Your account type: ");
+//    print(this->vehicleCounter, "Vehicles rented: ");
+//    print(this->balance, "Your Balance: ");
 }

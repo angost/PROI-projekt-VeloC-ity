@@ -31,15 +31,14 @@ public:
 	void removeVehicle(Vehicle* vehicle);
 	void reserveVehicle(Vehicle* vehicle);
 	void cancelReserveVehicle(Vehicle* vehicle);
-	bool checkAvailability(Vehicle* vehicle);
 	bool checkRented(Vehicle* vehicle);
 	bool checkReserved(Vehicle* vehicle);
 	bool checkRentSpace();
 	bool checkReserveSpace();
     void increaseVehicleCounter();
     virtual void accountStats() = 0;
-    template <typename V, typename T>
-    void print(V value, T text);
+//    template <typename V, typename T>
+//    void print(V value, T text);
 };
 
 #endif //PROI_VETURILO_USER_H
