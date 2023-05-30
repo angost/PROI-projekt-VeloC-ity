@@ -1,7 +1,7 @@
 #include "GoldenUser.h"
 #include <iostream>
 
-GoldenUser::GoldenUser(string username, int maxResVehicles, int maxRentedVehicles, int discount) : User(username, maxResVehicles, maxRentedVehicles, discount){
+GoldenUser::GoldenUser(string username, Location loc, int maxResVehicles, int maxRentedVehicles, int discount) : User(username, loc, maxResVehicles, maxRentedVehicles, discount){
     type = "Golden";
     premiumAccess = true;
 }

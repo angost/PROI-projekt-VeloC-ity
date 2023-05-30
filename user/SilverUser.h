@@ -7,7 +7,7 @@ class SilverUser: public User{
 public:
     string type;
     bool premiumAccess;
-    SilverUser(string username = "NoUser", int maxResVehicles = 4, int maxRentedVehicles = 4, int discount = 3);
+    SilverUser(string username = "NoUser", Location userLocation = Location(), int maxResVehicles = 4, int maxRentedVehicles = 4, int discount = 3);
     void accountStats();
 };
 

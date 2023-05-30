@@ -1,7 +1,7 @@
 #include "StandardUser.h"
 #include <iostream>
 
-StandardUser::StandardUser(string username, int maxResVehicles, int maxRentedVehicles, int discount) : User(username, maxResVehicles, maxRentedVehicles, discount){
+StandardUser::StandardUser(string username, Location loc, int maxResVehicles, int maxRentedVehicles, int discount) : User(username, loc, maxResVehicles, maxRentedVehicles, discount){
     type = "Standard";
 
 }

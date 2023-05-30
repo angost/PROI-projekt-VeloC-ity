@@ -7,7 +7,7 @@ class GoldenUser: public User{
 public:
     string type;
     bool premiumAccess;
-    GoldenUser(string username = "NoUser", int maxResVehicles = 5, int maxRentedVehicles = 5, int discount = 5);
+    GoldenUser(string username = "NoUser", Location userLocation = Location(), int maxResVehicles = 5, int maxRentedVehicles = 5, int discount = 5);
     void accountStats();
     void addDrivingLicense(string drivingLicense);
 };
