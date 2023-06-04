@@ -3,8 +3,8 @@
 //
 
 #include "Service.h"
-#include <algorithm>
 #include <iostream>
+#include <utility>
 
 using namespace std;
 
@@ -16,8 +16,8 @@ Service::Service() {
 
 
 Service::Service(string identifier, vector<Station*> stations) {
-    this->identifier = identifier;
-    this->supportedStations = stations;
+    this->identifier = std::move(identifier);
+    this->supportedStations = std::move(stations);
 }
 
 bool Service::checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation){
@@ -54,7 +54,8 @@ void Service::printSupportedStations() {
 
 void Service::printVehiclesInStation(Station *station) {
     for (auto i : *station){
-        cout << i->id << endl;
+        cout << "ID: " << i->id << "     "  << "Status (reserved): ";
+        cout << boolalpha << i->rentedStatus << endl;
     }
 }
 
@@ -63,7 +64,7 @@ bool Service::changeStationLimit(int newLimit, Station* station) {
 }
 
 bool Service::changeStationLocation(Station* station, Location newLocation) {
-    return station->changeLocation(newLocation);
+    return station->changeLocation(std::move(newLocation));
 }
 
 bool Service::addVehicle(Station *station, Vehicle *vehicle) {

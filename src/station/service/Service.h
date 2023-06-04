@@ -15,15 +15,15 @@ public:
 
     Service();
     Service(string id, vector < Station* > stations);
-    bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
-    bool repairVehicle(Vehicle* vehicle);
-    bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
-    bool changeStationLimit(int newLimit, Station* station);
+    static bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
+    static bool repairVehicle(Vehicle* vehicle);
+    static bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
+    static bool changeStationLimit(int newLimit, Station* station);
     void printSupportedStations();
-    void printVehiclesInStation(Station* station);
-    bool changeStationLocation(Station* station, Location newLocation);
-    bool addVehicle(Station* station, Vehicle* vehicle);
-    bool removeVehicle(Station* station, Vehicle* vehicle);
+    static void printVehiclesInStation(Station* station);
+    static bool changeStationLocation(Station* station, Location newLocation);
+    static bool addVehicle(Station* station, Vehicle* vehicle);
+    static bool removeVehicle(Station* station, Vehicle* vehicle);
     vector< Station* >::iterator begin();
     vector< Station* >::iterator end();
 };
