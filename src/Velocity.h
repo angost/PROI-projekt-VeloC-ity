@@ -12,7 +12,6 @@
 #include "vehicle/Vehicle.h"
 
 class Velocity {
-public:
     vector < Station* > stations;
     User* user;
     Velocity(vector <Station* > stations, User* user);
@@ -23,6 +22,7 @@ public:
     bool cancelReservation(Vehicle* vehicle, Station* station);
     Station* findNearestStation();
     map < int, vector < Station* > > calculateDistanceToAllStations();
+    friend class UserInterface;
 };
 
 
