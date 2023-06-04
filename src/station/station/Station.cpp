@@ -28,6 +28,9 @@ bool Station::addToStation(Vehicle* vehicle) {
 }
 
 bool Station::changeLimit(int newLimit) {
+    if (newLimit < 0){
+        return false;
+    }
     this->maxVehiclesNumber = newLimit;
     return true;
 }
