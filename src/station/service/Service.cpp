@@ -4,6 +4,7 @@
 
 #include "Service.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -31,11 +32,11 @@ bool Service::checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station
 
 
 bool Service::moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation) {
-
-    if (fromStation->deleteVehicle(vehicle)){
-        if (toStation->addToStation(vehicle)){
-            return true;
-        }
+    if (!checkVehicleCanBeMoved(vehicle, fromStation, toStation)){
+        return false;
+    }
+    if (fromStation->deleteVehicle(vehicle) and toStation->addToStation(vehicle)){
+        return true;
     }
     return false;
 }
@@ -43,6 +44,40 @@ bool Service::moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toSta
 bool Service::repairVehicle(Vehicle* vehicle){
     vehicle->setTechnicalCondition(5);
     return true;
+}
+
+void Service::printSupportedStations() {
+    for (auto i : supportedStations){
+        cout << i->code << " " << i->name << endl;
+    }
+}
+
+void Service::printVehiclesInStation(Station *station) {
+    for (auto i : *station){
+        cout << i->id << endl;
+    }
+}
+
+bool Service::changeStationLimit(int newLimit, Station* station) {
+    return station->changeLimit(newLimit);
+}
+
+bool Service::changeStationLocation(Station* station, Location newLocation) {
+    return station->changeLocation(newLocation);
+}
+
+bool Service::addVehicle(Station *station, Vehicle *vehicle) {
+    if (!station->checkIfSpaceAvailable()){
+        return false;
+    }
+    return station->addToStation(vehicle);
+}
+
+bool Service::removeVehicle(Station *station, Vehicle *vehicle) {
+    if (!station->checkIfVehicleInStation(vehicle)) {
+        return false;
+    }
+    return station->deleteVehicle(vehicle);
 }
 
 vector< Station* >::iterator Service::begin() {

@@ -18,6 +18,12 @@ public:
     bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
     bool repairVehicle(Vehicle* vehicle);
     bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
+    bool changeStationLimit(int newLimit, Station* station);
+    void printSupportedStations();
+    void printVehiclesInStation(Station* station);
+    bool changeStationLocation(Station* station, Location newLocation);
+    bool addVehicle(Station* station, Vehicle* vehicle);
+    bool removeVehicle(Station* station, Vehicle* vehicle);
     vector< Station* >::iterator begin();
     vector< Station* >::iterator end();
 };
