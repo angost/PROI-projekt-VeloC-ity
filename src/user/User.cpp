@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-User::User(string username, int maxResVehicles, int maxRentedVehicles, int discount) {
+User::User(string username, Location loc, int maxResVehicles, int maxRentedVehicles, int discount) {
 	this->username = username;
     this->maxResVehicles = maxResVehicles;
     this->maxRentedVehicles = maxRentedVehicles;
@@ -12,6 +12,7 @@ User::User(string username, int maxResVehicles, int maxRentedVehicles, int disco
 	balance = 0;
 	minBalance = 10;
 	vehicleCounter = 0;
+    userLocation = loc;
 }
 
 bool User::checkSolvency() {
@@ -45,16 +46,6 @@ void User::cancelReserveVehicle(Vehicle* vehicle) {
 	reservedVehicles.erase(std::remove(reservedVehicles.begin(), reservedVehicles.end(), vehicle), reservedVehicles.end());
 }
 
-bool User::checkAvailability(Vehicle* vehicle){
-	if (!vehicle->checkRentedStatus() and !vehicle->checkReservedStatus()) {
-		return true;
-	}
-	else if (checkReserved(vehicle)) {
-		return true;
-	}
-	return false;
-}
-
 bool User::checkRented(Vehicle* vehicle) {
 	auto checkVehicle = find(rentedVehicles.begin(), rentedVehicles.end(), vehicle);
 	if (checkVehicle != rentedVehicles.end()) {
@@ -85,11 +76,16 @@ bool User::checkReserveSpace() {
 	return false;
 }
 
+bool User::changeLocation(Location newLocation) {
+    this->userLocation = newLocation;
+    return true;
+}
+
 void User::increaseVehicleCounter() {
     vehicleCounter++;
 }
-
-template <typename V, typename T>
-void User::print(V value, T text){
-    cout << text << value << endl;
-}
+//
+//template <typename V, typename T>
+//void User::print(V value, T text){
+//    cout << text << value << endl;
+//}

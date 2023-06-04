@@ -6,7 +6,7 @@
 class StandardUser: public User{
 public:
     string type;
-    StandardUser(string username = "NoUser", int maxResVehicles = 3, int maxRentedVehicles = 3, int discount = 0);
+    StandardUser(string username = "NoUser", Location userLocation = Location(), int maxResVehicles = 3, int maxRentedVehicles = 3, int discount = 0);
     void accountStats();
 };
 

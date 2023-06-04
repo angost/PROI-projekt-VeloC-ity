@@ -79,6 +79,10 @@ bool Station::operator==(Station *other) const {
     return (this->code == other->code);
 }
 
+Location Station::getStationLocation() {
+    return this->location;
+}
+
 vector<Vehicle *>::iterator Station::begin() {
     return currentVehicles.begin();
 }

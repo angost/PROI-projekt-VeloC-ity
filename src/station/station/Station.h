@@ -8,8 +8,8 @@
 #include <vector>
 #include <string>
 
-#include "Location.h"
-#include "vehicle/Vehicle.h"
+#include "src/Location.h"
+#include "src/vehicle/Vehicle.h"
 
 using namespace std;
 
@@ -35,6 +35,7 @@ public:
     bool checkIfSpaceAvailable();
     bool checkIfVehicleInStation(Vehicle* veh);
     virtual void getDesc() = 0;
+    Location getStationLocation();
     bool operator==(Station* other) const;
     friend ostream& operator<<(ostream &out, const Station &station);
     friend istream& operator>>(istream &stream, Station &station);

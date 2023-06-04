@@ -8,16 +8,16 @@
 using namespace std;
 
 class Location {
-private:
+public:
 	string city;
 	string district;
 	string street_name;
 	string street_number;
 	int x_coord;
 	int y_coord;
-public:
     Location() = default;
 	Location(string city, string district, string street_name, string street_number, int x_coord, int y_coord);
+    int getDistanceBetweenLocations(Location other);
 };
 
 #endif //PROI_VETURILO_LOCATION_H
