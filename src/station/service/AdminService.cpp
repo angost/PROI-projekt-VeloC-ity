@@ -4,9 +4,11 @@
 
 #include "AdminService.h"
 
+#include <utility>
 
-AdminService::AdminService(string identifier, vector<Station *> stations, vector < Service > serviceTeams) : Service(identifier, stations){
-    this->serviceTeams = serviceTeams;
+
+AdminService::AdminService(string identifier, vector<Station *> stations, vector < Service > serviceTeams) : Service(std::move(identifier), std::move(stations)){
+    this->serviceTeams = std::move(serviceTeams);
 }
 
 
