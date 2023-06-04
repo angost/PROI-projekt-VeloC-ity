@@ -23,6 +23,7 @@ class Service {
     vector< Station* >::iterator begin();
     vector< Station* >::iterator end();
     friend class ServiceInterface;
+    friend class AdminService;
 public:
     Service();
     Service(string id, vector < Station* > stations);
