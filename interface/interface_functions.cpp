@@ -40,3 +40,13 @@ map < string, string > getAllCredentials(){
     }
     return credentials;
 }
+
+
+Service getServiceTeam(const vector < Service >& serviceCrews, const string& id) {
+    for (auto i : serviceCrews) {
+        if (i.identifier == id ) {
+            return i;
+        }
+    }
+    throw invalid_argument("Invalid identifier");
+}

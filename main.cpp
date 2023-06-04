@@ -35,32 +35,72 @@ using namespace std;
 
 
 int main(int argc, char **argv) {
-    vector<Vehicle *> vec;
-    MainStation myMainStation("testname", "A01", Location("Warsaw", "Mokotow", "Ogrodowa", "1A", 0, 10), vec);
-    Bike bike(1);
-    Scooter scooter(2);
-    myMainStation.addToStation(&bike);
-    myMainStation.addToStation(&scooter);
+    // DATA
+    vector < Vehicle* > mainVeh;
+    vector < Vehicle* > subVeh;
+    vector < Vehicle* > localVeh;
+    MainStation myMainStation("MainStation", "A01", Location("Warsaw", "Mokotow", "Ogrodowa", "1A", 0, 10), mainVeh);
+    SubStation mySubStation("SubStation", "B01", Location("Warsaw", "Mokotow", "Ogrodowa", "1B", 0, 20), subVeh);
+    LocalStation myLocalStation("LocalStation", "C01", Location("Warsaw", "Mokotow", "Ogrodowa", "1C", 0, 30), localVeh);
+    Bike bike1(1);
+    Bike bike2(2);
+    Bike bike3(3);
+    Bike bike4(4);
+    Bike bike5(5);
+    Bike bike6(6);
+    Bike bike7(7);
+    Bike bike8(8);
+    myLocalStation.addToStation(&bike1);
+    myLocalStation.addToStation(&bike2);
+    myLocalStation.addToStation(&bike3);
+    myLocalStation.addToStation(&bike4);
+    myLocalStation.addToStation(&bike5);
+    myLocalStation.addToStation(&bike6);
+    myLocalStation.addToStation(&bike7);
+    myLocalStation.addToStation(&bike8);
+    Scooter scooter9(9);
+    Scooter scooter10(10);
+    Scooter scooter11(11);
+    Scooter scooter12(12);
+    Scooter scooter13(13);
+    Scooter scooter14(14);
+    Scooter scooter15(15);
+    Scooter scooter16(16);
+    mySubStation.addToStation(&scooter9);
+    mySubStation.addToStation(&scooter10);
+    mySubStation.addToStation(&scooter11);
+    mySubStation.addToStation(&scooter12);
+    mySubStation.addToStation(&scooter13);
+    mySubStation.addToStation(&scooter14);
+    mySubStation.addToStation(&scooter15);
+    mySubStation.addToStation(&scooter16);
+    ElectricScooter elScooter17(17);
+    ElectricScooter elScooter18(18);
+    ElectricScooter elScooter19(19);
+    ElectricScooter elScooter20(20);
+    ElectricScooter elScooter21(21);
+    ElectricScooter elScooter22(22);
+    ElectricScooter elScooter23(23);
+    ElectricScooter elScooter24(24);
+    myMainStation.addToStation(&elScooter17);
+    myMainStation.addToStation(&elScooter18);
+    myMainStation.addToStation(&elScooter19);
+    myMainStation.addToStation(&elScooter20);
+    myMainStation.addToStation(&elScooter21);
+    myMainStation.addToStation(&elScooter22);
+    myMainStation.addToStation(&elScooter23);
+    myMainStation.addToStation(&elScooter24);
 
-    vector<Vehicle *> vecSub;
-    SubStation mySubStation("testnameSub", "B01", Location("Warsaw", "Mokotow", "Ogrodowa", "1B", 0, 20), vecSub);
-    Bike bikeSub(3);
-    Scooter scooterSub(4);
-    mySubStation.addToStation(&bikeSub);
-    mySubStation.addToStation(&scooterSub);
-
-    vector<Vehicle *> vecLocal;
-    LocalStation myLocalStation("testnameLoc", "C01", Location("Warsaw", "Mokotow", "Ogrodowa", "1C", 0, 30), vecLocal);
-    Bike bikeLocal(5);
-    Scooter scooterLocal(6);
-    myLocalStation.addToStation(&bikeLocal);
-    myLocalStation.addToStation(&scooterLocal);
-
-    vector < Station* > stations = {&myMainStation, &mySubStation, &myLocalStation};
-    Service serviceTeam("S01", stations);
+    vector < Station* > stations = {&myMainStation, &mySubStation};
+    vector < Station* > smallerStations = {&myLocalStation};
+    vector < Station* > adminStations;
+    Service firstServiceCrew("S01", stations);
+    Service secondServiceCrew("S91", smallerStations);
+    vector < Service > serviceCrews = {firstServiceCrew, secondServiceCrew};
+    AdminService admin("X01", adminStations, serviceCrews);
 
 
-
+    // ACTUAL MAIN
 
     InputParser in(argc, argv);
     map<string, string> credentials = getAllCredentials();
@@ -77,6 +117,7 @@ int main(int argc, char **argv) {
         }
         UserInterface userIface;
     } else if (in.cmdOptionExists("-s")) {
+        Service serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
         ServiceInterface iface(serviceTeam);
         iface.mainInterface();
     } else if (argc == 3) {

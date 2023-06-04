@@ -7,6 +7,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include "src/station/service/Service.h"
 using namespace std;
 
 
@@ -16,5 +17,6 @@ using namespace std;
 void loginInterface(string &username, string &password);
 bool checkCredentials(const map <string, string >& credentials, const string& username, const string& password);
 map < string, string > getAllCredentials();
+Service getServiceTeam(const vector < Service >& serviceCrews, const string& id);
 
 #endif //PROI_PROJEKT_INTERFACE_FUNCTIONS_H

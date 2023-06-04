@@ -9,7 +9,6 @@
 #include "src/vehicle/Vehicle.h"
 
 class Service {
-    string identifier;
     vector < Station* > supportedStations;
     static bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
     static bool repairVehicle(Vehicle* vehicle);
@@ -27,6 +26,7 @@ class Service {
 public:
     Service();
     Service(string id, vector < Station* > stations);
+    string identifier;
 };
 
 
