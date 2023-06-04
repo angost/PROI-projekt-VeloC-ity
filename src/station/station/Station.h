@@ -34,6 +34,7 @@ public:
     int countAvailableSpots() const;
     bool checkIfSpaceAvailable() const;
     bool checkIfVehicleInStation(Vehicle* veh);
+    void printVehiclesInStation();
     virtual void getDesc() = 0;
     Location getStationLocation();
     bool operator==(Station* other) const;

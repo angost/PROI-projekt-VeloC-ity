@@ -4,6 +4,7 @@
 
 #include "Station.h"
 #include <fstream>
+#include <iostream>
 #include <utility>
 
 Station::Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles, int numberOfRentals) {
@@ -85,6 +86,13 @@ bool Station::operator==(Station *other) const {
 
 Location Station::getStationLocation() {
     return this->location;
+}
+
+void Station::printVehiclesInStation() {
+    for (auto i : currentVehicles){
+        cout << "ID: " << i->id << "     "  << "Status (reserved): ";
+        cout << boolalpha << i->rentedStatus << endl;
+    }
 }
 
 vector<Vehicle *>::iterator Station::begin() {

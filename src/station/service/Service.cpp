@@ -53,10 +53,7 @@ void Service::printSupportedStations() {
 }
 
 void Service::printVehiclesInStation(Station *station) {
-    for (auto i : *station){
-        cout << "ID: " << i->id << "     "  << "Status (reserved): ";
-        cout << boolalpha << i->rentedStatus << endl;
-    }
+    station->printVehiclesInStation();
 }
 
 bool Service::changeStationLimit(int newLimit, Station* station) {
