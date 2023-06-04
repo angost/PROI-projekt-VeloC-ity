@@ -3,9 +3,10 @@
 //
 #include "MainStation.h"
 #include <iostream>
+#include <utility>
 
 MainStation::MainStation(string name, string code, Location location, vector<Vehicle *> currentVehicles,
-                         int maxVehicles, int numberOfRentals) : Station(name, code, location, currentVehicles, maxVehicles, numberOfRentals) {
+                         int maxVehicles, int numberOfRentals) : Station(std::move(name), std::move(code), std::move(location), std::move(currentVehicles), maxVehicles, numberOfRentals) {
     this->type = "A";
     this->wheelPump = true;
     this->repairStation = true;

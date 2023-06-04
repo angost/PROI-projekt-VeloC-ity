@@ -21,6 +21,8 @@
 #include "src/Velocity.h"
 
 #include "interface/interface_functions.h"
+#include "interface/UserInterface.h"
+#include "interface/ServiceInterface.h"
 #include "src/InputParser.h"
 
 #include <iostream>
@@ -31,7 +33,35 @@
 
 using namespace std;
 
+
 int main(int argc, char **argv) {
+    vector<Vehicle *> vec;
+    MainStation myMainStation("testname", "A01", Location("Warsaw", "Mokotow", "Ogrodowa", "1A", 0, 10), vec);
+    Bike bike(1);
+    Scooter scooter(2);
+    myMainStation.addToStation(&bike);
+    myMainStation.addToStation(&scooter);
+
+    vector<Vehicle *> vecSub;
+    SubStation mySubStation("testnameSub", "B01", Location("Warsaw", "Mokotow", "Ogrodowa", "1B", 0, 20), vecSub);
+    Bike bikeSub(3);
+    Scooter scooterSub(4);
+    mySubStation.addToStation(&bikeSub);
+    mySubStation.addToStation(&scooterSub);
+
+    vector<Vehicle *> vecLocal;
+    LocalStation myLocalStation("testnameLoc", "C01", Location("Warsaw", "Mokotow", "Ogrodowa", "1C", 0, 30), vecLocal);
+    Bike bikeLocal(5);
+    Scooter scooterLocal(6);
+    myLocalStation.addToStation(&bikeLocal);
+    myLocalStation.addToStation(&scooterLocal);
+
+    vector < Station* > stations = {&myMainStation, &mySubStation, &myLocalStation};
+    Service serviceTeam("S01", stations);
+
+
+
+
     InputParser in(argc, argv);
     map<string, string> credentials = getAllCredentials();
     string username, password;
@@ -40,15 +70,15 @@ int main(int argc, char **argv) {
         while (true) {
             loginInterface(username, password);
             if (!checkCredentials(credentials, username, password)) {
-                cout << "Incorrect credentials" << endl;
+                cout << "Incorrect credentials..." << endl;
                 continue;
             }
             break;
         }
-        mainScreenInterface();
+        UserInterface userIface;
     } else if (in.cmdOptionExists("-s")) {
-        cout << "Service " << endl;
-        // service interface
+        ServiceInterface iface(serviceTeam);
+        iface.mainInterface();
     } else if (argc == 3) {
         // logged user interface
         username = argv[1];
@@ -56,7 +86,7 @@ int main(int argc, char **argv) {
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials" << endl;
         } else {
-            mainScreenInterface();
+            UserInterface userIface;
         }
     } else {
         cout << "Incorrect init value" << endl;

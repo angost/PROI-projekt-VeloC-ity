@@ -9,17 +9,24 @@
 #include "src/vehicle/Vehicle.h"
 
 class Service {
-public:
     string identifier;
     vector < Station* > supportedStations;
-
-    Service();
-    Service(string id, vector < Station* > stations);
-    bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
-    bool repairVehicle(Vehicle* vehicle);
-    bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
+    static bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
+    static bool repairVehicle(Vehicle* vehicle);
+    static bool checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation);
+    static bool changeStationLimit(int newLimit, Station* station);
+    void printSupportedStations();
+    static void printVehiclesInStation(Station* station);
+    static bool changeStationLocation(Station* station, Location newLocation);
+    static bool addVehicle(Station* station, Vehicle* vehicle);
+    static bool removeVehicle(Station* station, Vehicle* vehicle);
     vector< Station* >::iterator begin();
     vector< Station* >::iterator end();
+    friend class ServiceInterface;
+    friend class AdminService;
+public:
+    Service();
+    Service(string id, vector < Station* > stations);
 };
 
 

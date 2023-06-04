@@ -4,17 +4,18 @@
 
 #include "Station.h"
 #include <fstream>
+#include <utility>
 
 Station::Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles, int numberOfRentals) {
-    this->name = name;
-    this->code = code;
-    this->location = location;
-    this->currentVehicles = currentVehicles;
+    this->name = std::move(name);
+    this->code = std::move(code);
+    this->location = std::move(location);
+    this->currentVehicles = std::move(currentVehicles);
     this->maxVehiclesNumber = maxVehicles;
     this->numberOfRentals = numberOfRentals;
 }
 
-bool Station::checkIfSpaceAvailable(){
+bool Station::checkIfSpaceAvailable() const{
     if (this->currentVehicles.size() < this->maxVehiclesNumber){
         return true;
     }
@@ -28,6 +29,9 @@ bool Station::addToStation(Vehicle* vehicle) {
 }
 
 bool Station::changeLimit(int newLimit) {
+    if (newLimit < 0){
+        return false;
+    }
     this->maxVehiclesNumber = newLimit;
     return true;
 }
@@ -66,7 +70,7 @@ void Station::incrementCounter() {
 }
 
 bool Station::changeLocation(Location newLocation) {
-    this->location = newLocation;
+    this->location = std::move(newLocation);
     return true;
 }
 

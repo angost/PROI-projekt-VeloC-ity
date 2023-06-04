@@ -4,9 +4,10 @@
 
 #include "SubStation.h"
 #include <iostream>
+#include <utility>
 
 SubStation::SubStation(string name, string code, Location location, vector<Vehicle *> currentVehicles, int maxVehicles,
-                       int numberOfRentals) : Station(name, code, location, currentVehicles, maxVehicles, numberOfRentals){
+                       int numberOfRentals) : Station(std::move(name), std::move(code), std::move(location), std::move(currentVehicles), maxVehicles, numberOfRentals){
     this->type = "B";
     this->vendingMachine = true;
 }

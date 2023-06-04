@@ -32,7 +32,7 @@ public:
     void incrementCounter();
     bool changeLocation(Location newLocation);
     int countAvailableSpots() const;
-    bool checkIfSpaceAvailable();
+    bool checkIfSpaceAvailable() const;
     bool checkIfVehicleInStation(Vehicle* veh);
     virtual void getDesc() = 0;
     Location getStationLocation();

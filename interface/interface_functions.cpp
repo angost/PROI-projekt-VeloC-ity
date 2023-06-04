@@ -40,7 +40,3 @@ map < string, string > getAllCredentials(){
     }
     return credentials;
 }
-
-void mainScreenInterface(){
-    cout << "Main screen " << endl;
-}
