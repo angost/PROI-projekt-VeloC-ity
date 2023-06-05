@@ -19,6 +19,16 @@ public:
     Velocity velocity;
     UserInterface(vector<Station*> stations, User* user);
 
+    void mainInterface();
+    int getAction();
+    Station* getStation();
+    Vehicle* getVehicle(Station* station);
+    float getAmount();
+    void printSuccess(bool success);
+    void printAllStations();
+    void printVehiclesInStation(Station* station);
+    void printBalance();
+
     bool rentVehicle(Vehicle* vehicle, Station* station);
     bool reserveVehicle(Vehicle* vehicle, Station* station);
     bool returnVehicle(Vehicle* vehicle, Station* station);
@@ -26,7 +36,6 @@ public:
     bool cancelReservation(Vehicle* vehicle, Station* station);
     Station* findNearestStation();
     map < int, vector < Station* > > calculateDistanceToAllStations();
-
 };
 
 

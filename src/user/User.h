@@ -27,6 +27,8 @@ public:
 
 	User(string username = "NoUser", Location userLocation = Location(), int maxResVehicles = 3, int maxRentedVehicles = 3, int discount = 0);
 	bool checkSolvency();
+    float checkBalance();
+    float checkMinBalance();
 	void withdraw(float amount);
 	void makeDeposit(float amount);
 	void addVehicle(Vehicle* vehicle);

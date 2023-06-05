@@ -22,6 +22,14 @@ bool User::checkSolvency() {
 	return false;
 }
 
+float User::checkBalance(){
+    return balance;
+}
+
+float User::checkMinBalance(){
+    return minBalance;
+}
+
 void User::withdraw(float amount) {
 	balance -= (amount - (amount * discount / 100));
 }
