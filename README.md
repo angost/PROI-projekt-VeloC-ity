@@ -70,7 +70,21 @@ Vehicle jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka 
 - ***SilverUser*** = srebrny użytkownik, ma zniżkę, może zarezerwować i wypożyczyć 4 pojazdy
 - ***GoldenUser*** = złoty użytkownik, ma większą zniżkę, może zarezerwować i wypożyczyć 5 pojazdów oraz dodać prawo jazdy umożliwiające wypożyczanie pojazdów silnikowych
 
-### 5. Interface
+### 5. Location
+### 6. Velocity
+Główna klasa łącząca całą funkcjonalność. Wykorzystuje klasy Vehicle, Station, User.
+
+**Atrybuty**: aktualny użytkownik i lista stacji
+
+**Metody**: 
+
+Wypożyczenie, oddanie, zarezerwowanie i anulowanie rezerwacji - zbierają w całość wszystkie kroki potrzebne do wykonania danej czynności, korzystają z odpowiednich metod stacji, użytkownika, pojazdu.
+
+Umożliwia też dodanie balansu na koncie użytkowanika, obliczenie odległości użytkownika od wszystkich stacji i znalezienie tej najbliższej.
+
+## Interfejs
+### ServiceInterface
+### UserInterface
 
 
 
