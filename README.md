@@ -19,19 +19,30 @@ Poprzez użycie poniższych klas program będzie pozwalał na przemieszczanie po
 
 ## Struktura projektu
 ### 1. Vehicle
-Vehicle jest klasą abstrakcyjną reprezentującą pojazd. 
+Vehicle jest klasą abstrakcyjną reprezentującą pojazd. Dostępne są różne typy pojazdów.
 
 **Atrybuty**: związane są z właściwościami pojazdu (id, prędkość) oraz statusem wypożyczenia i stanem technicznym.
 
 **Metody**: pozwalają na sprawdzenie i zmianę tych statusów i porównanie obiektów. Jest też metoda wirtualna takeOff, rozróżniająca sposób poruszania się klas dziedziczących.
 
 **Klasy dziedziczące**: mają różne maksymalne prędkości i ceny wypozyczenia.
-- Bike = Rower, wyróżniający się posiadaniem koszyka
-- Scooter = Hulajnoga, którą da się złożyć
-- ElectricScooter = Hulajnoga elektryczna, musi być naładowana, aby z niej korzystać
+- ***Bike*** = Rower, wyróżniający się posiadaniem koszyka
+- ***Scooter*** = Hulajnoga, którą da się złożyć
+- ***ElectricScooter*** = Hulajnoga elektryczna, musi być naładowana, aby z niej korzystać
 ### 2. Station
+
 ### 3. Service
 ### 4. User
+Vehicle jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka poziomów konta użytkownika.
+
+**Atrybuty**: związane z użytkownikiem (nazwa użytkownika, prawo jazdy), jego finansami (aktualny i minimalny balans, zniżka), wypożyczonymi i zarezerwowanymi urządzeniami (ich lista i maksymalna liczba) oraz aktualna lokalizacja.
+
+**Metody**: pozwalają na zarządzanie pieniędzmi na koncie, wypożyczanie, oddawanie pojazdów, rezerwowanie ich i anulowanie rezerwacji. Umożliwiają sprawdzenie czy dany pojazd jest aktualnie wypożyczony/zarezerwowany przez tego użytkownika oraz czy użytkownik może jeszcze wypożyczyć pojazd. Istnieją też metody na zmianę lokalizacji, zwiększenie licznika wypożyczeń i wyświetlenie informacji o koncie.
+
+**Klasy dziedziczące**: 
+- ***StandardUser*** = zwykły użytkownik, bez zniżki, może zarezerwować i wypożyczyć 3 pojazdy
+- ***SilverUser*** = srebrny użytkownik, ma zniżkę, może zarezerwować i wypożyczyć 4 pojazdy
+- ***GoldenUser*** = złoty użytkownik, ma większą zniżkę, może zarezerwować i wypożyczyć 5 pojazdów oraz dodać prawo jazdy umożliwiające wypożyczanie pojazdów silnikowych
 ### 5. Interface
 
 
