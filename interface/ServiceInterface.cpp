@@ -27,13 +27,14 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
         } else if (option == 3) {
-            int newLimit;
-            cout << "Enter new limit > ";
-            cin >> newLimit;
-            cout << endl;
             try {
+                string newLimit;
+                cout << "Enter new limit > ";
+                cin >> newLimit;
+                cout << endl;
+                int newLimitInt = stoi(newLimit);
                 Station* station = getStation();
-                bool success = changeStationLimit(newLimit, station);
+                bool success = changeStationLimit(newLimitInt, station);
                 printSuccess(success);
             }
             catch (invalid_argument) {
