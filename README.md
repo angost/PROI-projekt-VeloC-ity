@@ -71,6 +71,12 @@ Vehicle jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka 
 - ***GoldenUser*** = złoty użytkownik, ma większą zniżkę, może zarezerwować i wypożyczyć 5 pojazdów oraz dodać prawo jazdy umożliwiające wypożyczanie pojazdów silnikowych
 
 ### 5. Location
+Klasa przechowująca informacje o lokalizacji.
+
+**Atrybuty**: dane adresowe (miasto, dystrykt, nazwa i numer ulicy) i współrzędne x,y
+
+**Metody**: obliczenie odległości między dwoma lokacjami na podstawie współrzędnych (|x1-x2|+|y1-y2|)
+
 ### 6. Velocity
 Główna klasa łącząca całą funkcjonalność. Wykorzystuje klasy Vehicle, Station, User.
 
