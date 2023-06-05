@@ -5,7 +5,14 @@
 #include "Station.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <utility>
+
+#include "src/vehicle/Bike.h"
+#include "src/vehicle/Scooter.h"
+#include "src/vehicle/ElectricScooter.h"
+
+using namespace std;
 
 Station::Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles, int numberOfRentals) {
     this->name = std::move(name);
@@ -90,25 +97,17 @@ Location Station::getStationLocation() {
 
 void Station::printVehiclesInStation() {
     for (auto i : currentVehicles){
-        string type;
         int targetLength = 25;
-        if (i->id > 300) {
-            type = "ElectricScooter";
-        } else if (i->id > 200) {
-            type = "Scooter";
-        } else if (i->id > 100) {
-            type = "Bike";
-        } else {
-            type = "Unknown";
+        if (i->type.length() < targetLength) {
+            i->type.resize(targetLength, ' ');
         }
-        if (type.length() < targetLength) {
-            type.resize(targetLength, ' ');
-        }
-        cout << "Type: " << type << "       ";
+        cout << "Type: " << i->type << "       ";
         cout << "ID: " << i->id << "     "  << "Status (reserved): ";
         cout << boolalpha << i->rentedStatus;
         cout << "       NOR: " << i->numberOfRentals << "       TC: " << i->technicalCondition << endl;
     }
+    int spots = countAvailableSpots();
+    cout << "Available spots: " << spots << endl;
 }
 
 vector<Vehicle *>::iterator Station::begin() {
@@ -121,12 +120,53 @@ vector < Vehicle* >::iterator Station::end() {
 }
 
 ostream &operator<<(ostream &out, const Station &station) {
-    out << station.name << " " << station.code << " " << station.maxVehiclesNumber << " " << station.numberOfRentals;
+    string type;
+    if (station.code[0] == 'A') {
+        type = "MainStation";
+    } else if (station.code[0] == 'B') {
+        type = "SubStation";
+    } else if (station.code[0] == 'C') {
+        type = "LocalStation";
+    } else {
+        type = "Unknown";
+    }
+    out << type << " " << station.name << " "
+    << station.code << " " << station.location.city << " "
+    << station.location.district << " " << station.location.street_name
+    << " " << station.location.street_number << " " << station.location.x_coord
+    << " " << station.location.y_coord << endl;
+    for (auto i : station.currentVehicles) {
+        out << i->type << " " << i->id << endl;
+    }
     return out;
 }
 
-istream &operator>>(istream &stream, Station &station) {
-    stream >> station.name >> station.code >> station.maxVehiclesNumber >> station.numberOfRentals;
-    return stream;
+istream& operator>>(istream& in, Station& station) {
+    string line, type;
+    getline(in, line);
+    std::istringstream iss(line);
+    iss >> type >> station.name >> station.code >> station.location.city
+       >> station.location.district >> station.location.street_name
+       >> station.location.street_number >> station.location.x_coord
+       >> station.location.y_coord;
+    while (getline(in, line)) {
+        string vehicleType;
+        int id;
+        std::istringstream is(line);
+        is >> vehicleType >> id;
+        if (vehicleType == "Bike") {
+            auto* vehicle = new Bike(id);
+            station.currentVehicles.push_back(vehicle);
+        } else if (vehicleType == "Scooter") {
+            auto* vehicle = new Scooter(id);
+            station.currentVehicles.push_back(vehicle);
+        } else if (vehicleType == "ElectricScooter") {
+            auto* vehicle = new ElectricScooter(id);
+            station.currentVehicles.push_back(vehicle);
+        } else {
+            throw std::invalid_argument("Wrong vehicle type");
+        }
+    }
+    return in;
 }
 
