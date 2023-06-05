@@ -7,6 +7,10 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <memory>
+#include <utility>
+#include <map>
+
 #include "src/station/station/Station.h"
 #include "src/station/station/MainStation.h"
 #include "src/station/station/SubStation.h"

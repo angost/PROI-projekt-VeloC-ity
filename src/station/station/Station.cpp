@@ -3,14 +3,7 @@
 //
 
 #include "Station.h"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <utility>
 
-#include "src/vehicle/Bike.h"
-#include "src/vehicle/Scooter.h"
-#include "src/vehicle/ElectricScooter.h"
 
 using namespace std;
 

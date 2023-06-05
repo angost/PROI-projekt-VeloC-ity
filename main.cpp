@@ -1,3 +1,10 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <cstring>
+
+
 #include "src/vehicle/Vehicle.h"
 #include "src/vehicle/Bike.h"
 #include "src/vehicle/Scooter.h"
@@ -27,12 +34,6 @@
 
 #include "src/InputParser.h"
 #include "data/DataParser.h"
-
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <cstring>
 
 using namespace std;
 

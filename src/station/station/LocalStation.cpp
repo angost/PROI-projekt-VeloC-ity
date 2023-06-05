@@ -3,8 +3,7 @@
 //
 
 #include "LocalStation.h"
-#include <iostream>
-#include <utility>
+
 
 LocalStation::LocalStation() : Station("", "", Location(), vector < Vehicle* > (), 5, 0){
     this->type = "C";
