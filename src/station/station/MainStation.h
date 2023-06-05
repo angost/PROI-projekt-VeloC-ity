@@ -14,6 +14,7 @@ public:
     bool repairStation;
     MainStation();
     MainStation(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 50, int numberOfRentals = 0);
+    ~MainStation() override = default;
     void getDesc();
 };
 

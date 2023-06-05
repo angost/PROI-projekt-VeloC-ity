@@ -6,7 +6,7 @@
 #include <iostream>
 #include <utility>
 
-SubStation::SubStation() : Station("", "", Location(), vector < Vehicle* > ()) {
+SubStation::SubStation() : Station("", "", Location(), vector < Vehicle* > (), 25, 0) {
     this->type = "B";
     this->vendingMachine = true;
 }

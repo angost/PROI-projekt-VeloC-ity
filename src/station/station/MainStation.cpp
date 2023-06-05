@@ -5,7 +5,7 @@
 #include <iostream>
 #include <utility>
 
-MainStation::MainStation() : Station("", "", Location(), vector < Vehicle* > ()){
+MainStation::MainStation() : Station("", "", Location(), vector < Vehicle* > (), 50, 0){
     this->type = "A";
     this->wheelPump = true;
     this->repairStation = true;

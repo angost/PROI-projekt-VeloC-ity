@@ -103,7 +103,7 @@ void Station::printVehiclesInStation() {
         }
         cout << "Type: " << i->type << "       ";
         cout << "ID: " << i->id << "     "  << "Status (reserved): ";
-        cout << boolalpha << i->rentedStatus;
+        cout << boolalpha << i->reservedStatus;
         cout << "       NOR: " << i->numberOfRentals << "       TC: " << i->technicalCondition << endl;
     }
     int spots = countAvailableSpots();

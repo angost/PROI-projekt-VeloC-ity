@@ -25,6 +25,7 @@ public:
     vector < Vehicle* > currentVehicles;
 
     Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 10, int numberOfRentals = 0);
+    virtual ~Station() = default;
     bool addToStation(Vehicle* vehicle);
     bool deleteVehicle(Vehicle* vehicle);
     bool deleteVehicleByIndex(int index);

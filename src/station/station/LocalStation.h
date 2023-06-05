@@ -13,6 +13,7 @@ public:
     bool emergencyPhone;
     LocalStation();
     LocalStation(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 5, int numberOfRentals = 0);
+    ~LocalStation() override = default;
     void getDesc();
 };
 
