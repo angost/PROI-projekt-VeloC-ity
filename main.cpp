@@ -90,6 +90,7 @@ int main(int argc, char **argv) {
             Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
             StandardUser user1("test_username", userLocation);
             UserInterface userIface(stations, &user1);
+            userIface.mainInterface();
         }
     } else {
         cout << "Incorrect init value" << endl;

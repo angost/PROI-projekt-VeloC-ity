@@ -24,11 +24,16 @@ public:
     Station* getStation();
     Vehicle* getVehicle(Station* station);
     float getAmount();
+    string getDrivingLicence();
+
     void printSuccess(bool success);
     void printAllStations();
     void printVehiclesInStation(Station* station);
     void printBalance();
+    void printRentedVehicles();
+    void printReservedVehicles();
 
+    bool addDrivingLicence(string drivingLicense);
     bool rentVehicle(Vehicle* vehicle, Station* station);
     bool reserveVehicle(Vehicle* vehicle, Station* station);
     bool returnVehicle(Vehicle* vehicle, Station* station);

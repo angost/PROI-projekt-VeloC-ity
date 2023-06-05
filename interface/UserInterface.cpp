@@ -11,6 +11,29 @@ UserInterface::UserInterface(vector<Station *> stations, User *user) : stations(
 }
 
 void UserInterface::mainInterface(){
+    printAllStations();
+    Station* station = getStation();
+    printVehiclesInStation(station);
+    Vehicle* vehicle = getVehicle(station);
+    cout << addCredits(50.0) << endl;
+    cout << reserveVehicle(vehicle, station) << endl;
+    printVehiclesInStation(station);
+    cout << "Reserved: ";
+    printReservedVehicles();
+
+    cout << rentVehicle(vehicle, station) << endl;
+    printVehiclesInStation(station);
+    cout << "Reserved: ";
+    printReservedVehicles();
+    cout << "Rented: ";
+    printRentedVehicles();
+
+    cout << returnVehicle(vehicle, station) << endl;
+    printVehiclesInStation(station);
+    cout << "Reserved: ";
+    printReservedVehicles();
+    cout << "Rented: ";
+    printRentedVehicles();
 
 }
 
@@ -57,8 +80,25 @@ Vehicle* UserInterface::getVehicle(Station* station){
 }
 
 float UserInterface::getAmount(){
-
+    string amount;
+    cout << "Enter amount to add to your account > ";
+    cin >> amount;
+    cout << endl;
+    float amount_number = stof(amount);
+    if (amount_number <= 0){
+        throw invalid_argument("Amount has to be greater than 0");
+    }
+    return amount_number;
 }
+
+string UserInterface::getDrivingLicence(){
+    string drivingLicence;
+    cout << "Enter your driving licence data > ";
+    cin >> drivingLicence;
+    cout << endl;
+    return drivingLicence;
+}
+
 void UserInterface::printSuccess(bool success){
     if (success) {
         cout << "Operation finished successfully" << endl;
@@ -80,6 +120,47 @@ void UserInterface::printVehiclesInStation(Station* station){
 void UserInterface::printBalance(){
     cout << "Your balance: " << user->checkBalance() << endl;
     cout << "Minimum required balance: " << user->checkMinBalance() << endl;
+}
+
+void UserInterface::printRentedVehicles() {
+    for (auto vehicle : user->getRentedVehicles()) {
+        string type;
+        if (vehicle->id > 300) {
+            type = "ElectricScooter";
+        } else if (vehicle->id > 200) {
+            type = "Scooter";
+        } else if (vehicle->id > 100) {
+            type = "Bike";
+        } else {
+            type = "Unknown";
+        }
+        cout << "Type: " << type << "   ID: " << vehicle->id;
+    }
+}
+
+void UserInterface::printReservedVehicles(){
+    for (auto vehicle : user->getReservedVehicles()) {
+        string type;
+        if (vehicle->id > 300) {
+            type = "ElectricScooter";
+        } else if (vehicle->id > 200) {
+            type = "Scooter";
+        } else if (vehicle->id > 100) {
+            type = "Bike";
+        } else {
+            type = "Unknown";
+        }
+        cout << "Type: " << type << "   ID: " << vehicle->id;
+    }
+}
+
+bool UserInterface::addDrivingLicence(string drivingLicense){
+    if (user->type == "Golden"){
+        GoldenUser*  goldenUser = dynamic_cast<GoldenUser*>(user);
+        goldenUser->addDrivingLicense(drivingLicense);
+        return true;
+    }
+    return false;
 }
 
 bool UserInterface::rentVehicle(Vehicle* vehicle, Station* station) {
