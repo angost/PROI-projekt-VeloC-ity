@@ -57,6 +57,21 @@ Station jest klasą abstrakcyjną reprezentującą stację. Jest kilka rodzajów
 - ***LocalStation*** = Stacja lokalna, miejsce na 5 pojazdów, z telefonem alarmowym
 
 ### 3. Service
+Klasa reprezentująca obsługę techniczną stacji i pojazdów.
+
+**Atrybuty**: identyfikator i wektor obsługiwanych stacji
+
+**Metody**:
+- wyświetlenie obsługiwanych stacji
+- wyświetlenie pojazdów na danej stacji
+- zmiana lokalizacji i maksymalnej liczby pojazdów na stacji
+- dodanie i usunięcie pojazdu ze stacji
+- przeniesienie pojazdu między stacjami i sprawdzenie czy jest to możliwe
+- naprawa pojazdu (ustawienie jego stanu technicznego na maksymalny)
+- iteratory po obsługiwanych stacjach
+
+**Klasy dziedziczące**:
+- AdminService = nadrzędny zespół obsługi technicznej, zarządzający innymi zespołami, przydzielający im stacje, którymi mają się zajmować
 
 ### 4. User
 Vehicle jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka poziomów konta użytkownika.
