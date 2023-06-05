@@ -9,6 +9,7 @@
 #include "src/user/StandardUser.h"
 #include "src/user/SilverUser.h"
 #include "src/user/GoldenUser.h"
+#include "src/station/station/LocalStation.h"
 #include "src/Velocity.h"
 
 
@@ -23,6 +24,7 @@ public:
     int getAction();
     Station* getStation();
     Vehicle* getVehicle(Station* station);
+    Vehicle* getVehicle(vector<Vehicle*>* vehicles);
     float getAmount();
     string getDrivingLicence();
 

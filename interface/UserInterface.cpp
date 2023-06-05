@@ -11,38 +11,131 @@ UserInterface::UserInterface(vector<Station *> stations, User *user) : stations(
 }
 
 void UserInterface::mainInterface(){
-    printAllStations();
-    Station* station = getStation();
-    printVehiclesInStation(station);
-    Vehicle* vehicle = getVehicle(station);
-    cout << addCredits(50.0) << endl;
-    cout << reserveVehicle(vehicle, station) << endl;
-    printVehiclesInStation(station);
-    cout << "Reserved: ";
-    printReservedVehicles();
+    while (true){
+        cout << endl << "-----------------------------------------------------" << endl;
+        bool success;
+        int option;
+        option = 5;
+        try {
+            option = getAction();
+        }
+        catch (invalid_argument) {
+            cout << "Wrong number..." << endl;
+            continue;
+        }
 
-    cout << rentVehicle(vehicle, station) << endl;
-    printVehiclesInStation(station);
-    cout << "Reserved: ";
-    printReservedVehicles();
-    cout << "Rented: ";
-    printRentedVehicles();
+        if (option == 1){ // Show all Stations
+            printAllStations();
+            continue;
+        } else if (option == 2){ // Show Vehicles in Station
+            Station* chosenStation;
+            try {
+                chosenStation = getStation();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            printVehiclesInStation(chosenStation);
+            continue;
+        } else if (option == 3){ // Show nearest Station
+            Station* nearestStation = findNearestStation();
+            //TODO jak uzyc metody ostream na wskazniku na klase abstrakcyjna? (nie dziala)
+            cout << "Nearest station: " << nearestStation->name << " " << nearestStation->code << endl;
+            cout << "Distance: " << user->userLocation.getDistanceBetweenLocations(nearestStation->getStationLocation()) << endl;
+            continue;
+        } else if (option == 4){ // Rent Vehicle
+            Station* chosenStation;
+            try {
+                chosenStation = getStation();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            Vehicle* chosenVehicle;
+            try {
+                chosenVehicle = getVehicle(chosenStation);
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = rentVehicle(chosenVehicle, chosenStation);
+        } else if (option == 5){ // Reserve Vehicle
+            Station* chosenStation;
+            try {
+                chosenStation = getStation();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            Vehicle* chosenVehicle;
+            try {
+                chosenVehicle = getVehicle(chosenStation);
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = reserveVehicle(chosenVehicle, chosenStation);
 
-    cout << returnVehicle(vehicle, station) << endl;
-    printVehiclesInStation(station);
-    cout << "Reserved: ";
-    printReservedVehicles();
-    cout << "Rented: ";
-    printRentedVehicles();
 
+        } else if (option == 6){ // Return Vehicle
+//            Station* chosenStation;
+//            try {
+//                chosenStation = getStation();
+//            } catch (invalid_argument& err){
+//                cout << err.what() << endl;
+//                continue;
+//            }
+//            cout << "Which Vehicle do you want to return?" << endl;
+//            printRentedVehicles();
+//            Vehicle* chosenVehicle;
+//            try {
+//                vector<Vehicle*> rentedVehicles = user->getRentedVehicles();
+//                chosenVehicle = getVehicle(&rentedVehicles);
+//            } catch (invalid_argument& err){
+//                cout << err.what() << endl;
+//                continue;
+//            }
+//            success = returnVehicle(chosenVehicle, chosenStation);
+
+        } else if (option == 7){ // Cancel Reservation
+
+        } else if (option == 8){ // Show balance
+            cout << "Balance: " << user->checkBalance() << endl;
+            cout << "Minimum required balance: " << user->checkMinBalance() << endl;
+            continue;
+        } else if (option == 9){ // Add credits
+            float chosenAmount;
+            try{
+                chosenAmount = getAmount();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = addCredits(chosenAmount);
+
+        } else if (option == 10){ // Show rented Vehicles
+
+        } else if (option == 11){ // Show reserved Vehicles
+
+        } else if (option == 12){ // Add driving license
+
+        } else if (option == 13) { // Exit
+            break;
+        } else {
+            cout << "Wrong option..." << endl;
+            continue;
+        }
+        printSuccess(success);
+        cout << endl;
+    }
 }
 
 int UserInterface::getAction(){
     string action;
     cin.clear();
-    cout << "1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
-    cout << "4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
-    cout << "7. Cancel Reservation     8. Show balance                    9. Add credits" << endl;
+    cout << " 1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
+    cout << " 4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
+    cout << " 7. Cancel Reservation     8. Show balance                    9. Add credits" << endl;
     cout << "10. Show rented Vehicles  11. Show reserved Vehicles         12. Add driving license" << endl;
     cout << "13. Exit" << endl;
     cout << "Enter number to define action > ";
@@ -72,6 +165,20 @@ Vehicle* UserInterface::getVehicle(Station* station){
     cout << endl;
     int id_number = stoi(id);
     for (auto vehicle : *station) {
+        if (vehicle->id == id_number) {
+            return vehicle;
+        }
+    }
+    throw invalid_argument("Wrong vehicle id");
+}
+
+Vehicle* UserInterface::getVehicle(vector<Vehicle*>* vehicles){
+    string id;
+    cout << "Enter vehicle id > ";
+    cin >> id;
+    cout << endl;
+    int id_number = stoi(id);
+    for (auto vehicle : *vehicles) {
         if (vehicle->id == id_number) {
             return vehicle;
         }
