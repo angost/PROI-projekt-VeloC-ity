@@ -14,103 +14,123 @@ ServiceInterface::ServiceInterface(Service service) {
 
 void ServiceInterface::mainInterface() {
     while (true){
-        int option = getAction();
+        cout << "-----------------------------------------------------" << endl;
+        bool success;
+        int option;
+        try {
+            option = getAction();
+        }
+        catch (invalid_argument) {
+            cout << "Wrong number..." << endl;
+            continue;
+        }
         if (option == 1) {
             printSupportedStations();
+            continue;
         } else if (option == 2){
+            Station* station;
             try {
-                Station* station = getStation();
-                printVehiclesInStation(station);
+                station = getStation();
             }
             catch (invalid_argument) {
                 cout << "Wrong code..." << endl;
                 continue;
             }
+            printVehiclesInStation(station);
+            continue;
         } else if (option == 3) {
+            int newLimitInt;
+            Station* station;
             try {
                 string newLimit;
                 cout << "Enter new limit > ";
                 cin >> newLimit;
                 cout << endl;
-                int newLimitInt = stoi(newLimit);
-                Station* station = getStation();
-                bool success = changeStationLimit(newLimitInt, station);
-                printSuccess(success);
+                newLimitInt = stoi(newLimit);
+                station = getStation();
             }
             catch (invalid_argument) {
                 cout << "Wrong code..." << endl;
                 continue;
             }
+            success = changeStationLimit(newLimitInt, station);
         } else if (option == 4) {
             cout << "First insert source station code, then vehicle id and finally destination station code" << endl;
+            Station* fromStation;
+            Vehicle* vehicle;
+            Station* toStation;
             try {
-                Station* fromStation = getStation();
-                Vehicle* vehicle = getVehicle(fromStation);
-                Station* toStation = getStation();
-                bool success = moveVehicle(vehicle, fromStation, toStation);
-                printSuccess(success);
+                fromStation = getStation();
+                vehicle = getVehicle(fromStation);
+                toStation = getStation();
+
             }
             catch (invalid_argument){
                 cout << "Wrong data..." << endl;
                 continue;
             }
+            success = moveVehicle(vehicle, fromStation, toStation);
         } else if (option == 5) {
             cout << "Insert station code and id of vehicle you want to repair..." << endl;
+            Vehicle* vehicle;
             try {
                 Station* station = getStation();
-                Vehicle* vehicle = getVehicle(station);
-                bool success = repairVehicle(vehicle);
-                printSuccess(success);
+                vehicle = getVehicle(station);
             }
             catch (invalid_argument) {
                 cout << "Wrong data..." << endl;
                 continue;
             }
+            success = repairVehicle(vehicle);
         } else if (option == 6){
+            Station* station;
+            Location location;
             try {
-                Station* station = getStation();
-                Location location = getLocation();
-                bool success = changeStationLocation(station, location);
-                printSuccess(success);
+                station = getStation();
+                location = getLocation();
             }
             catch (invalid_argument) {
                 cout << "Wrong data..." << endl;
                 continue;
             }
+            success = changeStationLocation(station, location);
         } else if (option == 7) {
+            Station* station;
+            Vehicle* vehicle;
             try {
-                Station* station = getStation();
-                shared_ptr<Vehicle> vehicleSharedPtr = getNewVehicle();
-                Vehicle* vehicle = vehicleSharedPtr.get();
-                bool success = addVehicle(station, vehicle);
-                printSuccess(success);
+                station = getStation();
+                vehicle = getNewVehicle();
             }
             catch (invalid_argument) {
                 cout << "Wrong data..." << endl;
                 continue;
             }
+            success = addVehicle(station, vehicle);
         } else if (option == 8) {
+            Station* station;
+            Vehicle* vehicle;
             try {
-                Station* station = getStation();
-                Vehicle* vehicle = getVehicle(station);
-                bool success = removeVehicle(station, vehicle);
-                printSuccess(success);
+                station = getStation();
+                vehicle = getVehicle(station);
             }
             catch (invalid_argument) {
                 cout << "Wrong data..." << endl;
                 continue;
             }
+            success = removeVehicle(station, vehicle);
         } else if (option == 9) {
             break;
         } else {
             cout << "Wrong option..." << endl;
+            continue;
         }
+        printSuccess(success);
         cout << endl;
     }
 }
 
 int ServiceInterface::getAction() {
-    int action;
+    string action;
     cin.clear();
     cout << "1. Print Stations      2. Print Vehicles in Station        3. Change station limit" << endl;
     cout << "4. Move vehicle        5. Repair Vehicle                   6. Change station location" << endl;
@@ -118,7 +138,8 @@ int ServiceInterface::getAction() {
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
-    return action;
+    int actionInt = stoi(action);
+    return actionInt;
 }
 
 
@@ -213,7 +234,7 @@ Location ServiceInterface::getLocation() {
     return loc;
 }
 
-std::shared_ptr<Vehicle> ServiceInterface::getNewVehicle() {
+Vehicle* ServiceInterface::getNewVehicle() {
     string type, id;
     cout << "Enter vehicle id > ";
     cin >> id;
@@ -222,11 +243,14 @@ std::shared_ptr<Vehicle> ServiceInterface::getNewVehicle() {
     cin >> type;
     int idNumber = stoi(id);
     if (type == "Bike") {
-        return std::make_shared<Bike>(idNumber);
+        auto* vehicle = new Bike(idNumber);
+        return vehicle;
     } else if (type == "Scooter") {
-        return std::make_shared<Scooter>(idNumber);
+        auto* vehicle = new Scooter(idNumber);
+        return vehicle;
     } else if (type == "ElectricScooter") {
-        return std::make_shared<ElectricScooter>(idNumber);
+        auto* vehicle = new ElectricScooter(idNumber);
+        return vehicle;
     } else {
         throw std::invalid_argument("Wrong type");
     }

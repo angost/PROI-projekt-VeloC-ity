@@ -30,7 +30,7 @@ public:
     Station* getStation();
     static Vehicle* getVehicle(Station* station);
     static Location getLocation();
-    static std::shared_ptr<Vehicle> getNewVehicle();
+    static Vehicle* getNewVehicle();
 };
 
 

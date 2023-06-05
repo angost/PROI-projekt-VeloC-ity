@@ -3,8 +3,10 @@
 //
 #include "Velocity.h"
 
+#include <utility>
+
 Velocity::Velocity(vector<Station *> stations, User *user) {
-this->stations = stations;
+this->stations = std::move(stations);
 this->user = user;
 }
 
