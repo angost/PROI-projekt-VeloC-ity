@@ -14,7 +14,7 @@ bool Velocity::rentVehicle(Vehicle *vehicle, Station *station) {
         return false;
     }
     if (vehicle->checkReservedStatus()){
-        if (!user->checkRented(vehicle)){
+        if (!user->checkReserved(vehicle)){
             return false;
         }
     }
@@ -35,6 +35,9 @@ bool Velocity::rentVehicle(Vehicle *vehicle, Station *station) {
     vehicle->increaseNumberOfRentals();
     user->addVehicle(vehicle);
     user->increaseVehicleCounter();
+    if (user->checkReserved(vehicle)){
+        user->cancelReserveVehicle(vehicle);
+    }
     station->deleteVehicle(vehicle);
     station->incrementCounter();
     return true;
