@@ -11,6 +11,10 @@ AdminService::AdminService(string identifier, vector<Station *> stations, vector
     this->serviceTeams = std::move(serviceTeams);
 }
 
+AdminService::AdminService(string identifier, vector<Service> serviceTeams) : Service(std::move(identifier), vector<Station*>()){
+    this->serviceTeams = std::move(serviceTeams);
+}
+
 
 void AdminService::assignStation(Station* station, Service serviceCrew) {
     serviceCrew.supportedStations.push_back(station);
