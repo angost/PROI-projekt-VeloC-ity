@@ -47,7 +47,7 @@ bool Service::repairVehicle(Vehicle* vehicle){
 
 void Service::printSupportedStations() {
     for (auto i : supportedStations){
-        cout << i->code << " " << i->name << endl;
+        cout << "Code: " << i->code << "     Name: " << i->name << endl;
     }
 }
 

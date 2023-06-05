@@ -91,10 +91,11 @@ Location Station::getStationLocation() {
 void Station::printVehiclesInStation() {
     for (auto i : currentVehicles){
         int targetLength = 25;
-        if (i->type.length() < targetLength) {
-            i->type.resize(targetLength, ' ');
+        string vehicleType = i->type;
+        if (vehicleType.length() < targetLength) {
+            vehicleType.resize(targetLength, ' ');
         }
-        cout << "Type: " << i->type << "       ";
+        cout << "Type: " << vehicleType << "       ";
         cout << "ID: " << i->id << "     "  << "Status (reserved): ";
         cout << boolalpha << i->reservedStatus;
         cout << "       NOR: " << i->numberOfRentals << "       TC: " << i->technicalCondition << endl;
