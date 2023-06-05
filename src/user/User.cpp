@@ -5,6 +5,7 @@
 
 User::User(string username, Location loc, int maxResVehicles, int maxRentedVehicles, int discount) {
 	this->username = username;
+    this->type = "";
     this->maxResVehicles = maxResVehicles;
     this->maxRentedVehicles = maxRentedVehicles;
     this->discount = discount;
@@ -71,14 +72,14 @@ bool User::checkReserved(Vehicle* vehicle) {
 }
 
 bool User::checkRentSpace() {
-	if (maxRentedVehicles < rentedVehicles.size()) {
+	if (maxRentedVehicles > rentedVehicles.size()) {
 		return true;
 	}
 	return false;
 }
 
 bool User::checkReserveSpace() {
-	if (maxResVehicles < (reservedVehicles.size() + rentedVehicles.size())) {
+	if (maxResVehicles > (reservedVehicles.size() + rentedVehicles.size())) {
 		return true;
 	}
 	return false;
@@ -92,6 +93,15 @@ bool User::changeLocation(Location newLocation) {
 void User::increaseVehicleCounter() {
     vehicleCounter++;
 }
+
+vector< Vehicle* > User::getRentedVehicles(){
+    return rentedVehicles;
+}
+
+vector< Vehicle* > User::getReservedVehicles(){
+    return reservedVehicles;
+}
+
 //
 //template <typename V, typename T>
 //void User::print(V value, T text){

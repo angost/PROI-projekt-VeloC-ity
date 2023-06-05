@@ -3,7 +3,6 @@
 
 StandardUser::StandardUser(string username, Location loc, int maxResVehicles, int maxRentedVehicles, int discount) : User(username, loc, maxResVehicles, maxRentedVehicles, discount){
     type = "Standard";
-
 }
 
 void StandardUser::accountStats() {

@@ -24,6 +24,7 @@ public:
 	int maxRentedVehicles;
     int discount;
     Location userLocation;
+    string type;
 
 	User(string username = "NoUser", Location userLocation = Location(), int maxResVehicles = 3, int maxRentedVehicles = 3, int discount = 0);
 	bool checkSolvency();
@@ -42,6 +43,8 @@ public:
     void increaseVehicleCounter();
     bool changeLocation(Location newLocation);
     virtual void accountStats() = 0;
+    vector< Vehicle* > getRentedVehicles();
+    vector< Vehicle* > getReservedVehicles();
 //    template <typename V, typename T>
 //    void print(V value, T text);
 };
