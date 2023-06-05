@@ -5,6 +5,7 @@
 #include "DataParser.h"
 #include <memory>
 #include <utility>
+#include <map>
 using namespace std;
 
 DataParser::DataParser(vector<string> stationFilenames) {
@@ -65,4 +66,29 @@ Station* DataParser::getStation(const string& filename) {
         }
     }
     return nullptr;
+}
+
+vector<Service> DataParser::assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station* > stations) {
+    vector < Service > serviceCrews;
+    std::ifstream file(serviceCrewAssignmentFilename);
+    string line;
+    map < string, vector < int > > assignment;
+    if (file.is_open()) {
+        while (std::getline(file, line)) {
+            string identifier;
+            int number;
+            std::istringstream iss(line);
+            iss >> number >> identifier;
+            assignment[identifier].push_back(number);
+        }
+    }
+    for (const auto& crew : assignment) {
+        vector < Station* > thisCrewStations;
+        for (auto i : crew.second) {
+            thisCrewStations.push_back(stations[i - 1]);
+        }
+        Service newCrew(crew.first, thisCrewStations);
+        serviceCrews.push_back(newCrew);
+    }
+    return serviceCrews;
 }
