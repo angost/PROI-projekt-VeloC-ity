@@ -8,6 +8,7 @@ class Scooter : public Vehicle {
 public:
     bool foldable;
     Scooter(int id, int numberOfRentals = 0, int technicalCondition = 5);
+    ~Scooter() override = default;
     void takeOff();
 };
 

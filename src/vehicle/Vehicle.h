@@ -17,6 +17,7 @@ public:
     bool ableToUse;
     string type;
     Vehicle(int id, int numberOfRentals = 0, int technicalCondition = 5);
+    virtual ~Vehicle() = default;
     void setRentedStatus(bool newStatus);
     void setReservedStatus(bool newStatus);
     void increaseNumberOfRentals();
