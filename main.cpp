@@ -38,6 +38,7 @@ using namespace std;
 
 const string STATIONS_DATA_PATH = "../data/stationsData";
 const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
+const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
 
 int main(int argc, char **argv) {
     // DATA
@@ -48,14 +49,8 @@ int main(int argc, char **argv) {
                                    STATIONS_DATA_PATH + "/station5.txt"};
     DataParser data(filenames);
     vector < Station* > stations = data.getAllStations();
-    vector < Station* > bigCrew = {stations[0], stations[1], stations[2], stations[3], stations[4]};
-    vector < Station* > smallCrew = {stations[2]};
-    vector < Station* > adminStations;
-
-    Service firstServiceCrew("S01", bigCrew);
-    Service secondServiceCrew("S91", smallCrew);
-    vector < Service > serviceCrews = {firstServiceCrew, secondServiceCrew};
-    AdminService admin("X01", adminStations, serviceCrews);
+    vector < Service > serviceCrews = data.assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
+    AdminService admin("X01", serviceCrews);
 
 
     // ACTUAL MAIN
@@ -81,6 +76,7 @@ int main(int argc, char **argv) {
         }
         catch (invalid_argument) {
             cout << "Invalid identifier" << endl;
+            return 1;
         }
         ServiceInterface iface(serviceTeam);
         iface.mainInterface();
