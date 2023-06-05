@@ -116,8 +116,14 @@ int main(int argc, char **argv) {
             break;
         }
         UserInterface userIface;
-    } else if (in.cmdOptionExists("-s")) {
-        Service serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
+    } else if (in.cmdOptionExists("-s") && argc == 3) {
+        Service serviceTeam;
+        try {
+            serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
+        }
+        catch (invalid_argument) {
+            cout << "Invalid identifier" << endl;
+        }
         ServiceInterface iface(serviceTeam);
         iface.mainInterface();
     } else if (argc == 3) {
