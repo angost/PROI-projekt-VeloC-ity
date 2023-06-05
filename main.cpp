@@ -39,14 +39,14 @@ using namespace std;
 const string STATIONS_DATA_PATH = "../data/stationsData";
 const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
+const string FILENAMES[] = {"station1.txt", "station2.txt", "station3.txt", "station4.txt", "station5.txt"};
 
 int main(int argc, char **argv) {
     // DATA
-    vector < string > filenames = {STATIONS_DATA_PATH + "/station1.txt",
-                                   STATIONS_DATA_PATH + "/station2.txt",
-                                   STATIONS_DATA_PATH + "/station3.txt",
-                                   STATIONS_DATA_PATH + "/station4.txt",
-                                   STATIONS_DATA_PATH + "/station5.txt"};
+    vector < string > filenames;
+    for (const auto& filename : FILENAMES) {
+        filenames.push_back(STATIONS_DATA_PATH + filename);
+    }
     DataParser data(filenames);
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = data.assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
