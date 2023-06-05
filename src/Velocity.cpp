@@ -5,6 +5,15 @@
 
 #include <utility>
 
+
+Velocity::Velocity() {
+    vector<Station *> stations;
+    StandardUser user1;
+    this->stations = stations;
+    this->user = &user1;
+}
+
+
 Velocity::Velocity(vector<Station *> stations, User *user) {
 this->stations = std::move(stations);
 this->user = user;

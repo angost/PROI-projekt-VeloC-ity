@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
             }
             break;
         }
-        UserInterface userIface;
+        //UserInterface userIface;
     } else if (in.cmdOptionExists("-s") && argc == 3) {
         Service serviceTeam;
         try {
@@ -91,7 +91,9 @@ int main(int argc, char **argv) {
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials" << endl;
         } else {
-            UserInterface userIface;
+            Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
+            StandardUser user1("test_username", userLocation);
+            UserInterface userIface(stations, &user1);
         }
     } else {
         cout << "Incorrect init value" << endl;

@@ -9,11 +9,13 @@
 #include <map>
 #include "station/station/Station.h"
 #include "user/User.h"
+#include "user/StandardUser.h"
 #include "vehicle/Vehicle.h"
 
 class Velocity {
     vector < Station* > stations;
     User* user;
+    Velocity();
     Velocity(vector <Station* > stations, User* user);
     bool rentVehicle(Vehicle* vehicle, Station* station);
     bool reserveVehicle(Vehicle* vehicle, Station* station);
