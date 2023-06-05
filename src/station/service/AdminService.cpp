@@ -12,6 +12,6 @@ AdminService::AdminService(string identifier, vector<Station *> stations, vector
 }
 
 
-void AdminService::assignStation(Station station, Service serviceCrew) {
-    serviceCrew.supportedStations.push_back(&station);
+void AdminService::assignStation(Station* station, Service serviceCrew) {
+    serviceCrew.supportedStations.push_back(station);
 }

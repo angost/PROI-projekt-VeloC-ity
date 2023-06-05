@@ -12,7 +12,7 @@ class AdminService : public Service {
 public:
     vector < Service > serviceTeams;
     AdminService(string identifier, vector < Station* > stations, vector < Service > serviceTeams);
-    static void assignStation(Station station, Service serviceCrew);
+    static void assignStation(Station* station, Service serviceCrew);
 };
 
 

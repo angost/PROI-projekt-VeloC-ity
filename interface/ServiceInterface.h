@@ -4,6 +4,8 @@
 
 #ifndef PROI_PROJEKT_SERVICEINTERFACE_H
 #define PROI_PROJEKT_SERVICEINTERFACE_H
+
+#include <memory>
 #include "src/station/service/Service.h"
 #include "src/vehicle/Bike.h"
 #include "src/vehicle/Scooter.h"
