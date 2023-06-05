@@ -3,8 +3,6 @@
 //
 #include "interface_functions.h"
 
-string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
-
 void loginInterface(string &username, string &password){
     cout << "Enter username >> ";
     cin >> username;
@@ -26,9 +24,9 @@ bool checkCredentials(const map <string, string >& credentials, const string& us
 }
 
 
-map < string, string > getAllCredentials(){
+map < string, string > getAllCredentials(const string& credentialFilename){
     map < string, string > credentials;
-    ifstream file(CREDENTIAL_FILE_NAME);
+    ifstream file(credentialFilename);
     string line;
 
     while (getline(file, line)) { // Odczytanie kolejnych linii z pliku

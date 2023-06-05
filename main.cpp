@@ -36,7 +36,8 @@
 
 using namespace std;
 
-string STATIONS_DATA_PATH = "../data/stationsData";
+const string STATIONS_DATA_PATH = "../data/stationsData";
+const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 
 int main(int argc, char **argv) {
     // DATA
@@ -60,7 +61,7 @@ int main(int argc, char **argv) {
     // ACTUAL MAIN
 
     InputParser in(argc, argv);
-    map<string, string> credentials = getAllCredentials();
+    map<string, string> credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
     string username, password;
     if (argc == 1) {
         // login interface
