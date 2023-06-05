@@ -90,8 +90,20 @@ Location Station::getStationLocation() {
 
 void Station::printVehiclesInStation() {
     for (auto i : currentVehicles){
+        string type;
+        if (i->id > 300) {
+            type = "ElectricScooter";
+        } else if (i->id > 200) {
+            type = "Scooter";
+        } else if (i->id > 100) {
+            type = "Bike";
+        } else {
+            type = "Unknown";
+        }
+        cout << "Type: " << type << "       ";
         cout << "ID: " << i->id << "     "  << "Status (reserved): ";
-        cout << boolalpha << i->rentedStatus << endl;
+        cout << boolalpha << i->rentedStatus;
+        cout << "       NOR: " << i->numberOfRentals << "       TC: " << i->technicalCondition << endl;
     }
 }
 
