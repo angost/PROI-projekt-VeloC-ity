@@ -11,6 +11,7 @@ class SubStation : public Station{
 public:
     string type;
     bool vendingMachine;
+    SubStation();
     SubStation(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 25, int numberOfRentals = 0);
     void getDesc();
 };

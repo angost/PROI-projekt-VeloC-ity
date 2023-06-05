@@ -5,6 +5,13 @@
 #include <iostream>
 #include <utility>
 
+MainStation::MainStation() : Station("", "", Location(), vector < Vehicle* > ()){
+    this->type = "A";
+    this->wheelPump = true;
+    this->repairStation = true;
+}
+
+
 MainStation::MainStation(string name, string code, Location location, vector<Vehicle *> currentVehicles,
                          int maxVehicles, int numberOfRentals) : Station(std::move(name), std::move(code), std::move(location), std::move(currentVehicles), maxVehicles, numberOfRentals) {
     this->type = "A";

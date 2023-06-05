@@ -11,6 +11,7 @@ class LocalStation : public Station{
 public:
     string type;
     bool emergencyPhone;
+    LocalStation();
     LocalStation(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 5, int numberOfRentals = 0);
     void getDesc();
 };
