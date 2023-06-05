@@ -9,6 +9,7 @@ Scooter::Scooter(int id, int numberOfRentals, int technicalCondition) : Vehicle(
 	rentalPrice = 5;
 	maxSpeed = 15;
     foldable = true;
+    type = "Scooter";
 }
 
 void Scooter::takeOff()

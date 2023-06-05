@@ -8,7 +8,7 @@ Vehicle::Vehicle(int id, int numberOfRentals, int technicalCondition)
 	if (id < 0)
 		throw invalid_argument("Id cannot be negative");
 	this->id = id;
-
+    type = "";
 	rentalPrice = 5;
 	maxSpeed = 5;
 	rentedStatus = false;

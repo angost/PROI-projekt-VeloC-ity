@@ -5,14 +5,18 @@
 #ifndef PROI_PROJEKT_SUBSTATION_H
 #define PROI_PROJEKT_SUBSTATION_H
 
+#include <iostream>
+#include <utility>
 #include "Station.h"
 
 class SubStation : public Station{
 public:
     string type;
     bool vendingMachine;
+    SubStation();
     SubStation(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 25, int numberOfRentals = 0);
-    void getDesc();
+    ~SubStation() override = default;
+    void getDesc() override;
 };
 
 

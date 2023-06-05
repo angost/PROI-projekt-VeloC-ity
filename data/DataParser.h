@@ -7,6 +7,10 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <memory>
+#include <utility>
+#include <map>
+
 #include "src/station/station/Station.h"
 #include "src/station/station/MainStation.h"
 #include "src/station/station/SubStation.h"
@@ -26,7 +30,7 @@ public:
     explicit DataParser(vector < string > stationFilenames);
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
-    vector < Service > assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station*> stations);
+    static vector < Service > assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station*> stations);
 };
 
 

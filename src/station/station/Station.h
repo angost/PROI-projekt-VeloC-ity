@@ -7,9 +7,17 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <utility>
 
-#include "src/Location.h"
 #include "src/vehicle/Vehicle.h"
+#include "src/vehicle/Bike.h"
+#include "src/vehicle/Scooter.h"
+#include "src/vehicle/ElectricScooter.h"
+#include "src/Location.h"
+
 
 using namespace std;
 
@@ -25,6 +33,7 @@ public:
     vector < Vehicle* > currentVehicles;
 
     Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 10, int numberOfRentals = 0);
+    virtual ~Station() = default;
     bool addToStation(Vehicle* vehicle);
     bool deleteVehicle(Vehicle* vehicle);
     bool deleteVehicleByIndex(int index);

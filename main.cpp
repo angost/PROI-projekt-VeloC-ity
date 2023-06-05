@@ -1,3 +1,10 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <cstring>
+
+
 #include "src/vehicle/Vehicle.h"
 #include "src/vehicle/Bike.h"
 #include "src/vehicle/Scooter.h"
@@ -28,12 +35,6 @@
 #include "src/InputParser.h"
 #include "data/DataParser.h"
 
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <cstring>
-
 using namespace std;
 
 const string STATIONS_DATA_PATH = "../data/stationsData";
@@ -49,7 +50,7 @@ int main(int argc, char **argv) {
     }
     DataParser data(filenames);
     vector < Station* > stations = data.getAllStations();
-    vector < Service > serviceCrews = data.assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
+    vector < Service > serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
     AdminService admin("X01", serviceCrews);
 
 
@@ -95,5 +96,14 @@ int main(int argc, char **argv) {
     } else {
         cout << "Incorrect init value" << endl;
     }
+
+    // PREVENTING MEMORY LEAK
+    for (auto station : stations) {
+        for (auto vehicle : *station) {
+            delete vehicle;
+        }
+        delete station;
+    }
+
     return 0;
 }

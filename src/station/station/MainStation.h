@@ -6,14 +6,18 @@
 #define PROI_PROJEKT_MAINSTATION_H
 
 #include "Station.h"
+#include <iostream>
+#include <utility>
 
 class MainStation : public Station {
 public:
     string type;
     bool wheelPump;
     bool repairStation;
+    MainStation();
     MainStation(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 50, int numberOfRentals = 0);
-    void getDesc();
+    ~MainStation() override = default;
+    void getDesc() override;
 };
 
 

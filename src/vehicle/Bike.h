@@ -8,6 +8,7 @@ class Bike: public Vehicle {
 public:
     bool hasBasket;
     Bike(int id, int numberOfRentals = 0, int technicalCondition = 5);
+    ~Bike() override = default;
     void takeOff();
 };
 

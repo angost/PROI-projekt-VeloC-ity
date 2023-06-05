@@ -4,9 +4,6 @@
 
 #include "ServiceInterface.h"
 
-#include <iostream>
-#include <utility>
-
 ServiceInterface::ServiceInterface(Service service) {
     this->serviceClass = std::move(service);
 }
