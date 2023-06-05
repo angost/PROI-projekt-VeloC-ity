@@ -1,0 +1,9 @@
+MainStation mainstation2 A02 Warsaw Mokotow Ogrodowa 10B 20 20
+Scooter 202
+Scooter 203
+Bike 103
+Scooter 204
+Scooter 205
+ElectricScooter 306
+Scooter 206
+ElectricScooter 307
