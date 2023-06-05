@@ -91,6 +91,7 @@ Location Station::getStationLocation() {
 void Station::printVehiclesInStation() {
     for (auto i : currentVehicles){
         string type;
+        int targetLength = 25;
         if (i->id > 300) {
             type = "ElectricScooter";
         } else if (i->id > 200) {
@@ -99,6 +100,9 @@ void Station::printVehiclesInStation() {
             type = "Bike";
         } else {
             type = "Unknown";
+        }
+        if (type.length() < targetLength) {
+            type.resize(targetLength, ' ');
         }
         cout << "Type: " << type << "       ";
         cout << "ID: " << i->id << "     "  << "Status (reserved): ";
