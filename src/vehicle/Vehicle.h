@@ -2,6 +2,7 @@
 #define PROI_VETURILO_VEHICLE_H
 
 #include <stdexcept>
+#include <string>
 using namespace std;
 
 class Vehicle {
@@ -14,6 +15,7 @@ public:
     int numberOfRentals;
     int technicalCondition;
     bool ableToUse;
+    string type;
     Vehicle(int id, int numberOfRentals = 0, int technicalCondition = 5);
     void setRentedStatus(bool newStatus);
     void setReservedStatus(bool newStatus);

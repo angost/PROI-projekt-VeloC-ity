@@ -10,6 +10,7 @@ ElectricScooter::ElectricScooter(int id, int numberOfRentals, int technicalCondi
 	maxSpeed = 25;
 	this->batteryLevel = batteryLevel;
 	this->charged = charged;
+    type = "ElectricScooter";
 }
 
 void ElectricScooter::takeOff()

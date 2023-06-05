@@ -8,6 +8,7 @@ Bike::Bike(int id, int numberOfRentals, int technicalCondition) : Vehicle(id, nu
 	rentalPrice = 4;
 	maxSpeed = 20;
 	hasBasket = true;
+    type = "Bike";
 }
 
 void Bike::takeOff()
