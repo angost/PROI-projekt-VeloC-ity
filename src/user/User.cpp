@@ -85,6 +85,10 @@ bool User::checkReserveSpace() {
 	return false;
 }
 
+Location User::getLocation() {
+    return userLocation;
+}
+
 bool User::changeLocation(Location newLocation) {
     this->userLocation = newLocation;
     return true;

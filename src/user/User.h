@@ -41,6 +41,7 @@ public:
 	bool checkRentSpace();
 	bool checkReserveSpace();
     void increaseVehicleCounter();
+    Location getLocation();
     bool changeLocation(Location newLocation);
     virtual void accountStats() = 0;
     vector< Vehicle* > getRentedVehicles();
