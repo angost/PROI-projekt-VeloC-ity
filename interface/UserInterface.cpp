@@ -185,11 +185,8 @@ void UserInterface::mainInterface(){
                 continue;
             }
 
-        // Go to location - TODO add to velocity - podanie nazwy i nr ulicy
-        } else if (option == 13){
-
         // Go to station - TODO add to velocity - podanie stacji, ustawinie lokacji na lokacje stacji
-        } else if (option == 14){
+        } else if (option == 13){
             Station* chosenStation;
             try {
                 chosenStation = getStation();
@@ -200,17 +197,17 @@ void UserInterface::mainInterface(){
             success = user->changeLocation(chosenStation->getStationLocation());
 
         // Show account info
-        } else if (option == 15){
+        } else if (option == 14){
             user->accountStats();
             continue;
 
         // Show balance
-        } else if (option == 16){
+        } else if (option == 15){
             printBalance();
             continue;
 
         // Add credits
-        } else if (option == 17) {
+        } else if (option == 16) {
             float chosenAmount;
             try {
                 chosenAmount = getAmount();
@@ -221,7 +218,7 @@ void UserInterface::mainInterface(){
             success = addCredits(chosenAmount);
 
         // Add driving license
-        } else if (option == 18) {
+        } else if (option == 17) {
             string drivingLicence;
             try{
                 drivingLicence = getDrivingLicence();
@@ -232,7 +229,7 @@ void UserInterface::mainInterface(){
             success = addDrivingLicence(drivingLicence);
 
         // EXIT
-        } else if (option == 19) {
+        } else if (option == 18) {
             break;
 
         } else {
@@ -249,11 +246,11 @@ int UserInterface::getAction(){
     string action;
     cin.clear();
     cout << "       STATIONS                      RENTING                      LOCATIONS                     ACCOUNT" << endl;
-    cout << "1. Show all Stations            5. Rent Vehicle                11. Show current coords   15. Show account info " << endl;
-    cout << "2. Show nearest Station         6. Reserve Vehicle             12. Go to coords          16. Show balance " << endl;
-    cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to location        17. Add credits " << endl;
-    cout << "4. Show Vehicles on Station     8. Cancel Reservation          14. Go to station         18. Add driving license " << endl;
-    cout << "                                9. Show rented Vehicles                                  19. EXIT " << endl;
+    cout << "1. Show all Stations            5. Rent Vehicle                11. Show current coords   14. Show account info " << endl;
+    cout << "2. Show nearest Station         6. Reserve Vehicle             12. Go to coords          15. Show balance " << endl;
+    cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to station         15. Add credits " << endl;
+    cout << "4. Show Vehicles on Station     8. Cancel                                                17. Add driving license " << endl;
+    cout << "                                9. Show rented Vehicles                                  18. EXIT " << endl;
     cout << "                               10. Show reserved Vehicles                                         " << endl;
 
 //    cout << " 1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
@@ -348,8 +345,12 @@ void UserInterface::printSuccess(bool success){
 }
 
 void UserInterface::printAllStations(){
-    for (auto i : stations){
-        cout << i->code << " " << i->name << endl;
+    for (auto station : stations){
+        Location currentStationLocation = station->getStationLocation();
+        cout << station->code << " " << station->name << " - " <<currentStationLocation.city << " "
+        << currentStationLocation.district << " ul. " << currentStationLocation.street_name << " "
+        << currentStationLocation.street_number << " - (" << currentStationLocation.x_coord << ", "
+        << currentStationLocation.y_coord << ")" << endl;
     }
 }
 
