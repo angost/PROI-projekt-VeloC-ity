@@ -18,7 +18,7 @@ void UserInterface::mainInterface(){
     cout << endl << "Welcome " << user->username << "!" << endl;
     user->accountStats();
     while (true){
-        cout << endl << "-----------------------------------------------------" << endl;
+        cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
         option = 5;
@@ -35,8 +35,19 @@ void UserInterface::mainInterface(){
             printAllStations();
             continue;
 
-        // Show Vehicles in Station
+        // Show nearest Station
         } else if (option == 2){
+            //TODO jak uzyc metody ostream na wskazniku na klase abstrakcyjna? (nie dziala)
+            printNearestStation();
+            continue;
+
+        // Show Stations by distance
+        } else if (option == 3){
+            printDistanceToAllStations();
+            continue;
+
+        // Show Vehicles on Station
+        } else if (option == 4){
             Station* chosenStation;
             try {
                 chosenStation = getStation();
@@ -47,16 +58,8 @@ void UserInterface::mainInterface(){
             printVehiclesInStation(chosenStation);
             continue;
 
-        // Show nearest Station
-        } else if (option == 3){
-            Station* nearestStation = findNearestStation();
-            //TODO jak uzyc metody ostream na wskazniku na klase abstrakcyjna? (nie dziala)
-            cout << "Nearest station: " << nearestStation->name << " " << nearestStation->code << endl;
-            cout << "Distance: " << user->userLocation.getDistanceBetweenLocations(nearestStation->getStationLocation()) << endl;
-            continue;
-
         // Rent Vehicle
-        } else if (option == 4){
+        } else if (option == 5){
             Station* chosenStation;
             try {
                 chosenStation = getStation();
@@ -74,7 +77,7 @@ void UserInterface::mainInterface(){
             success = rentVehicle(chosenVehicle, chosenStation);
 
         // Reserve Vehicle
-        } else if (option == 5){
+        } else if (option == 6){
             Station* chosenStation;
             try {
                 chosenStation = getStation();
@@ -92,7 +95,7 @@ void UserInterface::mainInterface(){
             success = reserveVehicle(chosenVehicle, chosenStation);
 
         // Return Vehicle
-        } else if (option == 6){
+        } else if (option == 7){
             vector<Vehicle*> rentedVehicles = user->getRentedVehicles();
             if (rentedVehicles.size() == 0){
                 cout << "You don't have any rented vehicles" << endl;
@@ -118,7 +121,7 @@ void UserInterface::mainInterface(){
             success = returnVehicle(chosenVehicle, chosenStation);
 
         // Cancel Reservation
-        } else if (option == 7){
+        } else if (option == 8){
             vector<Vehicle*> reservedVehicles = user->getReservedVehicles();
             if (reservedVehicles.size() == 0){
                 cout << "You don't have any reserved vehicles" << endl;
@@ -144,46 +147,24 @@ void UserInterface::mainInterface(){
             success = cancelReservation(chosenVehicle, chosenStation);
 
         // Show rented Vehicles
-        } else if (option == 8){
-            printRentedVehicles();
-
-        // Show reserved Vehicles
         } else if (option == 9){
-            printReservedVehicles();
-
-        // Show balance
-        } else if (option == 10){
-            cout << "Balance: " << user->checkBalance() << endl;
-            cout << "Minimum required balance: " << user->checkMinBalance() << endl;
+            printRentedVehicles();
             continue;
 
-        // Add credits
-        } else if (option == 11) {
-            float chosenAmount;
-            try {
-                chosenAmount = getAmount();
-            } catch (invalid_argument &err) {
-                cout << err.what() << endl;
-                continue;
-            }
-            success = addCredits(chosenAmount);
+        // Show reserved Vehicles
+        } else if (option == 10){
+            printReservedVehicles();
+            continue;
 
-        // Show current coords
-        } else if (option == 12){
+        // Show current coords - TODO add to velocity
+        } else if (option == 11){
             Location currentLocation = user->getLocation();
             cout << "Current coords:" << endl;
             cout << "x: " << currentLocation.x_coord << " y: " << currentLocation.y_coord << endl;
             continue;
 
-        // Show all coords
-        } else if (option == 13) {
-            for (auto loc : locations){
-                cout << "x: " << loc.x_coord << " y: " << loc.y_coord << endl;
-            }
-            continue;
-
-        // Go to coords
-        } else if (option == 14) {
+        // Go to coords - TODO add to velocity - podanie x,y, nie dla kazdego x,y jest stacja
+        } else if (option == 12) {
             int chosen_x, chosen_y;
             try{
                 chosen_x = getCoord("x");
@@ -204,8 +185,11 @@ void UserInterface::mainInterface(){
                 continue;
             }
 
-        // Go to station
-        } else if (option == 15){
+        // Go to location - TODO add to velocity - podanie nazwy i nr ulicy
+        } else if (option == 13){
+
+        // Go to station - TODO add to velocity - podanie stacji, ustawinie lokacji na lokacje stacji
+        } else if (option == 14){
             Station* chosenStation;
             try {
                 chosenStation = getStation();
@@ -215,8 +199,29 @@ void UserInterface::mainInterface(){
             }
             success = user->changeLocation(chosenStation->getStationLocation());
 
+        // Show account info
+        } else if (option == 15){
+            user->accountStats();
+            continue;
+
+        // Show balance
+        } else if (option == 16){
+            printBalance();
+            continue;
+
+        // Add credits
+        } else if (option == 17) {
+            float chosenAmount;
+            try {
+                chosenAmount = getAmount();
+            } catch (invalid_argument &err) {
+                cout << err.what() << endl;
+                continue;
+            }
+            success = addCredits(chosenAmount);
+
         // Add driving license
-        } else if (option == 16) {
+        } else if (option == 18) {
             string drivingLicence;
             try{
                 drivingLicence = getDrivingLicence();
@@ -226,8 +231,8 @@ void UserInterface::mainInterface(){
             }
             success = addDrivingLicence(drivingLicence);
 
-        // Exit
-        } else if (option == 17) {
+        // EXIT
+        } else if (option == 19) {
             break;
 
         } else {
@@ -243,12 +248,20 @@ void UserInterface::mainInterface(){
 int UserInterface::getAction(){
     string action;
     cin.clear();
-    cout << " 1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
-    cout << " 4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
-    cout << " 7. Cancel Reservation     8. Show rented Vehicles            9. Show reserved Vehicles" << endl;
-    cout << "10. Show balance          11. Add credits                    12. Show current coords" << endl;
-    cout << "13. Show all coords       14. Go to coords                   15. Go to station" << endl;
-    cout << "16. Add driving license   17. Exit" << endl << endl;
+    cout << "       STATIONS                      RENTING                      LOCATIONS                     ACCOUNT" << endl;
+    cout << "1. Show all Stations            5. Rent Vehicle                11. Show current coords   15. Show account info " << endl;
+    cout << "2. Show nearest Station         6. Reserve Vehicle             12. Go to coords          16. Show balance " << endl;
+    cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to location        17. Add credits " << endl;
+    cout << "4. Show Vehicles on Station     8. Cancel Reservation          14. Go to station         18. Add driving license " << endl;
+    cout << "                                9. Show rented Vehicles                                  19. EXIT " << endl;
+    cout << "                               10. Show reserved Vehicles                                         " << endl;
+
+//    cout << " 1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
+//    cout << " 4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
+//    cout << " 7. Cancel Reservation     8. Show rented Vehicles            9. Show reserved Vehicles" << endl;
+//    cout << "10. Show balance          11. Add credits                    12. Show current coords" << endl;
+//    cout << "13. Show all coords       14. Go to coords                   15. Go to station" << endl;
+//    cout << "16. Add driving license   17. Exit" << endl << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
@@ -410,14 +423,16 @@ bool UserInterface::cancelReservation(Vehicle* vehicle, Station* station){
     return this->velocity.cancelReservation(vehicle, station);
 }
 
-Station* UserInterface::findNearestStation(){
-    return this->velocity.findNearestStation();
+void UserInterface::printNearestStation(){
+    Station* nearestStation = this->velocity.findNearestStation();
+    cout << "Nearest station: " << nearestStation->name << " " << nearestStation->code << endl;
+    cout << "Distance: " << user->userLocation.getDistanceBetweenLocations(nearestStation->getStationLocation()) << endl;
 }
 
  void UserInterface::printDistanceToAllStations(){
     map < int, vector < Station* > > distances = this->velocity.calculateDistanceToAllStations();
     for (auto pair : distances) {
-        cout << "Distance: " << pair.first << "Stations: " << endl;
+        cout << "Distance: " << pair.first << endl << "Stations: " << endl;
         for (auto station : pair.second) {
             cout << "- " << station->name << " " << station->code << endl;
         }
