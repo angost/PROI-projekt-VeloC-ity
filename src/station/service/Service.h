@@ -22,14 +22,15 @@ class Service {
     static bool changeStationLocation(Station* station, Location newLocation);
     static bool addVehicle(Station* station, Vehicle* vehicle);
     static bool removeVehicle(Station* station, Vehicle* vehicle);
-    vector< Station* >::iterator begin();
-    vector< Station* >::iterator end();
     friend class ServiceInterface;
     friend class AdminService;
+    friend class AdminInterface;
 public:
     Service();
     Service(string id, vector < Station* > stations);
     string identifier;
+    vector< Station* >::iterator begin();
+    vector< Station* >::iterator end();
 };
 
 
