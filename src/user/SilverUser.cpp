@@ -8,7 +8,9 @@ SilverUser::SilverUser(string username, Location loc, int maxResVehicles, int ma
 
 void SilverUser::accountStats() {
     cout << "Your account type: " << this->type << endl;
-    cout << "Vehicles rented: " << this->vehicleCounter << endl;
+    cout << "Total Vehicles rented: " << this->vehicleCounter << endl;
     cout << "Your Balance: " << this->balance << endl;
     cout << "You have premium access!" << endl;
+    cout << "Limit of rented Vehicles: " << this->maxRentedVehicles << endl;
+    cout << "Limit of reserved Vehicles: " << this->maxResVehicles << endl;
 }
