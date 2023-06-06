@@ -120,7 +120,7 @@ Station* Velocity::findNearestStation() {
     auto nearest = stations[0];
     for (auto i: stations) {
         int new_distance = user->userLocation.getDistanceBetweenLocations(i->getStationLocation());
-        if (new_distance > distance) {
+        if (new_distance < distance) {
             distance = new_distance;
             nearest = i;
         }
