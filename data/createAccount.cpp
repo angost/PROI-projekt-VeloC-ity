@@ -8,7 +8,7 @@ const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 
 int createAccount(){
     string username, password, type;
-    cout << "Creating new abbount" << endl;
+    cout << "Creating new account" << endl;
     cout << "Enter username >> ";
     cin >> username;
     cout << "Enter password >> ";
@@ -25,5 +25,6 @@ int createAccount(){
     ofstream file2(CREDENTIAL_FILE_NAME, ios::app);
     file2 << username+' ' << password << '\n';
     file2.close();
+    cout << "Account created succesfully!";
     return 0;
 }
