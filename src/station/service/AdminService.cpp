@@ -44,12 +44,21 @@ void AdminService::displayStationAssignment() {
 
 void AdminService::displayStationInfo(Station* station){
     string stationType = station->type;
-    int targetLength = 20;
+    string stationName = station->name;
+    int targetLength = 15;
     if (stationType.length() < targetLength) {
         stationType.resize(targetLength, ' ');
     }
-    cout << "Type: " << stationType << "    Code: " << station->code << "     Name: " << station->name
-         << "    Vehicles: " << station->currentVehicles.size() << " / " << station->maxVehiclesNumber << endl;
+    if (stationName.length() < targetLength) {
+        stationName.resize(targetLength, ' ');
+    }
+    Location currentStationLocation = station->getStationLocation();
+    cout << "Type: " << stationType << "   Code: " << station->code << "    Name: " << stationName
+         << "   Vehicles: " << station->currentVehicles.size() << " / " << station->maxVehiclesNumber <<
+         "      Address: " << currentStationLocation.city << " "
+         << currentStationLocation.district << " ul. " << currentStationLocation.street_name << " "
+         << currentStationLocation.street_number << " - (" << currentStationLocation.x_coord << ", "
+         << currentStationLocation.y_coord << ")" << endl;
 }
 
 bool AdminService::removeExistingStation(Station *station) {

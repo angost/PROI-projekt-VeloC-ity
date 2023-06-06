@@ -13,15 +13,17 @@ AdminInterface::AdminInterface(AdminService admin){
 
 
 void AdminInterface::mainInterface() {
+    cout << "               -> Hello Admin " << endl;
+    cout << "               -> What are your orders? " << endl;
     while (true){
-        cout << "-----------------------------------------------------" << endl;
+        cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
         try {
             option = getAction();
         }
-        catch (invalid_argument) {
-            cout << "Wrong number..." << endl;
+        catch (invalid_argument &err) {
+            cout << "ERROR: " <<err.what() << endl;
             continue;
         }
         if (option == 1) {
@@ -32,8 +34,8 @@ void AdminInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             ServiceInterface::printVehiclesInStation(station);
@@ -46,8 +48,8 @@ void AdminInterface::mainInterface() {
                 Station* newStation = getNewStation();
                 success = addNewStation(newStation);
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
         } else if (option == 5) {
@@ -55,8 +57,8 @@ void AdminInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = removeExistingStation(station);
@@ -68,16 +70,16 @@ void AdminInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             try {
                 Service& serviceCrew = getServiceCrew();
                 success = assignStation(station, serviceCrew);
             }
-            catch (invalid_argument) {
-                cout << "Wrong identifier..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
         } else if (option == 7) {
@@ -95,9 +97,11 @@ void AdminInterface::mainInterface() {
 int AdminInterface::getAction() {
     string action;
     cin.clear();
-    cout << "1. Print all Stations      2. Print Vehicles in Station        3. Print station assignment" << endl;
-    cout << "4. Add new Station         5. Remove current station           6. Assign Station" << endl;
-    cout << "7. Exit" << endl;
+    cout << "                     DISPLAY                       |                   STATION      " << endl;
+    cout << "          1. Print all Stations                    |           4. Add new Station  " << endl;
+    cout << "          2. Print Vehicles in Station             |           5. Remove current station " << endl;
+    cout << "          3. Print Station assignment              |           6. Assign Station                " << endl;
+    cout << "                                                   |           7. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;

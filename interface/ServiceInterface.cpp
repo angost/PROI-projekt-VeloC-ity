@@ -10,15 +10,17 @@ ServiceInterface::ServiceInterface(Service service) {
 
 
 void ServiceInterface::mainInterface() {
+    cout << "               -> Hello Team " << serviceClass.identifier << endl;
+    cout << "               -> What can I do for you today?" << endl;
     while (true){
-        cout << "-----------------------------------------------------" << endl;
+        cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
         try {
             option = getAction();
         }
-        catch (invalid_argument) {
-            cout << "Wrong number..." << endl;
+        catch (invalid_argument &err) {
+            cout << "ERROR: " <<err.what() << endl;
             continue;
         }
         if (option == 1) {
@@ -29,13 +31,26 @@ void ServiceInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             printVehiclesInStation(station);
             continue;
         } else if (option == 3) {
+            Station* station;
+            Vehicle* vehicle;
+            try {
+                station = getStation();
+                vehicle = getVehicle(station);
+            }
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
+            printVehicleDetails(vehicle);
+            continue;
+        } else if (option == 4) {
             int newLimitInt;
             Station* station;
             try {
@@ -46,12 +61,36 @@ void ServiceInterface::mainInterface() {
                 newLimitInt = stoi(newLimit);
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = changeStationLimit(newLimitInt, station);
-        } else if (option == 4) {
+        } else if (option == 5) {
+            Station* station;
+            Location location;
+            try {
+                station = getStation();
+                location = getLocation();
+            }
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
+            success = changeStationLocation(station, location);
+        } else if (option == 6) {
+            cout << "Insert station code and id of vehicle you want to repair..." << endl;
+            Vehicle* vehicle;
+            try {
+                Station* station = getStation();
+                vehicle = getVehicle(station);
+            }
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
+            success = repairVehicle(vehicle);
+        } else if (option == 7){
             cout << "First insert source station code, then vehicle id and finally destination station code" << endl;
             Station* fromStation;
             Vehicle* vehicle;
@@ -62,60 +101,36 @@ void ServiceInterface::mainInterface() {
                 toStation = getStation();
 
             }
-            catch (invalid_argument){
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = moveVehicle(vehicle, fromStation, toStation);
-        } else if (option == 5) {
-            cout << "Insert station code and id of vehicle you want to repair..." << endl;
-            Vehicle* vehicle;
-            try {
-                Station* station = getStation();
-                vehicle = getVehicle(station);
-            }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
-                continue;
-            }
-            success = repairVehicle(vehicle);
-        } else if (option == 6){
-            Station* station;
-            Location location;
-            try {
-                station = getStation();
-                location = getLocation();
-            }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
-                continue;
-            }
-            success = changeStationLocation(station, location);
-        } else if (option == 7) {
+        } else if (option == 8) {
             Station* station;
             Vehicle* vehicle;
             try {
                 station = getStation();
                 vehicle = getNewVehicle();
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = addVehicle(station, vehicle);
-        } else if (option == 8) {
+        } else if (option == 9) {
             Station* station;
             Vehicle* vehicle;
             try {
                 station = getStation();
                 vehicle = getVehicle(station);
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = removeVehicle(station, vehicle);
-        } else if (option == 9) {
+        } else if (option == 10) {
             break;
         } else {
             cout << "Wrong option..." << endl;
@@ -129,9 +144,12 @@ void ServiceInterface::mainInterface() {
 int ServiceInterface::getAction() {
     string action;
     cin.clear();
-    cout << "1. Print Stations      2. Print Vehicles in Station        3. Change station limit" << endl;
-    cout << "4. Move vehicle        5. Repair Vehicle                   6. Change station location" << endl;
-    cout << "7. Add new vehicle     8. Remove vehicle                   9. Exit" << endl;
+    cout << "          DISPLAY                      |               STATION                 |           VEHICLE          " << endl;
+    cout << "  1. Print Stations                    |       4. Change station limit         |     6. Repair Vehicle     " << endl;
+    cout << "  2. Print Vehicles in Station         |       5. Change station location      |     7. Move Vehicle   " << endl;
+    cout << "  3. Print Vehicle details             |                                       |     8. Add new Vehicle  " << endl;
+    cout << "                                       |                                       |     9. Remove Vehicle" << endl;
+    cout << "                                       |                                       |     10. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
@@ -148,6 +166,14 @@ void ServiceInterface::printSupportedStations() {
 void ServiceInterface::printVehiclesInStation(Station *station) {
     cout << "Vehicles in given station: " << endl;
     Service::printVehiclesInStation(station);
+}
+
+void ServiceInterface::printVehicleDetails(Vehicle* vehicle){
+    cout << "ID:                    " << vehicle->id << endl;
+    cout << "Rental price:          " << vehicle->rentalPrice << endl;
+    cout << "Max speed:             " << vehicle->maxSpeed << endl;
+    cout << "Number of rentals:     " << vehicle->numberOfRentals << endl;
+    cout << "Technical condition:   " << vehicle->technicalCondition << endl;
 }
 
 bool ServiceInterface::changeStationLimit(int newLimit, Station* station) {
