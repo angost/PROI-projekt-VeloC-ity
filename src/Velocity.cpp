@@ -41,6 +41,9 @@ bool Velocity::rentVehicle(Vehicle *vehicle, Station *station) {
     if (!station->checkIfVehicleInStation(vehicle)){
         return false;
     }
+    if (user->getLocation().getDistanceBetweenLocations(station->getStationLocation()) > 0){
+        return false;
+    }
     vehicle->setRentedStatus(true);
     vehicle->setReservedStatus(false);
     vehicle->increaseNumberOfRentals();
@@ -90,6 +93,9 @@ bool Velocity::returnVehicle(Vehicle *vehicle, Station *station) {
         return false;
     }
     if (!user->checkRented(vehicle)){
+        return false;
+    }
+    if (user->getLocation().getDistanceBetweenLocations(station->getStationLocation()) > 0){
         return false;
     }
     if (!station->checkIfSpaceAvailable()){
