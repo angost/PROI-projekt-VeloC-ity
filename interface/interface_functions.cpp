@@ -65,7 +65,6 @@ vector<UserStats> getUserStats(const string &userStatFilename){
     ifstream file(userStatFilename);
 
     string line;
-    getline(file, line);
     while (getline(file, line)) {
         vector<string> parts = splitString(line);
         string username = parts[0], uClass = parts[1], license = parts[4];
@@ -89,4 +88,10 @@ void initPreviousSession(UserStats &stats, User* user){
     user->drivingLicense = stats.drivingLicense;
     user->balance = stats.balance;
     user->vehicleCounter = stats.vehicleCounter;
+}
+
+void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations){
+    initPreviousSession(stats, user);
+    UserInterface userIface(stations, locations, user);
+    userIface.mainInterface();
 }

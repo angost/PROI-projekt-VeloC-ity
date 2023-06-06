@@ -1,3 +1,2 @@
-username userClass vehicleCounter balance drivingLicense
-test_username Standard 0 0 0.0 None
+test_username Standard 0 0.0 None
 admin Golden 7 30.4 None
