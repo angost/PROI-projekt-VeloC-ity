@@ -30,6 +30,7 @@
 #include "interface/interface_functions.h"
 #include "interface/UserInterface.h"
 #include "interface/ServiceInterface.h"
+#include "interface/AdminInterface.h"
 
 #include "src/InputParser.h"
 #include "data/DataParser.h"
@@ -60,8 +61,9 @@ int main(int argc, char **argv) {
     DataParser data(filenames, locations);
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
-    AdminService admin("X01", serviceCrews);
+    AdminService admin("X01", serviceCrews, stations);
     Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
+
 
     Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
     bool correctUserData = false;
@@ -109,6 +111,9 @@ int main(int argc, char **argv) {
             return 1;
         }
         ServiceInterface iface(serviceTeam);
+        iface.mainInterface();
+    } else if (in.cmdOptionExists("-a") && argc == 3) {
+        AdminInterface iface(admin);
         iface.mainInterface();
     } else if (argc == 3 || correctUserData) {
         // logged user interface
