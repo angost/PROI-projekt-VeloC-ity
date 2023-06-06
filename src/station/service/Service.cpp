@@ -47,7 +47,13 @@ bool Service::repairVehicle(Vehicle* vehicle){
 
 void Service::printSupportedStations() {
     for (auto i : supportedStations){
-        cout << "Code: " << i->code << "     Name: " << i->name << endl;
+        string stationType = i->type;
+        int targetLength = 20;
+        if (stationType.length() < targetLength) {
+            stationType.resize(targetLength, ' ');
+        }
+        cout << "Type: " << stationType << "    Code: " << i->code << "     Name: " << i->name
+        << "    Vehicles: " << i->currentVehicles.size() << " / " << i->maxVehiclesNumber << endl;
     }
 }
 

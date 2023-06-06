@@ -79,3 +79,17 @@ vector<Service> DataParser::assignStationsToServiceCrews(const string& serviceCr
     }
     return serviceCrews;
 }
+
+
+Location DataParser::getUserLocation(const string& filename){
+    std::ifstream file(filename);
+    string line;
+    string city, district, streetName, streetNumber;
+    int x, y;
+    if (file.is_open()) {
+        getline(file, line);
+        std::istringstream iss(line);
+        iss >> city >> district >> streetName >> streetNumber >> x >> y;
+        return {city, district, streetName, streetNumber, x, y};
+    }
+}

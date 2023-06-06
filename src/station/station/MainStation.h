@@ -11,7 +11,6 @@
 
 class MainStation : public Station {
 public:
-    string type;
     bool wheelPump;
     bool repairStation;
     MainStation();

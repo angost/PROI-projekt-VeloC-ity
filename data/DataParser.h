@@ -31,6 +31,7 @@ public:
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
     static vector < Service > assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station*> stations);
+    Location getUserLocation(const string& filename);
 };
 
 

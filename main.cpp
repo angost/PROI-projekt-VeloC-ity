@@ -40,6 +40,7 @@ using namespace std;
 const string STATIONS_DATA_PATH = "../data/stationsData";
 const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
+const string USER_LOCATION_FILE_NAME = "../data/userLocation.txt";
 const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt"};
 
 int main(int argc, char **argv) {
@@ -52,10 +53,13 @@ int main(int argc, char **argv) {
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
     AdminService admin("X01", serviceCrews);
+    Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
     // LOCATIONS DATA
     vector<Location> locations;
     setupMap(locations);
+
+    Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
 
     // ACTUAL MAIN
 
@@ -91,7 +95,7 @@ int main(int argc, char **argv) {
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials" << endl;
         } else {
-            StandardUser user1("test_username", locations[0]);
+            StandardUser user1("test_username", userLocation);
             UserInterface userIface(stations, locations, &user1);
             userIface.mainInterface();
         }
