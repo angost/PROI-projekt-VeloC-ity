@@ -102,9 +102,26 @@ int main(int argc, char **argv) {
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials" << endl;
         } else {
-            StandardUser user1("test_username", userLocation);
-            UserInterface userIface(stations, locations, &user1);
-            userIface.mainInterface();
+            int userIndex = findUser(userStats, username);
+            if (userStats[userIndex].userClass == "Standard"){
+                StandardUser user(username, userLocation);
+                initPreviousSession(userStats[userIndex], &user);
+                UserInterface userIface(stations, locations, &user);
+                userIface.mainInterface();
+            }
+            else if (userStats[userIndex].userClass == "Silver"){
+                SilverUser user(username, userLocation);
+                initPreviousSession(userStats[userIndex], &user);
+                UserInterface userIface(stations, locations, &user);
+                userIface.mainInterface();
+            }
+            else {
+                GoldenUser user(username, userLocation);
+                initPreviousSession(userStats[userIndex], &user);
+                UserInterface userIface(stations, locations, &user);
+                userIface.mainInterface();
+            }
+
         }
     } else {
         cout << "Incorrect init value" << endl;
