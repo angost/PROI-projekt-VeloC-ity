@@ -20,8 +20,8 @@ void AdminInterface::mainInterface() {
         try {
             option = getAction();
         }
-        catch (invalid_argument) {
-            cout << "Wrong number..." << endl;
+        catch (invalid_argument &err) {
+            cout << "ERROR: " <<err.what() << endl;
             continue;
         }
         if (option == 1) {
@@ -32,8 +32,8 @@ void AdminInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             ServiceInterface::printVehiclesInStation(station);
@@ -46,8 +46,8 @@ void AdminInterface::mainInterface() {
                 Station* newStation = getNewStation();
                 success = addNewStation(newStation);
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
         } else if (option == 5) {
@@ -55,8 +55,8 @@ void AdminInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = removeExistingStation(station);
@@ -68,16 +68,16 @@ void AdminInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             try {
                 Service& serviceCrew = getServiceCrew();
                 success = assignStation(station, serviceCrew);
             }
-            catch (invalid_argument) {
-                cout << "Wrong identifier..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
         } else if (option == 7) {

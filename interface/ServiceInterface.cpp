@@ -19,8 +19,8 @@ void ServiceInterface::mainInterface() {
         try {
             option = getAction();
         }
-        catch (invalid_argument) {
-            cout << "Wrong number..." << endl;
+        catch (invalid_argument &err) {
+            cout << "ERROR: " <<err.what() << endl;
             continue;
         }
         if (option == 1) {
@@ -31,8 +31,8 @@ void ServiceInterface::mainInterface() {
             try {
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             printVehiclesInStation(station);
@@ -44,8 +44,8 @@ void ServiceInterface::mainInterface() {
                 station = getStation();
                 vehicle = getVehicle(station);
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             printVehicleDetails(vehicle);
@@ -61,8 +61,8 @@ void ServiceInterface::mainInterface() {
                 newLimitInt = stoi(newLimit);
                 station = getStation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong code..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = changeStationLimit(newLimitInt, station);
@@ -73,8 +73,8 @@ void ServiceInterface::mainInterface() {
                 station = getStation();
                 location = getLocation();
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = changeStationLocation(station, location);
@@ -85,8 +85,8 @@ void ServiceInterface::mainInterface() {
                 Station* station = getStation();
                 vehicle = getVehicle(station);
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = repairVehicle(vehicle);
@@ -101,8 +101,8 @@ void ServiceInterface::mainInterface() {
                 toStation = getStation();
 
             }
-            catch (invalid_argument){
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = moveVehicle(vehicle, fromStation, toStation);
@@ -113,8 +113,8 @@ void ServiceInterface::mainInterface() {
                 station = getStation();
                 vehicle = getNewVehicle();
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = addVehicle(station, vehicle);
@@ -125,8 +125,8 @@ void ServiceInterface::mainInterface() {
                 station = getStation();
                 vehicle = getVehicle(station);
             }
-            catch (invalid_argument) {
-                cout << "Wrong data..." << endl;
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
             success = removeVehicle(station, vehicle);
