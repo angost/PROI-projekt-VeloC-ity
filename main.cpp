@@ -42,7 +42,7 @@ const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
 const string USER_STATS_FILE_NAME = "../data/userstats.txt";
 const string USER_LOCATION_FILE_NAME = "../data/userLocation.txt";
-const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt"};
+const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt", "/station6.txt", "/station7.txt", "/station8.txt", "/station9.txt", "/station10.txt", "/station11.txt", "/station12.txt", "/station13.txt", "/station14.txt", "/station15.txt", "/station16.txt", "/station17.txt", "/station18.txt", "/station19.txt", "/station20.txt", "/station21.txt", "/station22.txt", "/station23.txt", "/station24.txt", "/station25.txt", "/station26.txt", "/station27.txt", "/station28.txt", "/station29.txt", "/station30.txt"};
 
 int main(int argc, char **argv) {
     // LOCATIONS DATA
