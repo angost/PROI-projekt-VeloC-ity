@@ -13,8 +13,10 @@ AdminInterface::AdminInterface(AdminService admin){
 
 
 void AdminInterface::mainInterface() {
+    cout << "               -> Hello Admin " << endl;
+    cout << "               -> What are your orders? " << endl;
     while (true){
-        cout << "-----------------------------------------------------" << endl;
+        cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
         try {
@@ -95,9 +97,11 @@ void AdminInterface::mainInterface() {
 int AdminInterface::getAction() {
     string action;
     cin.clear();
-    cout << "1. Print all Stations      2. Print Vehicles in Station        3. Print station assignment" << endl;
-    cout << "4. Add new Station         5. Remove current station           6. Assign Station" << endl;
-    cout << "7. Exit" << endl;
+    cout << "                     DISPLAY                       |                   STATION      " << endl;
+    cout << "          1. Print all Stations                    |           4. Add new Station  " << endl;
+    cout << "          2. Print Vehicles in Station             |           5. Remove current station " << endl;
+    cout << "          3. Print Station assignment              |           6. Assign Station                " << endl;
+    cout << "                                                   |           7. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
