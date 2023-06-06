@@ -1,9 +1,26 @@
-MainStation mainStation2 A02 20 20
-Scooter 202
-Scooter 203
+MainStation mainStation2 A2 45 19
+Bike 128
+Bike 140
+ElectricScooter 320
+Bike 104
+ElectricScooter 316
+Scooter 282
+ElectricScooter 303
+Scooter 234
+Bike 123
+ElectricScooter 323
+ElectricScooter 330
+ElectricScooter 318
+Scooter 257
+Scooter 235
+Scooter 222
+ElectricScooter 346
+Bike 164
+Scooter 212
+Scooter 220
+Bike 165
+ElectricScooter 328
+ElectricScooter 334
+Bike 118
 Bike 103
-Scooter 204
-Scooter 205
-ElectricScooter 306
-Scooter 206
-ElectricScooter 307
+ElectricScooter 358

@@ -1,0 +1,6 @@
+SubStation subStation6 B6 15 12
+ElectricScooter 302
+Bike 148
+ElectricScooter 311
+Bike 133
+Bike 131

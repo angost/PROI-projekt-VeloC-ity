@@ -1,0 +1,16 @@
+SubStation subStation5 B5 16 18
+Scooter 265
+Scooter 204
+Scooter 206
+Bike 155
+Scooter 209
+Scooter 273
+ElectricScooter 357
+ElectricScooter 338
+Scooter 258
+Scooter 261
+Bike 156
+ElectricScooter 324
+Bike 108
+Scooter 223
+Scooter 284

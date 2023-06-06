@@ -1,9 +1,16 @@
-SubStation subStation2 B02 20 40
-Bike 109
-Bike 110
-Bike 111
-Scooter 209
-Scooter 210
-Scooter 211
-Scooter 212
+SubStation subStation2 B2 3 39
+ElectricScooter 356
+Bike 154
+Scooter 244
+Bike 172
+Bike 142
+Bike 171
+ElectricScooter 300
+Scooter 201
 ElectricScooter 309
+Bike 168
+Bike 120
+Bike 160
+Scooter 240
+Bike 143
+Scooter 226

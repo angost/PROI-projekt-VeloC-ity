@@ -1,0 +1,6 @@
+LocalStation localStation10 C10 19 13
+Scooter 203
+Bike 125
+Scooter 262
+Bike 150
+Bike 102

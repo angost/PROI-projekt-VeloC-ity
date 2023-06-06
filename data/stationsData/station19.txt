@@ -1,0 +1,6 @@
+LocalStation localStation12 C12 17 2
+ElectricScooter 343
+ElectricScooter 315
+ElectricScooter 304
+Scooter 214
+Scooter 238

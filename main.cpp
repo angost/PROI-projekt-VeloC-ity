@@ -60,8 +60,6 @@ int main(int argc, char **argv) {
     AdminService admin("X01", serviceCrews);
     Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
-
-
     Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
 
     // ACTUAL MAIN

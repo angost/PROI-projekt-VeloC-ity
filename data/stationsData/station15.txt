@@ -1,0 +1,6 @@
+LocalStation localStation8 C8 3 47
+Scooter 260
+Scooter 252
+ElectricScooter 349
+Scooter 230
+Scooter 277
