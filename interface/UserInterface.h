@@ -17,8 +17,9 @@ class UserInterface {
 public:
     User* user;
     vector<Station*> stations;
+    vector<Location> locations;
     Velocity velocity;
-    UserInterface(vector<Station*> stations, User* user);
+    UserInterface(vector<Station*> stations, vector<Location> locations, User* user);
 
     void mainInterface();
     int getAction();
@@ -26,6 +27,7 @@ public:
     Vehicle* getVehicle(Station* station);
     Vehicle* getVehicle(vector<Vehicle*>* vehicles);
     float getAmount();
+    int getCoord(string coord_type);
     string getDrivingLicence();
 
     void printSuccess(bool success);
