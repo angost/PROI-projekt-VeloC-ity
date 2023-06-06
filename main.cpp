@@ -83,10 +83,11 @@ int main(int argc, char **argv) {
                 cout << "Incorrect credentials..." << endl;
                 if (logCounter == 2){
                     loginRunning = false;
-                    cout << "Do you want to create account? (y/n)";
+                    cout << "Do you want to create account? (y/n) >> ";
                     cin >> newAccount;
                     if (newAccount == 'y'){
                         createAccount();
+                        return 0;
                     }
                 }
                 logCounter++;
@@ -136,7 +137,10 @@ int main(int argc, char **argv) {
             }
 
         }
+    } else {
+        cout << "Incorrect init value" << endl;
     }
+
 
     // PREVENTING MEMORY LEAK
     for (auto station : stations) {
