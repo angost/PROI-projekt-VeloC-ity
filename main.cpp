@@ -34,6 +34,7 @@
 #include "src/InputParser.h"
 #include "data/DataParser.h"
 #include "data/setup_functions.h"
+#include "data/SaveProgress.h"
 
 using namespace std;
 
@@ -106,14 +107,17 @@ int main(int argc, char **argv) {
             if (userStats[userIndex].userClass == "Standard"){
                 StandardUser user(username, userLocation);
                 startSession(userStats[userIndex], &user, stations, locations);
+                saveSessionProgress(&user, userIndex, userStats);
             }
             else if (userStats[userIndex].userClass == "Silver"){
                 SilverUser user(username, userLocation);
                 startSession(userStats[userIndex], &user, stations, locations);
+                saveSessionProgress(&user, userIndex, userStats);
             }
             else {
                 GoldenUser user(username, userLocation);
                 startSession(userStats[userIndex], &user, stations, locations);
+                saveSessionProgress(&user, userIndex, userStats);
             }
 
         }
@@ -128,6 +132,5 @@ int main(int argc, char **argv) {
         }
         delete station;
     }
-
     return 0;
 }
