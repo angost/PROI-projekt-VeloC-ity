@@ -26,8 +26,10 @@ using namespace std;
 
 class DataParser {
     vector < string > stationFilenames;
+    vector <Location> existingLocations;
 public:
-    explicit DataParser(vector < string > stationFilenames);
+    explicit DataParser(vector < string > stationFilenames, vector <Location> existingLocations);
+    Location getLocation(int x, int y);
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
     static vector < Service > assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station*> stations);

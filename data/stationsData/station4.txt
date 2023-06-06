@@ -1,9 +1,16 @@
-SubStation subStation2 B02 Warsaw Mokotow Ogrodowa 30C 20 40
-Bike 109
-Bike 110
-Bike 111
-Scooter 209
-Scooter 210
+SubStation subStation2 B2 12 40
+Scooter 277
+Scooter 250
+Bike 160
+Scooter 242
+Bike 141
+ElectricScooter 315
 Scooter 211
+Bike 169
+Scooter 200
+ElectricScooter 339
+ElectricScooter 353
 Scooter 212
-ElectricScooter 309
+Scooter 262
+ElectricScooter 347
+ElectricScooter 310

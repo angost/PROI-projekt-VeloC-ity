@@ -1,4 +1,16 @@
-LocalStation localStation C01 Warsaw Mokotow Ogrodowa 40C 20 50
-Bike 112
-Bike 113
-Bike 114
+SubStation subStation3 B3 38 9
+Scooter 215
+Scooter 228
+Bike 142
+Bike 144
+Bike 176
+Scooter 232
+Bike 133
+ElectricScooter 323
+Scooter 270
+Scooter 259
+Scooter 272
+Scooter 213
+Bike 138
+ElectricScooter 317
+Scooter 280

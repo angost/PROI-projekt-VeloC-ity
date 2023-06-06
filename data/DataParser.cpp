@@ -4,17 +4,33 @@
 
 #include "DataParser.h"
 using namespace std;
+//TODO przekazac do dataparsera locations i potem sprawdzac czy podane wspolrzedne istnieja, w pliku nie podawac nazw ulic tylko koordynaty (?)
 
-DataParser::DataParser(vector<string> stationFilenames) {
+DataParser::DataParser(vector<string> stationFilenames, vector <Location> existingLocations) {
     this->stationFilenames = std::move(stationFilenames);
+    this->existingLocations = existingLocations;
 }
 
+Location DataParser::getLocation(int x, int y){
+    for (auto loc : existingLocations) {
+        if (loc.x_coord == x && loc.y_coord == y){
+            return loc;
+        }
+    }
+    throw invalid_argument("Invalid coordinates");
+}
 
 vector<Station *> DataParser::getAllStations() {
     vector < Station* > stations;
     for (const auto& filename : stationFilenames) {
-        Station* station = getStation(filename);
-        stations.push_back(station);
+        try {
+            Station* station = getStation(filename);
+            stations.push_back(station);
+        } catch (invalid_argument& err) {
+            cout << err.what() << endl;
+            continue;
+        }
+
     }
     return stations;
 }
@@ -26,26 +42,39 @@ Station* DataParser::getStation(const string& filename) {
     string vehicleType;
 
     if (file.is_open()) {
-        string type;
+        string type, not_important, x_given, y_given;
+        Location recognisedLocation;
+
         getline(file, line);
         std::istringstream iss(line);
-        iss >> type;
+        iss >> type >> not_important >> not_important >> x_given >> y_given;
         file.close();
+
+        try{
+            recognisedLocation = getLocation(stoi(x_given), stoi(y_given));
+        } catch (invalid_argument& err) {
+            cout << err.what() << endl;
+            throw invalid_argument("Couldn't create station");
+        }
+
         std::ifstream sameFile(filename);
         if (type == "MainStation") {
             auto* mainStation = new MainStation;
             sameFile >> *mainStation;
             file.close();
+            mainStation->changeLocation(recognisedLocation);
             return mainStation;
         } else if (type == "SubStation") {
             auto* subStation = new SubStation;
             sameFile >> *subStation;
             file.close();
+            subStation->changeLocation(recognisedLocation);
             return subStation;
         } else if (type == "LocalStation") {
             auto* localStation = new LocalStation;
             sameFile >> *localStation;
             file.close();
+            localStation->changeLocation(recognisedLocation);
             return localStation;
         } else {
             file.close();

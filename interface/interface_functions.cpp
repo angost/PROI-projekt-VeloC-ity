@@ -23,7 +23,6 @@ bool checkCredentials(const map <string, string >& credentials, const string& us
     return false;
 }
 
-
 map < string, string > getAllCredentials(const string& credentialFilename){
     map < string, string > credentials;
     ifstream file(credentialFilename);
@@ -39,7 +38,6 @@ map < string, string > getAllCredentials(const string& credentialFilename){
     return credentials;
 }
 
-
 Service getServiceTeam(const vector < Service >& serviceCrews, const string& id) {
     for (auto i : serviceCrews) {
         if (i.identifier == id ) {
@@ -47,4 +45,53 @@ Service getServiceTeam(const vector < Service >& serviceCrews, const string& id)
         }
     }
     throw invalid_argument("Invalid identifier");
+}
+
+vector<string> splitString(const string& input) {
+    vector<std::string> tokens;
+    istringstream iss(input);
+    string token;
+
+    while (getline(iss, token, ' ')) {
+        tokens.push_back(token);
+    }
+
+    return tokens;
+}
+
+vector<UserStats> getUserStats(const string &userStatFilename){
+    vector<UserStats> stats;
+
+    ifstream file(userStatFilename);
+
+    string line;
+    while (getline(file, line)) {
+        vector<string> parts = splitString(line);
+        string username = parts[0], uClass = parts[1], license = parts[4];
+        float balance = stof(parts[3]);
+        int vehCounter = stoi(parts[2]);
+        UserStats userArguments(username, uClass, vehCounter, balance, license);
+        stats.push_back(userArguments);
+    }
+    return stats;
+}
+
+int findUser(vector<UserStats> &stats, const string &username){
+    for (int i = 0 ; i < stats.size(); i++){
+        if (username == stats[i].username){
+             return i;
+        }
+    }
+}
+
+void initPreviousSession(UserStats &stats, User* user){
+    user->drivingLicense = stats.drivingLicense;
+    user->balance = stats.balance;
+    user->vehicleCounter = stats.vehicleCounter;
+}
+
+void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations){
+    initPreviousSession(stats, user);
+    UserInterface userIface(stations, locations, user);
+    userIface.mainInterface();
 }
