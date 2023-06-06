@@ -68,10 +68,15 @@ int main(int argc, char **argv) {
     string username, password;
     if (argc == 1) {
         // login interface
+        int logCounter = 0;
         while (true) {
             loginInterface(username, password);
             if (!checkCredentials(credentials, username, password)) {
                 cout << "Incorrect credentials..." << endl;
+                if (logCounter == 2){
+                    break;
+                }
+                logCounter++;
                 continue;
             }
             break;
