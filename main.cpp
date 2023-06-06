@@ -46,7 +46,7 @@ const string SERVICE_CREW_FILE_NAME = "../data/inputTxtFiles/serviceCrewAssignme
 const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
 const string USER_LOCATION_FILE_NAME = "../data/inputTxtFiles/userLocation.txt";
 const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt", "/station6.txt", "/station7.txt", "/station8.txt", "/station9.txt", "/station10.txt", "/station11.txt", "/station12.txt", "/station13.txt", "/station14.txt", "/station15.txt", "/station16.txt", "/station17.txt", "/station18.txt", "/station19.txt", "/station20.txt", "/station21.txt", "/station22.txt", "/station23.txt", "/station24.txt", "/station25.txt", "/station26.txt", "/station27.txt", "/station28.txt", "/station29.txt", "/station30.txt"};
-
+const string ADMIN_ID = "X01";
 
 int main(int argc, char **argv) {
     // LOCATIONS DATA
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
     DataParser data(filenames, locations);
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
-    AdminService admin("X01", serviceCrews, stations);
+    AdminService admin(ADMIN_ID, serviceCrews, stations);
     Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
     bool correctUserData = false;
@@ -111,6 +111,10 @@ int main(int argc, char **argv) {
         ServiceInterface iface(serviceTeam);
         iface.mainInterface();
     } else if (in.cmdOptionExists("-a") && argc == 3) {
+        if (!(argv[2] == ADMIN_ID)) {
+            cout << "Invalid identifier" << endl;
+            return 1;
+        }
         AdminInterface iface(admin);
         iface.mainInterface();
     } else if (argc == 3 || correctUserData) {
