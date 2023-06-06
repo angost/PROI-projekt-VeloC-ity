@@ -11,7 +11,7 @@ using namespace std;
 #ifndef PROI_PROJEKT_CREATEACCOUNT_H
 #define PROI_PROJEKT_CREATEACCOUNT_H
 
-void createAccount();
+int createAccount();
 
 
 #endif //PROI_PROJEKT_CREATEACCOUNT_H

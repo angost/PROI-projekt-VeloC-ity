@@ -6,7 +6,7 @@
 const string USER_STATS_FILE_NAME = "../data/userstats.txt";
 const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 
-void createAccount(){
+int createAccount(){
     string username, password, type;
     cout << "Creating new abbount" << endl;
     cout << "Enter username >> ";
@@ -17,12 +17,13 @@ void createAccount(){
     cin >> type;
     if (type != "Standard" && type!="Silver" && type!="Golden"){
         cout << "Incorrect profile type...";
-        return;
+        return 0;
     }
     ofstream file1(USER_STATS_FILE_NAME, ios::app);
     file1 << username+' ' << type+" 0 0 None\n";
     file1.close();
     ofstream file2(CREDENTIAL_FILE_NAME, ios::app);
-    file2 << username+' ' << password;
+    file2 << username+' ' << password << '\n';
     file2.close();
+    return 0;
 }
