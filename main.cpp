@@ -35,6 +35,7 @@
 #include "data/DataParser.h"
 #include "data/setup_functions.h"
 #include "data/SaveProgress.h"
+#include "data/createAccount.h"
 
 using namespace std;
 
@@ -71,6 +72,7 @@ int main(int argc, char **argv) {
     map<string, string> credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
     vector<UserStats> userStats = getUserStats(USER_STATS_FILE_NAME);
     string username, password;
+    char newAccount;
     if (argc == 1) {
         // login interface
         int logCounter = 0;
@@ -81,6 +83,11 @@ int main(int argc, char **argv) {
                 cout << "Incorrect credentials..." << endl;
                 if (logCounter == 2){
                     loginRunning = false;
+                    cout << "Do you want to create account? (y/n)";
+                    cin >> newAccount;
+                    if (newAccount == 'y'){
+                        createAccount();
+                    }
                 }
                 logCounter++;
             }
