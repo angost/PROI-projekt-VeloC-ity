@@ -90,3 +90,9 @@ void initPreviousSession(UserStats &stats, User* user){
     user->balance = stats.balance;
     user->vehicleCounter = stats.vehicleCounter;
 }
+
+void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations){
+    initPreviousSession(stats, user);
+    UserInterface userIface(stations, locations, user);
+    userIface.mainInterface();
+}

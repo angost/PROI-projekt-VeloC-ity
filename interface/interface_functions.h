@@ -10,6 +10,8 @@
 #include "src/station/service/Service.h"
 #include "src/UserStats.h"
 #include "src/user/User.h"
+#include "interface/UserInterface.h"
+
 using namespace std;
 
 
@@ -23,6 +25,7 @@ Service getServiceTeam(const vector < Service >& serviceCrews, const string& id)
 vector<UserStats> getUserStats(const string &userStatFilename);
 int findUser(vector<UserStats> &stats, const string &username);
 void initPreviousSession(UserStats &stats, User* user);
+void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations);
 
 
 #endif //PROI_PROJEKT_INTERFACE_FUNCTIONS_H
