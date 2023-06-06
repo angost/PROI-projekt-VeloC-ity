@@ -1,4 +1,4 @@
-MainStation mainstation2 A02 Warsaw Mokotow Ogrodowa 10B 20 20
+MainStation mainstation2 A02 20 20
 Scooter 202
 Scooter 203
 Bike 103

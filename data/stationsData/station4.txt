@@ -1,4 +1,4 @@
-SubStation subStation2 B02 Warsaw Mokotow Ogrodowa 30C 20 40
+SubStation subStation2 B02 20 40
 Bike 109
 Bike 110
 Bike 111

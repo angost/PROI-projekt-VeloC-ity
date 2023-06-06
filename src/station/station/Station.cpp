@@ -140,10 +140,12 @@ istream& operator>>(istream& in, Station& station) {
     string line, type;
     getline(in, line);
     std::istringstream iss(line);
-    iss >> type >> station.name >> station.code >> station.location.city
-       >> station.location.district >> station.location.street_name
-       >> station.location.street_number >> station.location.x_coord
-       >> station.location.y_coord;
+//    iss >> type >> station.name >> station.code >> station.location.city
+//       >> station.location.district >> station.location.street_name
+//       >> station.location.street_number >> station.location.x_coord
+//       >> station.location.y_coord;
+    iss >> type >> station.name >> station.code >> station.location.x_coord
+        >> station.location.y_coord;
     while (getline(in, line)) {
         string vehicleType;
         int id;

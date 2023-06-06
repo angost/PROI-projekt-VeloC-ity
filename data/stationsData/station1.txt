@@ -1,4 +1,4 @@
-MainStation mainStation A01 Warsaw Mokotow Ogrodowa 1A 20 10
+MainStation mainStation A01 20 10
 ElectricScooter 301
 Scooter 201
 Bike 101
