@@ -105,21 +105,15 @@ int main(int argc, char **argv) {
             int userIndex = findUser(userStats, username);
             if (userStats[userIndex].userClass == "Standard"){
                 StandardUser user(username, userLocation);
-                initPreviousSession(userStats[userIndex], &user);
-                UserInterface userIface(stations, locations, &user);
-                userIface.mainInterface();
+                startSession(userStats[userIndex], &user, stations, locations);
             }
             else if (userStats[userIndex].userClass == "Silver"){
                 SilverUser user(username, userLocation);
-                initPreviousSession(userStats[userIndex], &user);
-                UserInterface userIface(stations, locations, &user);
-                userIface.mainInterface();
+                startSession(userStats[userIndex], &user, stations, locations);
             }
             else {
                 GoldenUser user(username, userLocation);
-                initPreviousSession(userStats[userIndex], &user);
-                UserInterface userIface(stations, locations, &user);
-                userIface.mainInterface();
+                startSession(userStats[userIndex], &user, stations, locations);
             }
 
         }
