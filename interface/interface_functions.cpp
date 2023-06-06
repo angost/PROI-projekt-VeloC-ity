@@ -82,6 +82,7 @@ int findUser(vector<UserStats> &stats, const string &username){
              return i;
         }
     }
+    throw invalid_argument("User not found");
 }
 
 void initPreviousSession(UserStats &stats, User* user){

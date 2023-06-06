@@ -121,4 +121,5 @@ Location DataParser::getUserLocation(const string& filename){
         iss >> city >> district >> streetName >> streetNumber >> x >> y;
         return {city, district, streetName, streetNumber, x, y};
     }
+    throw invalid_argument("Could not open the file");
 }
