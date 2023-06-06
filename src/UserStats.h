@@ -13,12 +13,11 @@ using namespace std;
 class UserStats {
 public:
     string userClass;
-    int resVehicles;
-    int rentVehicles;
+    int vehicleCounter;
     float balance;
     string drivingLicense;
     string username;
-    UserStats(string username, string userClass, int resVehicles, int rentVehicles, float balance, string drivingLicense);
+    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense);
 };
 
 

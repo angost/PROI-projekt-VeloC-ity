@@ -4,5 +4,5 @@
 
 #include "UserStats.h"
 
-UserStats::UserStats(string username, string userClass, int resVehicles, int rentVehicles, float balance, string drivingLicense) :
-    username(username), userClass(userClass), resVehicles(resVehicles), rentVehicles(rentVehicles), balance(balance), drivingLicense(drivingLicense){}
+UserStats::UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense) :
+    username(username), userClass(userClass), vehicleCounter(vehicleCounter), balance(balance), drivingLicense(drivingLicense){}
