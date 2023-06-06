@@ -62,6 +62,7 @@ void UserInterface::mainInterface(){
         } else if (option == 5){
             Station* chosenStation;
             try {
+                printNearestStation();
                 chosenStation = getStation();
             } catch (invalid_argument& err){
                 cout << err.what() << endl;
@@ -69,6 +70,7 @@ void UserInterface::mainInterface(){
             }
             Vehicle* chosenVehicle;
             try {
+                printVehiclesInStation(chosenStation);
                 chosenVehicle = getVehicle(chosenStation);
             } catch (invalid_argument& err){
                 cout << err.what() << endl;
@@ -80,6 +82,7 @@ void UserInterface::mainInterface(){
         } else if (option == 6){
             Station* chosenStation;
             try {
+                printNearestStation();
                 chosenStation = getStation();
             } catch (invalid_argument& err){
                 cout << err.what() << endl;
@@ -87,6 +90,7 @@ void UserInterface::mainInterface(){
             }
             Vehicle* chosenVehicle;
             try {
+                printVehiclesInStation(chosenStation);
                 chosenVehicle = getVehicle(chosenStation);
             } catch (invalid_argument& err){
                 cout << err.what() << endl;
