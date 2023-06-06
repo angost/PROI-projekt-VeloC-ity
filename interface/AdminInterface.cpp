@@ -72,15 +72,14 @@ void AdminInterface::mainInterface() {
                 cout << "Wrong code..." << endl;
                 continue;
             }
-            Service serviceCrew;
             try {
-                serviceCrew = getServiceCrew();
+                Service& serviceCrew = getServiceCrew();
+                success = assignStation(station, serviceCrew);
             }
             catch (invalid_argument) {
                 cout << "Wrong identifier..." << endl;
                 continue;
             }
-            success = assignStation(station, serviceCrew);
         } else if (option == 7) {
             break;
         } else {
@@ -130,12 +129,12 @@ Station *AdminInterface::getStation() {
 }
 
 
-Service AdminInterface::getServiceCrew() {
+Service& AdminInterface::getServiceCrew() {
     string identifier;
     cout << "Enter service crew identifier > ";
     cin >> identifier;
     cout << endl;
-    for (auto i : admin.serviceTeams) {
+    for (auto& i : admin.serviceTeams) {
         if (i.identifier == identifier) {
             return i;
         }
@@ -149,22 +148,34 @@ Station *AdminInterface::getNewStation() {
     cout << "Enter Station type > ";
     cin >> type;
     if (type == "MainStation"){
+        string line;
         auto* vehicle = new MainStation;
         cout << "Enter new station parameters in this way: " << endl;
         cout << "MainStation station_name station_code city district street_name street_number x y" << endl;
-        cin >> *vehicle;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::getline(std::cin, line);
+        std::istringstream iss(line);
+        iss >> *vehicle;
         return vehicle;
     } else if (type == "SubStation") {
+        string line;
         auto* vehicle = new SubStation;
         cout << "Enter new station parameters in this way: " << endl;
         cout << "SubStation station_name station_code city district street_name street_number x y" << endl;
-        cin >> *vehicle;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::getline(std::cin, line);
+        std::istringstream iss(line);
+        iss >> *vehicle;
         return vehicle;
     } else if (type == "LocalStation") {
+        string line;
         auto* vehicle = new LocalStation;
         cout << "Enter new station parameters in this way: " << endl;
         cout << "LocalStation station_name station_code city district street_name street_number x y" << endl;
-        cin >> *vehicle;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::getline(std::cin, line);
+        std::istringstream iss(line);
+        iss >> *vehicle;
         return vehicle;
     } else {
         throw invalid_argument("Wrong station type");
@@ -172,8 +183,7 @@ Station *AdminInterface::getNewStation() {
 }
 
 bool AdminInterface::addNewStation(Station* newStation) {
-    admin.stations.push_back(newStation);
-    return true;
+    return admin.addNewStation(newStation);
 }
 
 bool AdminInterface::removeExistingStation(Station* station) {
@@ -184,6 +194,6 @@ void AdminInterface::unassignRemovedStation(Station* station){
     admin.unassignRemovedStation(station);
 }
 
-bool AdminInterface::assignStation(Station* station, Service serviceTeam) {
-    return AdminService::assignStation(station, std::move(serviceTeam));
+bool AdminInterface::assignStation(Station* station, Service& serviceTeam) {
+    return AdminService::assignStation(station, serviceTeam);
 }

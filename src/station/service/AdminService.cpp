@@ -21,7 +21,7 @@ AdminService::AdminService(string identifier, vector<Service> serviceTeams, vect
 }
 
 
-bool AdminService::assignStation(Station* station, Service serviceCrew) {
+bool AdminService::assignStation(Station* station, Service& serviceCrew) {
     serviceCrew.supportedStations.push_back(station);
     return true;
 }
@@ -79,4 +79,9 @@ void AdminService::unassignRemovedStation(Station *station) {
             z += 1;
         }
     }
+}
+
+bool AdminService::addNewStation(Station *newStation) {
+    stations.push_back(newStation);
+    return true;
 }

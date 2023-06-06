@@ -22,14 +22,14 @@ public:
     void mainInterface();
     static int getAction();
     Station* getStation();
-    Service getServiceCrew();
+    Service& getServiceCrew();
     void displayStationAssignment();
     void displayStations();
     static Station* getNewStation();
     bool addNewStation(Station* newStation);
     bool removeExistingStation(Station* station);
     void unassignRemovedStation(Station* station);
-    static bool assignStation(Station* station, Service serviceTeam);
+    static bool assignStation(Station* station, Service& serviceTeam);
 };
 
 

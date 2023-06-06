@@ -16,12 +16,13 @@ public:
     AdminService();
     AdminService(string identifier, vector < Station* > stations, vector < Service > serviceTeams);
     AdminService(string identifier, vector < Service > serviceTeams, vector < Station * > allStations);
-    static bool assignStation(Station* station, Service serviceCrew);
+    static bool assignStation(Station* station, Service& serviceCrew);
     void displayStationAssignment();
     void displayStations();
     static void displayStationInfo(Station* station);
     bool removeExistingStation(Station* station);
     void unassignRemovedStation(Station* station);
+    bool addNewStation(Station* newStation);
     friend class AdminInterface;
 };
 
