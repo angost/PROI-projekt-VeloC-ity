@@ -248,7 +248,7 @@ int UserInterface::getAction(){
     cout << "       STATIONS                      RENTING                      LOCATIONS                     ACCOUNT" << endl;
     cout << "1. Show all Stations            5. Rent Vehicle                11. Show current coords   14. Show account info " << endl;
     cout << "2. Show nearest Station         6. Reserve Vehicle             12. Go to coords          15. Show balance " << endl;
-    cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to station         15. Add credits " << endl;
+    cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to station         16. Add credits " << endl;
     cout << "4. Show Vehicles on Station     8. Cancel                                                17. Add driving license " << endl;
     cout << "                                9. Show rented Vehicles                                  18. EXIT " << endl;
     cout << "                               10. Show reserved Vehicles                                         " << endl;
