@@ -65,7 +65,6 @@ vector<UserStats> getUserStats(const string &userStatFilename){
     ifstream file(userStatFilename);
 
     string line;
-    getline(file, line);
     while (getline(file, line)) {
         vector<string> parts = splitString(line);
         string username = parts[0], uClass = parts[1], license = parts[4];
