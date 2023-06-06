@@ -14,7 +14,6 @@ public:
     vector < Service > serviceTeams;
     vector < Station* > stations;
     AdminService();
-    AdminService(string identifier, vector < Station* > stations, vector < Service > serviceTeams);
     AdminService(string identifier, vector < Service > serviceTeams, vector < Station * > allStations);
     static bool assignStation(Station* station, Service& serviceCrew);
     void displayStationAssignment();
