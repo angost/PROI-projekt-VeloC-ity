@@ -64,8 +64,6 @@ int main(int argc, char **argv) {
     AdminService admin("X01", serviceCrews, stations);
     Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
-
-    Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
     bool correctUserData = false;
 
     // ACTUAL MAIN
@@ -106,7 +104,7 @@ int main(int argc, char **argv) {
         try {
             serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
         }
-        catch (invalid_argument) {
+        catch (invalid_argument& err) {
             cout << "Invalid identifier" << endl;
             return 1;
         }
@@ -126,17 +124,17 @@ int main(int argc, char **argv) {
         } else {
             int userIndex = findUser(userStats, username);
             if (userStats[userIndex].userClass == "Standard"){
-                StandardUser user(username, userLocation);
+                StandardUser user(username, currentUserLocation);
                 startSession(userStats[userIndex], &user, stations, locations);
                 saveSessionProgress(&user, userIndex, userStats);
             }
             else if (userStats[userIndex].userClass == "Silver"){
-                SilverUser user(username, userLocation);
+                SilverUser user(username, currentUserLocation);
                 startSession(userStats[userIndex], &user, stations, locations);
                 saveSessionProgress(&user, userIndex, userStats);
             }
             else {
-                GoldenUser user(username, userLocation);
+                GoldenUser user(username, currentUserLocation);
                 startSession(userStats[userIndex], &user, stations, locations);
                 saveSessionProgress(&user, userIndex, userStats);
             }
