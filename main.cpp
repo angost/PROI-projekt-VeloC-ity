@@ -136,8 +136,6 @@ int main(int argc, char **argv) {
             }
 
         }
-    } else {
-        cout << "Incorrect init value" << endl;
     }
 
     // PREVENTING MEMORY LEAK
