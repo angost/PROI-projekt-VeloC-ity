@@ -35,6 +35,7 @@
 #include "data/DataParser.h"
 #include "data/setup_functions.h"
 #include "data/SaveProgress.h"
+#include "data/createAccount.h"
 
 using namespace std;
 
@@ -44,6 +45,7 @@ const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
 const string USER_STATS_FILE_NAME = "../data/userstats.txt";
 const string USER_LOCATION_FILE_NAME = "../data/userLocation.txt";
 const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt", "/station6.txt", "/station7.txt", "/station8.txt", "/station9.txt", "/station10.txt", "/station11.txt", "/station12.txt", "/station13.txt", "/station14.txt", "/station15.txt", "/station16.txt", "/station17.txt", "/station18.txt", "/station19.txt", "/station20.txt", "/station21.txt", "/station22.txt", "/station23.txt", "/station24.txt", "/station25.txt", "/station26.txt", "/station27.txt", "/station28.txt", "/station29.txt", "/station30.txt"};
+
 
 int main(int argc, char **argv) {
     // LOCATIONS DATA
@@ -62,6 +64,7 @@ int main(int argc, char **argv) {
     Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
     Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
+    bool correctUserData = false;
 
     // ACTUAL MAIN
 
@@ -69,23 +72,34 @@ int main(int argc, char **argv) {
     map<string, string> credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
     vector<UserStats> userStats = getUserStats(USER_STATS_FILE_NAME);
     string username, password;
+    char newAccount;
     if (argc == 1) {
         // login interface
         int logCounter = 0;
-        while (true) {
+        bool loginRunning = true;
+        while (loginRunning) {
             loginInterface(username, password);
             if (!checkCredentials(credentials, username, password)) {
                 cout << "Incorrect credentials..." << endl;
                 if (logCounter == 2){
-                    break;
+                    loginRunning = false;
+                    cout << "Do you want to create account? (y/n) >> ";
+                    cin >> newAccount;
+                    if (newAccount == 'y'){
+                        createAccount();
+                        return 0;
+                    }
                 }
                 logCounter++;
-                continue;
             }
-            break;
+            else {
+                correctUserData = true;
+                loginRunning = false;
+            }
         }
-        //UserInterface userIface;
-    } else if (in.cmdOptionExists("-s") && argc == 3) {
+    }
+    //UserInterface userIface;
+    if (in.cmdOptionExists("-s") && argc == 3) {
         Service serviceTeam;
         try {
             serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
@@ -96,10 +110,12 @@ int main(int argc, char **argv) {
         }
         ServiceInterface iface(serviceTeam);
         iface.mainInterface();
-    } else if (argc == 3) {
+    } else if (argc == 3 || correctUserData) {
         // logged user interface
-        username = argv[1];
-        password = argv[2];
+        if (!correctUserData){
+            username = argv[1];
+            password = argv[2];
+        }
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials" << endl;
         } else {
@@ -124,6 +140,7 @@ int main(int argc, char **argv) {
     } else {
         cout << "Incorrect init value" << endl;
     }
+
 
     // PREVENTING MEMORY LEAK
     for (auto station : stations) {

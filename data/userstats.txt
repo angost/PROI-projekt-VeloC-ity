@@ -1,2 +1,2 @@
-test_username Standard 0 0.0 None
-admin Golden 7 30.4 None
+test_username Standard 0 0.000000 None
+admin Golden 7 44.000000 None
