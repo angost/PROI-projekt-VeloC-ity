@@ -6,7 +6,7 @@ StandardUser::StandardUser(string username, Location loc, int maxResVehicles, in
 }
 
 void StandardUser::accountStats() {
-//    print(this->type, "Your account type: ");
-//    print(this->vehicleCounter, "Vehicles rented: ");
-//    print(this->balance, "Your Balance: ");
+    cout << "Your account type: " << this->type << endl;
+    cout << "Vehicles rented: " << this->vehicleCounter << endl;
+    cout << "Your Balance: " << this->balance << endl;
 }

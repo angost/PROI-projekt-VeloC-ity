@@ -44,7 +44,7 @@ public:
     bool addCredits(float amount);
     bool cancelReservation(Vehicle* vehicle, Station* station);
     Station* findNearestStation();
-    map < int, vector < Station* > > calculateDistanceToAllStations();
+    void printDistanceToAllStations();
 };
 
 

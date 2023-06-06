@@ -5,12 +5,18 @@
 #include "UserInterface.h"
 #include <iostream>
 
+// TODO dodac info dlaczego cos sie nie powiodlo (za maly balans itp)
+// TODO lepiej, spojniej wyswietlac lokalizacje, pojazdy itd
+
 UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user) : stations(stations), locations(locations), user(user) {
     Velocity vel(stations, user);
     this->velocity = vel;
 }
 
 void UserInterface::mainInterface(){
+    cin.clear();
+    cout << endl << "Welcome " << user->username << "!" << endl;
+    user->accountStats();
     while (true){
         cout << endl << "-----------------------------------------------------" << endl;
         bool success;
@@ -87,33 +93,63 @@ void UserInterface::mainInterface(){
 
         // Return Vehicle
         } else if (option == 6){
-//            Station* chosenStation;
-//            try {
-//                chosenStation = getStation();
-//            } catch (invalid_argument& err){
-//                cout << err.what() << endl;
-//                continue;
-//            }
-//            cout << "Which Vehicle do you want to return?" << endl;
-//            printRentedVehicles();
-//            Vehicle* chosenVehicle;
-//            try {
-//                vector<Vehicle*> rentedVehicles = user->getRentedVehicles();
-//                chosenVehicle = getVehicle(&rentedVehicles);
-//            } catch (invalid_argument& err){
-//                cout << err.what() << endl;
-//                continue;
-//            }
-//            success = returnVehicle(chosenVehicle, chosenStation);
+            vector<Vehicle*> rentedVehicles = user->getRentedVehicles();
+            if (rentedVehicles.size() == 0){
+                cout << "You don't have any rented vehicles" << endl;
+                continue;
+            }
+            cout << "Which Vehicle do you want to return?" << endl;
+            printRentedVehicles();
+            Vehicle* chosenVehicle;
+            try {
+                chosenVehicle = getVehicle(&rentedVehicles);
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+
+            Station* chosenStation;
+            try {
+                chosenStation = getStation();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = returnVehicle(chosenVehicle, chosenStation);
 
         // Cancel Reservation
         } else if (option == 7){
+            vector<Vehicle*> reservedVehicles = user->getReservedVehicles();
+            if (reservedVehicles.size() == 0){
+                cout << "You don't have any reserved vehicles" << endl;
+                continue;
+            }
+            cout << endl << "Which reservation do you want to cancel?" << endl;
+            printReservedVehicles();
+            Vehicle* chosenVehicle;
+            try {
+                chosenVehicle = getVehicle(&reservedVehicles);
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+
+            Station* chosenStation;
+            try {
+                chosenStation = getStation();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = cancelReservation(chosenVehicle, chosenStation);
 
         // Show rented Vehicles
         } else if (option == 8){
+            printRentedVehicles();
 
         // Show reserved Vehicles
         } else if (option == 9){
+            printReservedVehicles();
 
         // Show balance
         } else if (option == 10){
@@ -181,7 +217,14 @@ void UserInterface::mainInterface(){
 
         // Add driving license
         } else if (option == 16) {
-
+            string drivingLicence;
+            try{
+                drivingLicence = getDrivingLicence();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = addDrivingLicence(drivingLicence);
 
         // Exit
         } else if (option == 17) {
@@ -204,7 +247,7 @@ int UserInterface::getAction(){
     cout << " 4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
     cout << " 7. Cancel Reservation     8. Show rented Vehicles            9. Show reserved Vehicles" << endl;
     cout << "10. Show balance          11. Add credits                    12. Show current coords" << endl;
-    cout << "13. Show all coords       14. Go to coords                   15. Go to location" << endl;
+    cout << "13. Show all coords       14. Go to coords                   15. Go to station" << endl;
     cout << "16. Add driving license   17. Exit" << endl << endl;
     cout << "Enter number to define action > ";
     cin >> action;
@@ -242,7 +285,7 @@ Vehicle* UserInterface::getVehicle(Station* station){
 
 Vehicle* UserInterface::getVehicle(vector<Vehicle*>* vehicles){
     string id;
-    cout << "Enter vehicle id > ";
+    cout << endl << "Enter vehicle id > ";
     cin >> id;
     cout << endl;
     int id_number = stoi(id);
@@ -318,7 +361,7 @@ void UserInterface::printRentedVehicles() {
         } else {
             type = "Unknown";
         }
-        cout << "Type: " << type << "   ID: " << vehicle->id;
+        cout << "Type: " << type << "   ID: " << vehicle->id << endl;
     }
 }
 
@@ -334,7 +377,7 @@ void UserInterface::printReservedVehicles(){
         } else {
             type = "Unknown";
         }
-        cout << "Type: " << type << "   ID: " << vehicle->id;
+        cout << "Type: " << type << "   ID: " << vehicle->id << endl;
     }
 }
 
@@ -371,7 +414,13 @@ Station* UserInterface::findNearestStation(){
     return this->velocity.findNearestStation();
 }
 
-map < int, vector < Station* > > UserInterface::calculateDistanceToAllStations(){
-    return this->velocity.calculateDistanceToAllStations();
+ void UserInterface::printDistanceToAllStations(){
+    map < int, vector < Station* > > distances = this->velocity.calculateDistanceToAllStations();
+    for (auto pair : distances) {
+        cout << "Distance: " << pair.first << "Stations: " << endl;
+        for (auto station : pair.second) {
+            cout << "- " << station->name << " " << station->code << endl;
+        }
+    }
 }
 
