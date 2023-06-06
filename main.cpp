@@ -40,6 +40,7 @@ using namespace std;
 const string STATIONS_DATA_PATH = "../data/stationsData";
 const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
+const string USER_STATS_FILE_NAME = "../data/userstats.txt";
 const string USER_LOCATION_FILE_NAME = "../data/userLocation.txt";
 const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt"};
 
@@ -67,13 +68,19 @@ int main(int argc, char **argv) {
 
     InputParser in(argc, argv);
     map<string, string> credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
+    vector<UserStats> userStats = getUserStats(USER_STATS_FILE_NAME);
     string username, password;
     if (argc == 1) {
         // login interface
+        int logCounter = 0;
         while (true) {
             loginInterface(username, password);
             if (!checkCredentials(credentials, username, password)) {
                 cout << "Incorrect credentials..." << endl;
+                if (logCounter == 2){
+                    break;
+                }
+                logCounter++;
                 continue;
             }
             break;
@@ -97,9 +104,26 @@ int main(int argc, char **argv) {
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials" << endl;
         } else {
-            StandardUser user1("test_username", userLocation);
-            UserInterface userIface(stations, locations, &user1);
-            userIface.mainInterface();
+            int userIndex = findUser(userStats, username);
+            if (userStats[userIndex].userClass == "Standard"){
+                StandardUser user(username, userLocation);
+                initPreviousSession(userStats[userIndex], &user);
+                UserInterface userIface(stations, locations, &user);
+                userIface.mainInterface();
+            }
+            else if (userStats[userIndex].userClass == "Silver"){
+                SilverUser user(username, userLocation);
+                initPreviousSession(userStats[userIndex], &user);
+                UserInterface userIface(stations, locations, &user);
+                userIface.mainInterface();
+            }
+            else {
+                GoldenUser user(username, userLocation);
+                initPreviousSession(userStats[userIndex], &user);
+                UserInterface userIface(stations, locations, &user);
+                userIface.mainInterface();
+            }
+
         }
     } else {
         cout << "Incorrect init value" << endl;
