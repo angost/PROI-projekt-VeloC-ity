@@ -1,34 +1,20 @@
 #include <iostream>
 #include <vector>
-#include <fstream>
-#include <sstream>
-#include <cstring>
-
 
 #include "src/vehicle/Vehicle.h"
-#include "src/vehicle/Bike.h"
-#include "src/vehicle/Scooter.h"
-#include "src/vehicle/ElectricScooter.h"
 
 #include "src/station/station/Station.h"
-#include "src/station/station/MainStation.h"
-#include "src/station/station/SubStation.h"
-#include "src/station/station/LocalStation.h"
 
 #include "src/station/service/Service.h"
 #include "src/station/service/AdminService.h"
 
-#include "src/user/User.h"
 #include "src/user/StandardUser.h"
 #include "src/user/SilverUser.h"
 #include "src/user/GoldenUser.h"
 
 #include "src/Location.h"
 
-#include "src/Velocity.h"
-
 #include "interface/interface_functions.h"
-#include "interface/UserInterface.h"
 #include "interface/ServiceInterface.h"
 #include "interface/AdminInterface.h"
 
