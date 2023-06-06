@@ -14,6 +14,7 @@ Station::Station(string name, string code, Location location, vector < Vehicle* 
     this->currentVehicles = std::move(currentVehicles);
     this->maxVehiclesNumber = maxVehicles;
     this->numberOfRentals = numberOfRentals;
+    this->type = "Unknown";
 }
 
 bool Station::checkIfSpaceAvailable() const{

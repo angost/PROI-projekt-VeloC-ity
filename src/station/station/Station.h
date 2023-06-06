@@ -26,10 +26,11 @@ class Station {
 private:
     int numberOfRentals;
     Location location;
-    int maxVehiclesNumber;
 public:
     string name;
     string code;
+    string type;
+    int maxVehiclesNumber;
     vector < Vehicle* > currentVehicles;
 
     Station(string name, string code, Location location, vector < Vehicle* > currentVehicles, int maxVehicles = 10, int numberOfRentals = 0);

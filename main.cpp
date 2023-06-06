@@ -40,6 +40,7 @@ using namespace std;
 const string STATIONS_DATA_PATH = "../data/stationsData";
 const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
+const string USER_LOCATION_FILE_NAME = "../data/userLocation.txt";
 const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt"};
 
 int main(int argc, char **argv) {
@@ -52,6 +53,7 @@ int main(int argc, char **argv) {
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
     AdminService admin("X01", serviceCrews);
+    Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
     // roboczo - LOCATIONS DATA
     Location loc1("Warsaw", "Mokotow", "Ogrodowa", "1A", 20, 10);
@@ -61,6 +63,7 @@ int main(int argc, char **argv) {
     Location loc5("Warsaw", "Mokotow", "Ogrodowa", "40C", 20, 50);
     Location userLocation("Warsaw", "Srodmiescie", "Senatorska", "2", 30, 1);
     vector<Location> locations = {loc1, loc2, loc3, loc4, loc5, userLocation};
+    
     // ACTUAL MAIN
 
     InputParser in(argc, argv);
