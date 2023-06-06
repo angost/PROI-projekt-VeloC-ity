@@ -68,12 +68,25 @@ vector<UserStats> getUserStats(const string &userStatFilename){
     getline(file, line);
     while (getline(file, line)) {
         vector<string> parts = splitString(line);
-        string username = parts[0], uClass = parts[1], license = parts[5];
-        float balance = stof(parts[4]);
-        int reserved = stoi(parts[2]), rented = stoi(parts[3]);
-        UserStats userArguments(username, uClass, reserved, rented, balance, license);
-        cout << balance;
+        string username = parts[0], uClass = parts[1], license = parts[4];
+        float balance = stof(parts[3]);
+        int vehCounter = stoi(parts[2]);
+        UserStats userArguments(username, uClass, vehCounter, balance, license);
         stats.push_back(userArguments);
     }
     return stats;
+}
+
+int findUser(vector<UserStats> &stats, const string &username){
+    for (int i = 0 ; i < stats.size(); i++){
+        if (username == stats[i].username){
+             return i;
+        }
+    }
+}
+
+void initPreviousSession(UserStats &stats, User* user){
+    user->drivingLicense = stats.drivingLicense;
+    user->balance = stats.balance;
+    user->vehicleCounter = stats.vehicleCounter;
 }

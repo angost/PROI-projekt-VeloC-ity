@@ -9,6 +9,7 @@
 #include <string>
 #include "src/station/service/Service.h"
 #include "src/UserStats.h"
+#include "src/user/User.h"
 using namespace std;
 
 
@@ -20,6 +21,8 @@ bool checkCredentials(const map <string, string >& credentials, const string& us
 map < string, string > getAllCredentials(const string& credentialFilename);
 Service getServiceTeam(const vector < Service >& serviceCrews, const string& id);
 vector<UserStats> getUserStats(const string &userStatFilename);
+int findUser(vector<UserStats> &stats, const string &username);
+void initPreviousSession(UserStats &stats, User* user);
 
 
 #endif //PROI_PROJEKT_INTERFACE_FUNCTIONS_H
