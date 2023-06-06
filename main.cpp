@@ -40,6 +40,7 @@ using namespace std;
 const string STATIONS_DATA_PATH = "../data/stationsData";
 const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
 const string SERVICE_CREW_FILE_NAME = "../data/serviceCrewAssignment.txt";
+const string USER_STATS_FILE_NAME = "../data/userstats.txt";
 const string USER_LOCATION_FILE_NAME = "../data/userLocation.txt";
 const string FILENAMES[] = {"/station1.txt", "/station2.txt", "/station3.txt", "/station4.txt", "/station5.txt"};
 
@@ -65,6 +66,7 @@ int main(int argc, char **argv) {
 
     InputParser in(argc, argv);
     map<string, string> credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
+    vector<UserStats> userStats = getUserStats(USER_STATS_FILE_NAME);
     string username, password;
     if (argc == 1) {
         // login interface
