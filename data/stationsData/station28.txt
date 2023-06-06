@@ -1,1 +1,1 @@
-LocalStation localStation18 C18 25 34
+LocalStation localStation17 C17 17 30

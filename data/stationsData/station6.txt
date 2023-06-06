@@ -1,16 +1,16 @@
-SubStation subStation4 B4 13 4
-Bike 117
-Bike 126
-Scooter 270
-ElectricScooter 319
-Scooter 208
+SubStation subStation4 B4 33 46
+Bike 103
+Bike 147
+ElectricScooter 343
+Scooter 205
+Scooter 254
+ElectricScooter 300
 Bike 146
-ElectricScooter 317
-Scooter 289
-Scooter 264
-Scooter 274
-Scooter 271
-Bike 158
-Scooter 249
-ElectricScooter 310
-Bike 130
+Bike 126
+Scooter 237
+ElectricScooter 320
+Bike 107
+ElectricScooter 328
+ElectricScooter 354
+Scooter 283
+Scooter 261

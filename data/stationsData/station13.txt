@@ -1,6 +1,6 @@
-LocalStation localStation6 C6 12 29
+LocalStation localStation2 C2 8 1
+ElectricScooter 345
+Bike 173
+ElectricScooter 356
 ElectricScooter 336
-ElectricScooter 348
-Scooter 202
-Scooter 216
-ElectricScooter 333
+ElectricScooter 302

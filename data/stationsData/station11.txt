@@ -1,6 +1,1 @@
-LocalStation localStation4 C4 44 44
-Bike 163
-ElectricScooter 314
-Bike 162
-ElectricScooter 352
-Scooter 229
+SubStation subStation9 B9 22 0

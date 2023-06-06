@@ -1,6 +1,6 @@
-SubStation subStation8 B8 8 14
-ElectricScooter 342
-ElectricScooter 341
-ElectricScooter 350
-ElectricScooter 312
-Bike 173
+LocalStation localStation14 C14 36 42
+Scooter 235
+Bike 106
+ElectricScooter 355
+ElectricScooter 327
+Scooter 271

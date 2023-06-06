@@ -1,6 +1,6 @@
-SubStation subStation7 B7 8 19
-Scooter 232
-Bike 107
-Scooter 215
-Scooter 211
-Scooter 256
+LocalStation localStation13 C13 21 0
+Scooter 289
+Bike 174
+Bike 121
+Bike 117
+Scooter 245
