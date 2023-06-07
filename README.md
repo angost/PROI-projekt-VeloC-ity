@@ -105,6 +105,8 @@ Umożliwia też dodanie balansu na koncie użytkownika, obliczenie odległości 
 
 ## Interfejs
 
+Budowa interfejsu składa się z trzech głównych klas: ServiceInterface, AdminInterface oraz UserInterface, które pozwalają na wyświetlanie i inicjowanie interfejsów dla odpowiednich osób użytkujących. W projekcie można znaleźć także plik interface_functions, który pozwala na proste operacje potrzebne do tworzenia, odczytywania i sprawdzania danych przekazywanych dalej do klas i funkcji.
+
 ### UserInterface
 
 Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego użytkownika. Osoba sterująca aplikacją może w niej użyć funkcji należącej do 4 kategorii:
