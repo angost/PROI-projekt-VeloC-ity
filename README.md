@@ -112,31 +112,32 @@ Budowa interfejsu składa się z trzech głównych klas: ServiceInterface, Admin
 Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego użytkownika. Osoba sterująca aplikacją może w niej użyć funkcji należącej do 4 kategorii:
 
 **Sekcja stacji** pozwalająca na:
-- Wyświetlenie wszystkich dostępnych stacji, ich adresów, typów i kodów.
-- Wyświetlenie stacji będącej najbliżej użytkownika wraz z odległością do niej.
-- Wyświetlenie wszystkich stacji posortowanych według odległości od użytkownika.
-- Wyświetlenie wszystkich pojazdów na podanej przez nas stacji.
+- Wyświetlenie wszystkich dostępnych stacji, ich adresów, typów i kodów
+- Wyświetlenie stacji będącej najbliżej użytkownika wraz z odległością do niej
+- Wyświetlenie wszystkich stacji posortowanych według odległości od użytkownika
+- Wyświetlenie wszystkich pojazdów na podanej przez nas stacji
 
 **Sekcja wypożyczeń** pozwalająca na:
-- Wypożyczenie i zwrócenie pojazdu. (Użytkownik może wypożyczyć pojazd tylko jeśli znajduje się na podanej stacji, ma wystarczające saldo konta i jeśli pojazd spełnia wymagane parametry).
-- Rezerwację i zrezygnowanie z rezerwacji pojazdu (Pojazd można rezerwować z dowolnego miejsca).
-- Wyświetlenie zarezerwowanych lub wypożyczonych pojazdów.
+- Wypożyczenie i zwrócenie pojazdu. (Użytkownik może wypożyczyć pojazd tylko jeśli znajduje się na podanej stacji, ma wystarczające saldo konta i jeśli pojazd spełnia wymagane parametry)
+- Rezerwację i zrezygnowanie z rezerwacji pojazdu (Pojazd można rezerwować z dowolnego miejsca)
+- Wyświetlenie zarezerwowanych lub wypożyczonych pojazdów
 
 **Sekcja lokalizacji** pozwalająca na:
 - Pokazanie aktualnych koordynatów użytkownika
-- Przeniesienie pozycji użytkownika na podane przez niego koordynaty.
-- Przeniesienie pozycji użytkownika na podaną stację.
+- Przeniesienie pozycji użytkownika na podane przez niego koordynaty
+- Przeniesienie pozycji użytkownika na podaną stację
 
 **Sekcja konta (ustawień profilu)** pozwalająca na:
-- Wyświetlenie informacji o koncie.
-- Wyświetlenie salda konta.
-- Dodanie kredytów do konta.
-- Dodanie prawa jazdy (tylko dla użytkowników klasy Golden).
-- Wyjście z interfejsu.
+- Wyświetlenie informacji o koncie
+- Wyświetlenie salda konta
+- Dodanie kredytów do konta
+- Dodanie prawa jazdy (tylko dla użytkowników klasy Golden)
+- Wyjście z interfejsu
 
 Po wybraniu odpowiednich opcji klasa interfejsu użytkownika odwołuje się do odpowiednich funkcji w celu wykonania wykonania potrzebnych działań.
 
 ### ServiceInterface
+
 Klasa umożliwiająca zespołom serwisowym wprowadzanie zmian w stacjach, pojazdach, a także wyświetlanie potrzebnych informacji.
 
 **Sekcja wyświetlania** pozwalająca na:
@@ -157,6 +158,7 @@ Klasa umożliwiająca zespołom serwisowym wprowadzanie zmian w stacjach, pojazd
 Wywołanie opcji wiąże się z wywołaniem metody, która odpowiedzialna jest za podane zmiany lub wyświetlenie informacji, a także, przy niektórych opcjach, pobranie informacji od użytkownika.
 
 ### AdminInterface
+
 Klasa ta umożliwia administratorowi usługi koordynowanie zespołów serwisujących stacje. Dostępne są następujące metody:
 
 **Sekcja wyświetlania** pozwalająca na:
@@ -170,3 +172,26 @@ Klasa ta umożliwia administratorowi usługi koordynowanie zespołów serwisują
 - Przypisanie stacji do konkretnego zespołu serwisującego
 
 Każda opcja wywoła odpowiednią metodę, która zrealizuje potrzebne zmiany, a także, jeśli jest taka potrzeba, zapyta użytkownika o wprowadzenie dodatkowych danych. 
+
+### Piliki i klasy pomocnicze i obsługujące dane
+
+**interface_functions** pozwalający na:
+- Wprowadzanie danych logowania
+- Sprawdzenie danych logowania
+- Wczytanie wszystkich danych logowania użytkowników
+- Sprawdzenie danych serwisanta
+- Wczytanie danych i statystyk użytkowników
+- Znalezienie danego użytkownika
+- Zainicjowanie poprzeniej sesji użytkownika
+- Rozpoczęcie sesji użytkownika
+
+**createAccount** pozwalający na stworzenie nowego konta i wpisanie go do rejestru użytkowników.
+
+Klasa **DataParser** pozwalająca na:
+- Pobranie wszystkich stacji i lokacji 
+- Wczytanie lokacji użytkownika
+- Przypisanie serwisanta do stacji na podstawie lokacji
+
+**SaveProgress** pozwalający na zapisanie danych poprzeniej sesji do statystyk użytkownika.
+
+**setup_functions** pozwalający na zainicjalizowanie mapy całego obsługiwanego terenu i przypisanie dzielnic do koordynatów o odpowiednich zakresach.
