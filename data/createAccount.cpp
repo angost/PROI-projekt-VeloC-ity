@@ -3,8 +3,8 @@
 //
 
 #include "createAccount.h"
-const string USER_STATS_FILE_NAME = "../data/userstats.txt";
-const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
+const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
+const string CREDENTIAL_FILE_NAME = "../data/inputTxtFiles/credentials.txt";
 
 int createAccount(){
     string username, password, type;
