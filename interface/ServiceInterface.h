@@ -32,7 +32,8 @@ public:
     static bool removeVehicle(Station* station, Vehicle* vehicle);
     Station* getStation();
     static Vehicle* getVehicle(Station* station);
-    static Location getLocation();
+    Location getLocation();
+    Location getRealLocation(int x, int y);
     static Vehicle* getNewVehicle();
 };
 

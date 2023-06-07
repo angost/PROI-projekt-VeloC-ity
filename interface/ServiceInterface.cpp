@@ -237,25 +237,27 @@ Vehicle* ServiceInterface::getVehicle(Station* station) {
 }
 
 Location ServiceInterface::getLocation() {
-    string city, district, streetName, streetNumber, xCoordString, yCoordString;
+    string xCoordString, yCoordString;
     int xCoord, yCoord;
-    cout << "Enter city > ";
-    cin >> city;
-    cout << "Enter district > ";
-    cin >> district;
-    cout << "Enter street name > ";
-    cin >> streetName;
-    cout << "Enter street number > ";
-    cin >> streetNumber;
     cout << "Enter x coord > ";
     cin >> xCoordString;
     xCoord = stoi(xCoordString);
     cout << "Enter y coord > ";
     cin >> yCoordString;
     yCoord = stoi(yCoordString);
-    Location loc(city, district, streetName, streetNumber, xCoord, yCoord);
+    Location loc = getRealLocation(xCoord, yCoord);
     return loc;
 }
+
+Location ServiceInterface::getRealLocation(int x, int y) {
+    for (auto loc : serviceClass.locations) {
+        if (loc.x_coord == x && loc.y_coord == y){
+            return loc;
+        }
+    }
+    throw invalid_argument("Invalid coordinates");
+}
+
 
 Vehicle* ServiceInterface::getNewVehicle() {
     string type, id;

@@ -26,11 +26,12 @@ public:
     void displayStationAssignment();
     void displayStations();
     Station* getNewStation();
-    Location getLocation(const vector < Location >& existingLocations, int x, int y);
+    static Location getLocation(const vector < Location >& existingLocations, int x, int y);
     bool addNewStation(Station* newStation);
     bool removeExistingStation(Station* station);
     void unassignRemovedStation(Station* station);
     static bool assignStation(Station* station, Service& serviceTeam);
+    friend class ServiceInterface;
 };
 
 

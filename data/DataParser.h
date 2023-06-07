@@ -32,7 +32,7 @@ public:
     Location getLocation(int x, int y);
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
-    static vector < Service > assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station*> stations);
+    static vector < Service > assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station*> stations, const vector < Location > locations);
     Location getUserLocation(const string& filename);
 };
 
