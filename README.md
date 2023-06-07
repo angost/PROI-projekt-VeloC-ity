@@ -118,7 +118,17 @@ Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego uży
 - Rezerwację i zrezygnowanie z rezerwacji pojazdu (Pojazd można rezerwować z dowolnego miejsca).
 - Wyświetlenie zarezerwowanych lub wypożyczonych pojazdów.
 
-**Sekcja lokalizacji** pozwalająca na 
+**Sekcja lokalizacji** pozwalająca na:
+- Pokazanie aktualnych koordynatów użytkownika
+- Przenieseienie pozycji użytkownika na podane przez niego koordynaty.
+- Przeniesienie pozycji użytkownika na podaną stację.
+
+**Sekcja konta (ustawień profilu)** pozwalająca na:
+- Wyświetlenie informacji o koncie.
+- Wyświetlenie salda konta.
+- Dodanie kredytów do konta.
+- Dodanie prawa jazdy (tylko dla użytkowników klasy Golden)
+- Wyjście z interfejsu.
 
 Po wybraniu odpowiednich opcji klasa interfejsu użytkownika odwołuje się do odpowiednich funckji w celu wykonania wykonania potrzebnych działań.
 
