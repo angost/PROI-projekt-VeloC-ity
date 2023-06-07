@@ -11,6 +11,12 @@ Poprzez użycie poniższych klas program będzie pozwalał na przemieszczanie po
     Kacper Straszak
     Adrian Murawski
 
+
+## Początkowy podział zadań
+    Angelika Ostrowska - klasa Vehicle
+    Kacper Straszak - klasa User, Location
+    Adrian Murawski - klasa Station, Service
+
 ## Struktura projektu
 ### 1. Vehicle
 Vehicle jest klasą abstrakcyjną reprezentującą pojazd. Dostępne są różne typy pojazdów.
@@ -68,21 +74,21 @@ Klasa reprezentująca obsługę techniczną stacji i pojazdów.
 - AdminService = nadrzędny zespół obsługi technicznej, zarządzający innymi zespołami, przydzielający im stacje, którymi mają się zajmować
 
 ### 4. User
-Vehicle jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka poziomów konta użytkownika.
+User jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka poziomów konta użytkownika.
 
-**Atrybuty**: związane z użytkownikiem (nazwa użytkownika, prawo jazdy), jego finansami (aktualny i minimalny balans, zniżka), wypożyczonymi i zarezerwowanymi urządzeniami (ich lista i maksymalna liczba) oraz aktualna lokalizacja.
+**Atrybuty**: związane z użytkownikiem (nazwa użytkownika, prawo jazdy), jego finansami (aktualny i minimalny balans, zniżka), wypożyczonymi i zarezerwowanymi urządzeniami (ich lista i maksymalna liczba), sumaryczna liczba wypożyczeń oraz aktualna lokalizacja.
 
 **Metody**: pozwalają na zarządzanie pieniędzmi na koncie, wypożyczanie, oddawanie pojazdów, rezerwowanie ich i anulowanie rezerwacji. Umożliwiają sprawdzenie czy dany pojazd jest aktualnie wypożyczony/zarezerwowany przez tego użytkownika oraz czy użytkownik może jeszcze wypożyczyć pojazd. Istnieją też metody na zmianę lokalizacji, zwiększenie licznika wypożyczeń i wyświetlenie informacji o koncie.
 
 **Klasy dziedziczące**: 
 - ***StandardUser*** = zwykły użytkownik, bez zniżki, może zarezerwować i wypożyczyć 3 pojazdy
 - ***SilverUser*** = srebrny użytkownik, ma zniżkę, może zarezerwować i wypożyczyć 4 pojazdy
-- ***GoldenUser*** = złoty użytkownik, ma większą zniżkę, może zarezerwować i wypożyczyć 5 pojazdów oraz dodać prawo jazdy umożliwiające wypożyczanie pojazdów silnikowych
+- ***GoldenUser*** = złoty użytkownik, ma większą zniżkę, może zarezerwować i wypożyczyć 5 pojazdów oraz dodać prawo jazdy umożliwiające wypożyczanie pojazdów silnikowych.
 
 ### 5. Location
 Klasa przechowująca informacje o lokalizacji.
 
-**Atrybuty**: dane adresowe (miasto, dystrykt, nazwa i numer ulicy) i współrzędne x,y
+**Atrybuty**: dane adresowe (miasto, dzielnica, nazwa i numer ulicy) i współrzędne x,y
 
 **Metody**: obliczenie odległości między dwoma lokacjami na podstawie współrzędnych (|x1-x2|+|y1-y2|)
 
@@ -100,6 +106,7 @@ Umożliwia też dodanie balansu na koncie użytkownika, obliczenie odległości 
 ## Interfejs
 
 ### UserInterface
+
 Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego użytkownika. Osoba sterująca aplikacją może w niej użyć funkcji należącej do 4 kategorii:
 
 **Sekcja stacji** pozwalająca na:
