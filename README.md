@@ -11,6 +11,7 @@ Poprzez użycie poniższych klas program będzie pozwalał na przemieszczanie po
     Kacper Straszak
     Adrian Murawski
 
+
 ## Początkowy podział zadań
     Angelika Ostrowska - klasa Vehicle
     Kacper Straszak - klasa User, Location
@@ -98,23 +99,20 @@ Główna klasa łącząca całą funkcjonalność. Wykorzystuje klasy Vehicle, S
 
 **Metody**: 
 
-Wypożyczenie, oddanie, zarezerwowanie i anulowanie rezerwacji - zbierają w całość wszystkie kroki potrzebne do wykonania danej czynności, korzystają z odpowiednich metod stacji, użytkownika, pojazdu.
+Wypożyczenie, oddanie, zarezerwowanie i anulowanie rezerwacji — zbierają w całość wszystkie kroki potrzebne do wykonania danej czynności, korzystają z odpowiednich metod stacji, użytkownika, pojazdu.
 
-Umożliwia też dodanie balansu na koncie użytkowanika, obliczenie odległości użytkownika od wszystkich stacji i znalezienie tej najbliższej.
+Umożliwia też dodanie balansu na koncie użytkownika, obliczenie odległości użytkownika od wszystkich stacji i znalezienie tej najbliższej.
 
 ## Interfejs
 
-
-
-### ServiceInterface
 ### UserInterface
 
 Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego użytkownika. Osoba sterująca aplikacją może w niej użyć funkcji należącej do 4 kategorii:
 
-**Sekcja stacji** pozwalająca na :
+**Sekcja stacji** pozwalająca na:
 - Wyświetlenie wszystkich dostępnych stacji, ich adresów, typów i kodów.
 - Wyświetlenie stacji będącej najbliżej użytkownika wraz z odległością do niej.
-- Wyświetlenie wsszystkich stacji posortowanych według odległości od użytkownika.
+- Wyświetlenie wszystkich stacji posortowanych według odległości od użytkownika.
 - Wyświetlenie wszystkich pojazdów na podanej przez nas stacji.
 
 **Sekcja wypożyczeń** pozwalająca na:
@@ -134,4 +132,39 @@ Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego uży
 - Dodanie prawa jazdy (tylko dla użytkowników klasy Golden).
 - Wyjście z interfejsu.
 
-Po wybraniu odpowiednich opcji klasa interfejsu użytkownika odwołuje się do odpowiednich funckji w celu wykonania wykonania potrzebnych działań.
+Po wybraniu odpowiednich opcji klasa interfejsu użytkownika odwołuje się do odpowiednich funkcji w celu wykonania wykonania potrzebnych działań.
+
+### ServiceInterface
+Klasa umożliwiająca zespołom serwisowym wprowadzanie zmian w stacjach, pojazdach, a także wyświetlanie potrzebnych informacji.
+
+**Sekcja wyświetlania** pozwalająca na:
+- wyświetlenie przypisanych do zespołu stacji
+- wyświetlenie pojazdów na podanej stacji
+- wyświetlenie detali konkretnego pojazdu
+
+**Sekcja stacji** pozwalająca na:
+- zmianę limitu pojazdów na stacji
+- zmianę lokalizacji stacji
+
+**Sekcja pojazdu** pozwalająca na:
+- naprawienie pojazdu
+- przeniesienie pojazdu między stacjami
+- dodanie nowego pojazdu
+- usunięcie istniejącego pojazdu
+
+Wywołanie opcji wiąże się z wywołaniem metody, która odpowiedzialna jest za podane zmiany lub wyświetlenie informacji, a także, przy niektórych opcjach, pobranie informacji od użytkownika.
+
+### AdminInterface
+Klasa ta umożliwia administratorowi usługi koordynowanie zespołów serwisujących stacje. Dostępne są następujące metody:
+
+**Sekcja wyświetlania** pozwalająca na:
+- Wyświetlenie wszystkich aktualnie istniejących stacji
+- Wyświetlenie wszystkich pojazdów na danej stacji
+- Wyświetlenie zespołów serwisujących i przypisanych do nich stacji
+
+**Sekcja stacji** pozwalająca na:
+- Dodanie nowej stacji
+- Usunięcie istniejącej stacji
+- Przypisanie stacji do konkretnego zespołu serwisującego
+
+Każda opcja wywoła odpowiednią metodę, która zrealizuje potrzebne zmiany, a także, jeśli jest taka potrzeba, zapyta użytkownika o wprowadzenie dodatkowych danych. 
