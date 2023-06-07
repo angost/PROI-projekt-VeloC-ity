@@ -1,4 +1,3 @@
-
 # Projekt PROI - VeloC++ity
 
 ## Główne założenia
@@ -106,8 +105,22 @@ Umożliwia też dodanie balansu na koncie użytkowanika, obliczenie odległości
 ## Interfejs
 ### ServiceInterface
 ### UserInterface
+Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego użytkownika. Osoba sterująca aplikacją może w niej użyć funkcji należącej do 4 kategorii:
 
+**Sekcja stacji** pozwalająca na :
+- Wyświetlenie wszystkich dostępnych stacji, ich adresów, typów i kodów.
+- Wyświetlenie stacji będącej najbliżej użytkownika wraz z odległością do niej.
+- Wyświetlenie wsszystkich stacji posortowanych według odległości od użytkownika.
+- Wyświetlenie wszystkich pojazdów na podanej przez nas stacji.
 
+**Sekcja wypożyczeń** pozwalająca na:
+- Wypożyczenie i zwrócenie pojazdu. (Użytkownik może wypożyczyć pojazd tylko jeśli znajduje się na podanej stacji, ma wystarczające saldo konta i jeśli pojazd spełnia wymagane parametry)/
+- Rezerwację i zrezygnowanie z rezerwacji pojazdu (Pojazd można rezerwować z dowolnego miejsca).
+- Wyświetlenie zarezerwowanych lub wypożyczonych pojazdów.
+
+**Sekcja lokalizacji** pozwalająca na 
+
+Po wybraniu odpowiednich opcji klasa interfejsu użytkownika odwołuje się do odpowiednich funckji w celu wykonania wykonania potrzebnych działań.
 
 
 
