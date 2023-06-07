@@ -1,4 +1,3 @@
-
 # Projekt PROI - VeloC++ity
 
 ## Główne założenia
@@ -12,7 +11,8 @@ Poprzez użycie poniższych klas program będzie pozwalał na przemieszczanie po
     Kacper Straszak
     Adrian Murawski
 
-## Aktualny podział zadań
+
+## Początkowy podział zadań
     Angelika Ostrowska - klasa Vehicle
     Kacper Straszak - klasa User, Location
     Adrian Murawski - klasa Station, Service
@@ -74,21 +74,21 @@ Klasa reprezentująca obsługę techniczną stacji i pojazdów.
 - AdminService = nadrzędny zespół obsługi technicznej, zarządzający innymi zespołami, przydzielający im stacje, którymi mają się zajmować
 
 ### 4. User
-Vehicle jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka poziomów konta użytkownika.
+User jest klasą abstrakcyjną reprezentującą użytkownika. Istnieje kilka poziomów konta użytkownika.
 
-**Atrybuty**: związane z użytkownikiem (nazwa użytkownika, prawo jazdy), jego finansami (aktualny i minimalny balans, zniżka), wypożyczonymi i zarezerwowanymi urządzeniami (ich lista i maksymalna liczba) oraz aktualna lokalizacja.
+**Atrybuty**: związane z użytkownikiem (nazwa użytkownika, prawo jazdy), jego finansami (aktualny i minimalny balans, zniżka), wypożyczonymi i zarezerwowanymi urządzeniami (ich lista i maksymalna liczba), sumaryczna liczba wypożyczeń oraz aktualna lokalizacja.
 
 **Metody**: pozwalają na zarządzanie pieniędzmi na koncie, wypożyczanie, oddawanie pojazdów, rezerwowanie ich i anulowanie rezerwacji. Umożliwiają sprawdzenie czy dany pojazd jest aktualnie wypożyczony/zarezerwowany przez tego użytkownika oraz czy użytkownik może jeszcze wypożyczyć pojazd. Istnieją też metody na zmianę lokalizacji, zwiększenie licznika wypożyczeń i wyświetlenie informacji o koncie.
 
 **Klasy dziedziczące**: 
 - ***StandardUser*** = zwykły użytkownik, bez zniżki, może zarezerwować i wypożyczyć 3 pojazdy
 - ***SilverUser*** = srebrny użytkownik, ma zniżkę, może zarezerwować i wypożyczyć 4 pojazdy
-- ***GoldenUser*** = złoty użytkownik, ma większą zniżkę, może zarezerwować i wypożyczyć 5 pojazdów oraz dodać prawo jazdy umożliwiające wypożyczanie pojazdów silnikowych
+- ***GoldenUser*** = złoty użytkownik, ma większą zniżkę, może zarezerwować i wypożyczyć 5 pojazdów oraz dodać prawo jazdy umożliwiające wypożyczanie pojazdów silnikowych.
 
 ### 5. Location
 Klasa przechowująca informacje o lokalizacji.
 
-**Atrybuty**: dane adresowe (miasto, dystrykt, nazwa i numer ulicy) i współrzędne x,y
+**Atrybuty**: dane adresowe (miasto, dzielnica, nazwa i numer ulicy) i współrzędne x,y
 
 **Metody**: obliczenie odległości między dwoma lokacjami na podstawie współrzędnych (|x1-x2|+|y1-y2|)
 
@@ -99,16 +99,99 @@ Główna klasa łącząca całą funkcjonalność. Wykorzystuje klasy Vehicle, S
 
 **Metody**: 
 
-Wypożyczenie, oddanie, zarezerwowanie i anulowanie rezerwacji - zbierają w całość wszystkie kroki potrzebne do wykonania danej czynności, korzystają z odpowiednich metod stacji, użytkownika, pojazdu.
+Wypożyczenie, oddanie, zarezerwowanie i anulowanie rezerwacji — zbierają w całość wszystkie kroki potrzebne do wykonania danej czynności, korzystają z odpowiednich metod stacji, użytkownika, pojazdu.
 
-Umożliwia też dodanie balansu na koncie użytkowanika, obliczenie odległości użytkownika od wszystkich stacji i znalezienie tej najbliższej.
+Umożliwia też dodanie balansu na koncie użytkownika, obliczenie odległości użytkownika od wszystkich stacji i znalezienie tej najbliższej.
 
 ## Interfejs
-### ServiceInterface
+
+Budowa interfejsu składa się z trzech głównych klas: ServiceInterface, AdminInterface oraz UserInterface, które pozwalają na wyświetlanie i inicjowanie interfejsów dla odpowiednich osób użytkujących. W projekcie można znaleźć także plik interface_functions, który pozwala na proste operacje potrzebne do tworzenia, odczytywania i sprawdzania danych przekazywanych dalej do klas i funkcji.
+
 ### UserInterface
 
+Klasa umożliwiająca zainicjowanie i wyświetlenie interfejsu dla podanego użytkownika. Osoba sterująca aplikacją może w niej użyć funkcji należącej do 4 kategorii:
 
+**Sekcja stacji** pozwalająca na:
+- Wyświetlenie wszystkich dostępnych stacji, ich adresów, typów i kodów
+- Wyświetlenie stacji będącej najbliżej użytkownika wraz z odległością do niej
+- Wyświetlenie wszystkich stacji posortowanych według odległości od użytkownika
+- Wyświetlenie wszystkich pojazdów na podanej przez nas stacji
 
+**Sekcja wypożyczeń** pozwalająca na:
+- Wypożyczenie i zwrócenie pojazdu. (Użytkownik może wypożyczyć pojazd tylko jeśli znajduje się na podanej stacji, ma wystarczające saldo konta i jeśli pojazd spełnia wymagane parametry)
+- Rezerwację i zrezygnowanie z rezerwacji pojazdu (Pojazd można rezerwować z dowolnego miejsca)
+- Wyświetlenie zarezerwowanych lub wypożyczonych pojazdów
 
+**Sekcja lokalizacji** pozwalająca na:
+- Pokazanie aktualnych koordynatów użytkownika
+- Przeniesienie pozycji użytkownika na podane przez niego koordynaty
+- Przeniesienie pozycji użytkownika na podaną stację
 
+**Sekcja konta (ustawień profilu)** pozwalająca na:
+- Wyświetlenie informacji o koncie
+- Wyświetlenie salda konta
+- Dodanie kredytów do konta
+- Dodanie prawa jazdy (tylko dla użytkowników klasy Golden)
+- Wyjście z interfejsu
 
+Po wybraniu odpowiednich opcji klasa interfejsu użytkownika odwołuje się do odpowiednich funkcji w celu wykonania wykonania potrzebnych działań.
+
+### ServiceInterface
+
+Klasa umożliwiająca zespołom serwisowym wprowadzanie zmian w stacjach, pojazdach, a także wyświetlanie potrzebnych informacji.
+
+**Sekcja wyświetlania** pozwalająca na:
+- wyświetlenie przypisanych do zespołu stacji
+- wyświetlenie pojazdów na podanej stacji
+- wyświetlenie detali konkretnego pojazdu
+
+**Sekcja stacji** pozwalająca na:
+- zmianę limitu pojazdów na stacji
+- zmianę lokalizacji stacji
+
+**Sekcja pojazdu** pozwalająca na:
+- naprawienie pojazdu
+- przeniesienie pojazdu między stacjami
+- dodanie nowego pojazdu
+- usunięcie istniejącego pojazdu
+
+Wywołanie opcji wiąże się z wywołaniem metody, która odpowiedzialna jest za podane zmiany lub wyświetlenie informacji, a także, przy niektórych opcjach, pobranie informacji od użytkownika.
+
+### AdminInterface
+
+Klasa ta umożliwia administratorowi usługi koordynowanie zespołów serwisujących stacje. Dostępne są następujące metody:
+
+**Sekcja wyświetlania** pozwalająca na:
+- Wyświetlenie wszystkich aktualnie istniejących stacji
+- Wyświetlenie wszystkich pojazdów na danej stacji
+- Wyświetlenie zespołów serwisujących i przypisanych do nich stacji
+
+**Sekcja stacji** pozwalająca na:
+- Dodanie nowej stacji
+- Usunięcie istniejącej stacji
+- Przypisanie stacji do konkretnego zespołu serwisującego
+
+Każda opcja wywoła odpowiednią metodę, która zrealizuje potrzebne zmiany, a także, jeśli jest taka potrzeba, zapyta użytkownika o wprowadzenie dodatkowych danych. 
+
+### Piliki i klasy pomocnicze i obsługujące dane
+
+**interface_functions** pozwalający na:
+- Wprowadzanie danych logowania
+- Sprawdzenie danych logowania
+- Wczytanie wszystkich danych logowania użytkowników
+- Sprawdzenie danych serwisanta
+- Wczytanie danych i statystyk użytkowników
+- Znalezienie danego użytkownika
+- Zainicjowanie poprzeniej sesji użytkownika
+- Rozpoczęcie sesji użytkownika
+
+**createAccount** pozwalający na stworzenie nowego konta i wpisanie go do rejestru użytkowników.
+
+Klasa **DataParser** pozwalająca na:
+- Pobranie wszystkich stacji i lokacji 
+- Wczytanie lokacji użytkownika
+- Przypisanie serwisanta do stacji na podstawie lokacji
+
+**SaveProgress** pozwalający na zapisanie danych poprzeniej sesji do statystyk użytkownika.
+
+**setup_functions** pozwalający na zainicjalizowanie mapy całego obsługiwanego terenu i przypisanie dzielnic do koordynatów o odpowiednich zakresach.

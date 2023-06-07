@@ -22,6 +22,7 @@ public:
     static int getAction();
     void printSupportedStations();
     static void printVehiclesInStation(Station* station);
+    static void printVehicleDetails(Vehicle* vehicle);
     static bool changeStationLimit(int newLimit, Station* station);
     static bool repairVehicle(Vehicle* vehicle);
     static bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
@@ -31,7 +32,8 @@ public:
     static bool removeVehicle(Station* station, Vehicle* vehicle);
     Station* getStation();
     static Vehicle* getVehicle(Station* station);
-    static Location getLocation();
+    Location getLocation();
+    Location getRealLocation(int x, int y);
     static Vehicle* getNewVehicle();
 };
 

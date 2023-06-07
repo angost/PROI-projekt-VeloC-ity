@@ -4,7 +4,7 @@
 
 #include "SaveProgress.h"
 #include <iomanip>
-const string USER_STATS_FILE_NAME = "../data/userstats.txt";
+const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
 
 void saveUserStats(User* &user, const int &userIndex, vector<UserStats> &allStats){
     allStats[userIndex].vehicleCounter = user->vehicleCounter;

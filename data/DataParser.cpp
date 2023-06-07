@@ -84,7 +84,7 @@ Station* DataParser::getStation(const string& filename) {
     return nullptr;
 }
 
-vector<Service> DataParser::assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station* > stations) {
+vector<Service> DataParser::assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station* > stations, const vector < Location > locations) {
     vector < Service > serviceCrews;
     std::ifstream file(serviceCrewAssignmentFilename);
     string line;
@@ -103,7 +103,7 @@ vector<Service> DataParser::assignStationsToServiceCrews(const string& serviceCr
         for (auto i : crew.second) {
             thisCrewStations.push_back(stations[i - 1]);
         }
-        Service newCrew(crew.first, thisCrewStations);
+        Service newCrew(crew.first, thisCrewStations, locations);
         serviceCrews.push_back(newCrew);
     }
     return serviceCrews;
@@ -121,4 +121,5 @@ Location DataParser::getUserLocation(const string& filename){
         iss >> city >> district >> streetName >> streetNumber >> x >> y;
         return {city, district, streetName, streetNumber, x, y};
     }
+    throw invalid_argument("Could not open the file");
 }
