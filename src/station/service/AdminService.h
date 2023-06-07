@@ -13,7 +13,6 @@ class AdminService : public Service {
 public:
     vector < Service > serviceTeams;
     vector < Station* > stations;
-    vector < Location > locations;
     AdminService();
     AdminService(string identifier, vector < Service > serviceTeams, vector < Station * > allStations, vector < Location > locations);
     static bool assignStation(Station* station, Service& serviceCrew);
