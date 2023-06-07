@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     DataParser data(filenames, locations);
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations);
-    AdminService admin(ADMIN_ID, serviceCrews, stations);
+    AdminService admin(ADMIN_ID, serviceCrews, stations, locations);
     Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
     bool correctUserData = false;

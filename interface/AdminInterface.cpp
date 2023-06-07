@@ -6,6 +6,7 @@
 
 #include <utility>
 
+using namespace std;
 
 AdminInterface::AdminInterface(AdminService admin){
     this->admin = std::move(admin);
@@ -153,38 +154,57 @@ Station *AdminInterface::getNewStation() {
     cin >> type;
     if (type == "MainStation"){
         string line;
-        auto* vehicle = new MainStation;
+        auto* station = new MainStation;
         cout << "Enter new station parameters in this way: " << endl;
-        cout << "MainStation station_name station_code city district street_name street_number x y" << endl;
+        cout << "MainStation station_name station_code x y" << endl;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
-        iss >> *vehicle;
-        return vehicle;
+        iss >> *station;
+        Location currentLocation  = station->getStationLocation();
+        Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
+        station->changeLocation(recognisedLocation);
+        return station;
     } else if (type == "SubStation") {
         string line;
-        auto* vehicle = new SubStation;
+        auto* station = new SubStation;
         cout << "Enter new station parameters in this way: " << endl;
-        cout << "SubStation station_name station_code city district street_name street_number x y" << endl;
+        cout << "SubStation station_name station_code x y" << endl;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
-        iss >> *vehicle;
-        return vehicle;
+        iss >> *station;
+        Location currentLocation  = station->getStationLocation();
+        Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
+        station->changeLocation(recognisedLocation);
+        return station;
     } else if (type == "LocalStation") {
         string line;
-        auto* vehicle = new LocalStation;
+        auto* station = new LocalStation;
         cout << "Enter new station parameters in this way: " << endl;
-        cout << "LocalStation station_name station_code city district street_name street_number x y" << endl;
+        cout << "LocalStation station_name station_code x y" << endl;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
-        iss >> *vehicle;
-        return vehicle;
+        iss >> *station;
+        Location currentLocation  = station->getStationLocation();
+        Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
+        station->changeLocation(recognisedLocation);
+        return station;
     } else {
         throw invalid_argument("Wrong station type");
     }
 }
+
+Location AdminInterface::getLocation(const vector < Location >& existingLocations, int x, int y) {
+    for (auto loc : existingLocations) {
+        if (loc.x_coord == x && loc.y_coord == y){
+            return loc;
+        }
+    }
+    throw invalid_argument("Invalid coordinates");
+}
+
 
 bool AdminInterface::addNewStation(Station* newStation) {
     return admin.addNewStation(newStation);

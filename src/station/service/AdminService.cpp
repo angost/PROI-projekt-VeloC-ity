@@ -11,9 +11,10 @@ AdminService::AdminService() : Service() {
     this->serviceTeams = vector < Service > ();
 }
 
-AdminService::AdminService(string identifier, vector<Service> serviceTeams, vector < Station* > allStations) : Service(std::move(identifier), vector<Station*>()){
+AdminService::AdminService(string identifier, vector<Service> serviceTeams, vector < Station* > allStations, vector < Location > locations) : Service(std::move(identifier), vector<Station*>()){
     this->serviceTeams = std::move(serviceTeams);
     this->stations = std::move(allStations);
+    this->locations = locations;
 }
 
 
