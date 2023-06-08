@@ -36,5 +36,5 @@ int createAccount(){
     file2 << username+' ' << password << '\n';
     file2.close();
     cout << "Account created succesfully!";
-    return 0;
+    return 1;
 }

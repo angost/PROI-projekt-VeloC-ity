@@ -55,16 +55,35 @@ int main(int argc, char **argv) {
     // ACTUAL MAIN
 
     InputParser in(argc, argv);
-    map<string, string> credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
-    vector<UserStats> userStats = getUserStats(USER_STATS_FILE_NAME);
+    map<string, string> credentials;
+    vector<UserStats> userStats;
     string username, password;
     char newAccount;
+    int mainMenuOption;
     // MAIN MENU
     if (argc == 1) {
-//        while (true){
+        while (true){
+            credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
+            userStats = getUserStats(USER_STATS_FILE_NAME);
+
+            mainMenuOption = getMainMenuOption();
+            // Log in
+            if (mainMenuOption == 1){
+                correctUserData = log_in(credentials, username, password);
+                if (correctUserData){
+
+                } else {
+                    cout << "Failed to log in..." << endl;
+                    continue;
+                }
+            }
+            // Create new account
+            else if (mainMenuOption == 2){
+                createAccount();
+                continue;
+            }
+        }
 //
-//        }
-//        correctUserData = log_in(credentials, username, password);
     }
     //UserInterface userIface;
     if (in.cmdOptionExists("-s") && argc == 3) {

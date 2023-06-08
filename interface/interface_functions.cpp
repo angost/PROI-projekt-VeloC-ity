@@ -4,7 +4,8 @@
 #include "interface_functions.h"
 
 int getMainMenuOption(){
-    cout << "VeloC++ity 2023";
+    cout << endl << endl << "VeloC++ity 2023" << endl;
+    cout << "-----------------------------" << endl;
     string action;
     cin.clear();
     cout << "       MENU        " << endl;
@@ -57,7 +58,7 @@ map < string, string > getAllCredentials(const string& credentialFilename){
 
 int log_in(const map <string, string >& credentials, string &username, string &password){
     int logCounter = 0;
-    while (logCounter < 2){
+    while (logCounter < 3){
         loginInterface(username, password);
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials..." << endl;
@@ -68,16 +69,6 @@ int log_in(const map <string, string >& credentials, string &username, string &p
     }
     return 0;
 }
-
-//void sign_up(){
-//    cout << "Do you want to create account? (y/n) >> ";
-//    cin >> newAccount;
-//    if (newAccount == 'y'){
-//        createAccount();
-//        return 0;
-//    }
-//}
-
 
 Service getServiceTeam(const vector < Service >& serviceCrews, const string& id) {
     for (auto i : serviceCrews) {
