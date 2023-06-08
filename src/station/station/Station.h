@@ -24,9 +24,9 @@ using namespace std;
 
 class Station {
 private:
-    int numberOfRentals;
     Location location;
 public:
+    int numberOfRentals;
     string name;
     string code;
     string type;

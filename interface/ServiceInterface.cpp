@@ -69,6 +69,7 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = changeStationLimit(newLimitInt, station);
+            data.changeStationLimitLocation(station);
         } else if (option == 5) {
             Station* station;
             Location location;
@@ -81,6 +82,7 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = changeStationLocation(station, location);
+            data.changeStationLimitLocation(station);
         } else if (option == 6) {
             cout << "Insert station code and id of vehicle you want to repair..." << endl;
             Vehicle* vehicle;

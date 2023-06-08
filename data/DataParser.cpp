@@ -186,6 +186,7 @@ void DataParser::insertNewStation(Station *station) {
     file.close();
     std::ofstream stationNames(stationFilenamesPath, std::ios::app);
     stationNames << "/" + station->code + ".txt" << endl;
+    stationNames.close();
 }
 
 
@@ -229,6 +230,7 @@ void DataParser::deleteAssignment(Station *station, const Service& serviceCrew) 
     file.close();
     std::ofstream changedFile(serviceCrewAssignmentFilename);
     changedFile << newFile;
+    changedFile.close();
 }
 
 bool DataParser::deleteStation(Station *station) {
@@ -249,5 +251,23 @@ bool DataParser::deleteStation(Station *station) {
     file.close();
     std::ofstream changedFile(stationFilenamesPath);
     changedFile << newFile;
+    changedFile.close();
     return true;
+}
+
+
+void DataParser::changeStationLimitLocation(Station *changedStation) {
+    ifstream file(stationsDataPath + "/" + changedStation->code + ".txt");
+    string line;
+    getline(file, line);
+    Location loc = changedStation->getStationLocation();
+    string newFile = changedStation->type + " " + changedStation->name + " " + changedStation->code + " " + to_string(loc.x_coord) + " " + to_string(loc.y_coord) + " " + to_string(changedStation->maxVehiclesNumber) + " " + to_string(changedStation->numberOfRentals) + "\n";
+    while (getline(file, line)) {
+        newFile += line;
+        newFile += "\n";
+    }
+    file.close();
+    std::ofstream changedFile(stationsDataPath + "/" + changedStation->code + ".txt");
+    changedFile << newFile;
+    changedFile.close();
 }

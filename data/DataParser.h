@@ -34,18 +34,25 @@ class DataParser {
     vector <Location> existingLocations;
 public:
     DataParser();
-    explicit DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations);
+    DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations);
     Location getLocation(int x, int y);
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
     vector < Service > assignStationsToServiceCrews(const vector <Station*>& stations);
     Location getUserLocation();
+
     void refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews);
+
+    // ADMIN
     void insertNewStation(Station* station);
     void assignStation(Station* station, const Service& serviceCrew);
     bool deleteStation(Station* station);
     void deleteAllAssignments(Station* station);
     void deleteAssignment(Station* station, const Service& serviceCrew);
+
+    // SERVICE
+    void changeStationLimitLocation(Station* changedStation);
+
     vector < string > getFilenames();
 };
 
