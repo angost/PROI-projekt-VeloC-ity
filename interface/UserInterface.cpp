@@ -126,8 +126,7 @@ void UserInterface::mainInterface(){
 
         // Cancel Reservation
         } else if (option == 8){
-            vector<Vehicle*> reservedVehicles = user->getReservedVehicles();
-            if (reservedVehicles.size() == 0){
+            vector<Vehicle*> reservedVehicles = user->getReservedVehicles();            if (reservedVehicles.size() == 0){
                 cout << "You don't have any reserved vehicles" << endl;
                 continue;
             }
@@ -141,14 +140,7 @@ void UserInterface::mainInterface(){
                 continue;
             }
 
-            Station* chosenStation;
-            try {
-                chosenStation = getStation();
-            } catch (invalid_argument& err){
-                cout << err.what() << endl;
-                continue;
-            }
-            success = cancelReservation(chosenVehicle, chosenStation);
+            success = cancelReservation(chosenVehicle);
 
         // Show rented Vehicles
         } else if (option == 9){
@@ -234,6 +226,7 @@ void UserInterface::mainInterface(){
 
         // EXIT
         } else if (option == 18) {
+            cout << "Thank you for using our services" << endl << endl;
             break;
 
         } else {
@@ -253,16 +246,10 @@ int UserInterface::getAction(){
     cout << "1. Show all Stations            5. Rent Vehicle                11. Show current coords   14. Show account info " << endl;
     cout << "2. Show nearest Station         6. Reserve Vehicle             12. Go to coords          15. Show balance " << endl;
     cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to station         16. Add credits " << endl;
-    cout << "4. Show Vehicles on Station     8. Cancel                                                17. Add driving license " << endl;
+    cout << "4. Show Vehicles on Station     8. Cancel reservation                                    17. Add driving license " << endl;
     cout << "                                9. Show rented Vehicles                                  18. EXIT " << endl;
     cout << "                               10. Show reserved Vehicles                                         " << endl;
 
-//    cout << " 1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
-//    cout << " 4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
-//    cout << " 7. Cancel Reservation     8. Show rented Vehicles            9. Show reserved Vehicles" << endl;
-//    cout << "10. Show balance          11. Add credits                    12. Show current coords" << endl;
-//    cout << "13. Show all coords       14. Go to coords                   15. Go to station" << endl;
-//    cout << "16. Add driving license   17. Exit" << endl << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
@@ -310,6 +297,7 @@ Vehicle* UserInterface::getVehicle(vector<Vehicle*>* vehicles){
     }
     throw invalid_argument("Wrong vehicle id");
 }
+
 
 float UserInterface::getAmount(){
     string amount;
@@ -384,6 +372,7 @@ void UserInterface::printRentedVehicles() {
 }
 
 void UserInterface::printReservedVehicles(){
+    //TODO zmienic, bo vehicle maja juz type jako atrybut
     for (auto vehicle : user->getReservedVehicles()) {
         string type;
         if (vehicle->id > 300) {
@@ -424,8 +413,8 @@ bool UserInterface::addCredits(float amount){
     return this->velocity.addCredits(amount);
 }
 
-bool UserInterface::cancelReservation(Vehicle* vehicle, Station* station){
-    return this->velocity.cancelReservation(vehicle, station);
+bool UserInterface::cancelReservation(Vehicle* vehicle){
+    return this->velocity.cancelReservation(vehicle);
 }
 
 void UserInterface::printNearestStation(){

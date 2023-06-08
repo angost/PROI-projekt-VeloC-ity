@@ -18,7 +18,7 @@
 #include "interface/ServiceInterface.h"
 #include "interface/AdminInterface.h"
 
-#include "src/InputParser.h"
+#include "data/InputParser.h"
 #include "data/DataParser.h"
 #include "data/setup_functions.h"
 #include "data/SaveProgress.h"
@@ -40,103 +40,149 @@ int main(int argc, char **argv) {
     setupMap(locations);
 
     // DATA
+
     DataParser data(STATION_NAMES_FILE_PATH, STATIONS_DATA_PATH, SERVICE_CREW_FILE_NAME, USER_LOCATION_FILE_NAME, locations);
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = data.assignStationsToServiceCrews(stations);
+
     AdminService admin(ADMIN_ID, serviceCrews, stations, locations);
     Location currentUserLocation = data.getUserLocation();
 
     bool correctUserData = false;
 
     // ACTUAL MAIN
-
     InputParser in(argc, argv);
-    map<string, string> credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
-    vector<UserStats> userStats = getUserStats(USER_STATS_FILE_NAME);
+    map<string, string> credentials;
+    vector<UserStats> userStats;
     string username, password;
     char newAccount;
-    if (argc == 1) {
-        // login interface
-        int logCounter = 0;
-        bool loginRunning = true;
-        while (loginRunning) {
-            loginInterface(username, password);
-            if (!checkCredentials(credentials, username, password)) {
-                cout << "Incorrect credentials..." << endl;
-                if (logCounter == 2){
-                    loginRunning = false;
-                    cout << "Do you want to create account? (y/n) >> ";
-                    cin >> newAccount;
-                    if (newAccount == 'y'){
-                        createAccount();
-                        return 0;
-                    }
-                }
-                logCounter++;
-            }
-            else {
-                correctUserData = true;
-                loginRunning = false;
-            }
-        }
-    }
-    //UserInterface userIface;
-    if (in.cmdOptionExists("-s") && argc == 3) {
-        Service serviceTeam;
-        try {
-            serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
-        }
-        catch (invalid_argument& err) {
-            cout << "Invalid identifier" << endl;
-            return 1;
-        }
-        ServiceInterface iface(serviceTeam, data);
-        iface.mainInterface();
-    } else if (in.cmdOptionExists("-a") && argc == 3) {
-        if (!(argv[2] == ADMIN_ID)) {
-            cout << "Invalid identifier" << endl;
-            return 1;
-        }
-        AdminInterface iface(admin, data);
-        iface.mainInterface();
-    } else if (argc == 3 || correctUserData) {
-        // logged user interface
-        if (!correctUserData){
-            username = argv[1];
-            password = argv[2];
-        }
-        if (!checkCredentials(credentials, username, password)) {
-            cout << "Incorrect credentials" << endl;
-        } else {
-            int userIndex = findUser(userStats, username);
-            if (userStats[userIndex].userClass == "Standard"){
-                StandardUser user(username, currentUserLocation);
-                startSession(userStats[userIndex], &user, stations, locations);
-                saveSessionProgress(&user, userIndex, userStats);
-            }
-            else if (userStats[userIndex].userClass == "Silver"){
-                SilverUser user(username, currentUserLocation);
-                startSession(userStats[userIndex], &user, stations, locations);
-                saveSessionProgress(&user, userIndex, userStats);
-            }
-            else {
-                GoldenUser user(username, currentUserLocation);
-                startSession(userStats[userIndex], &user, stations, locations);
-                saveSessionProgress(&user, userIndex, userStats);
-            }
+    int mainMenuOption = -1;
+    string serviceIdentifier;
+    string adminIdentifier;
 
-        }
-    } else {
-        cout << "Incorrect init value" << endl;
+
+    // Extra launch options from command line
+    // Service
+    if (in.cmdOptionExists("-s") && argc == 3){
+        serviceIdentifier = argv[2];
+        mainMenuOption = 3;
+    }
+    // Admin
+    else if (in.cmdOptionExists("-a") && argc == 3){
+        adminIdentifier = argv[2];
+        mainMenuOption = 4;
+    }
+    // Login
+    else if (argc == 3) {
+        username = argv[1];
+        password = argv[2];
+        mainMenuOption = 1;
     }
 
+    // MAIN MENU
+    while (true) {
+        credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
+        userStats = getUserStats(USER_STATS_FILE_NAME);
+
+        // No extra launch option used
+        if (mainMenuOption == -1){
+            try{
+                mainMenuOption = getMainMenuOption();
+            } catch (invalid_argument) {
+                cout << "Wrong option number" << endl;
+                // Set to default values
+                mainMenuOption = -1;
+                continue;
+            }
+        }
+
+        // Log in
+        if (mainMenuOption == 1) {
+            // No extra launch option used
+            if (username == ""){
+                correctUserData = logInInterface(credentials, username, password);
+            } else {
+                correctUserData = checkCredentials(credentials, username, password);
+            }
+
+            if (correctUserData) {
+                logUserIn(username, currentUserLocation, userStats, stations, locations);
+            } else {
+                cout << "Failed to log in..." << endl;
+                // Set to default values
+                mainMenuOption = -1;
+                username = "";
+                password = "";
+                continue;
+            }
+        }
+        // Create new account
+        else if (mainMenuOption == 2) {
+            createAccount();
+        }
+        // Service Interface
+        else if (mainMenuOption == 3) {
+            // No extra launch option used
+            if (serviceIdentifier == ""){
+                cout << "Enter service identifier > ";
+                cin >> serviceIdentifier;
+            }
+
+            Service serviceTeam;
+            try {
+                serviceTeam = getServiceTeam(admin.serviceTeams, serviceIdentifier);
+            }
+            catch (invalid_argument& err) {
+                cout << "Invalid service identifier" << endl;
+                // Set to default values
+                mainMenuOption = -1;
+                serviceIdentifier = "";
+                continue;
+            }
+            ServiceInterface iface(serviceTeam);
+            iface.mainInterface();
+        }
+        // Admin Interface
+        else if (mainMenuOption == 4){
+            // No extra launch option used
+            if (adminIdentifier == ""){
+                cout << "Enter admin identifier > ";
+                cin >> adminIdentifier;
+            }
+
+            if (adminIdentifier != ADMIN_ID) {
+                cout << "Invalid admin identifier" << endl;
+                // Set to default values
+                mainMenuOption = -1;
+                adminIdentifier = "";
+                continue;
+            }
+            AdminInterface iface(admin);
+            iface.mainInterface();
+        }
+        // Exit
+        else if (mainMenuOption == 5) {
+            cout << "Exiting..." << endl;
+            break;
+        }
+        else {
+            cout << "Wrong option number..." << endl;
+        }
+
+        // Set to default values
+        mainMenuOption = -1;
+        serviceIdentifier = "";
+        adminIdentifier = "";
+        username = "";
+        password = "";
+    }
 
     // PREVENTING MEMORY LEAK
-//    for (auto station : stations) {
-//        for (auto vehicle : *station) {
-//            delete vehicle;
-//        }
-//        delete station;
-//    }
+    for (auto station : stations) {
+        for (auto vehicle : *station) {
+            delete vehicle;
+        }
+        delete station;
+    }
     return 0;
 }

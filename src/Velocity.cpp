@@ -78,7 +78,7 @@ bool Velocity::reserveVehicle(Vehicle *vehicle, Station *station) {
         return false;
     }
     vehicle->setReservedStatus(true);
-    user->reserveVehicle(vehicle);
+    user->reserveVehicle(vehicle, station);
     return true;
 }
 
@@ -109,7 +109,7 @@ bool Velocity::returnVehicle(Vehicle *vehicle, Station *station) {
 }
 
 
-bool Velocity::cancelReservation(Vehicle *vehicle, Station *station) {
+bool Velocity::cancelReservation(Vehicle *vehicle) {
     if (!vehicle->checkReservedStatus()){
         return false;
     }

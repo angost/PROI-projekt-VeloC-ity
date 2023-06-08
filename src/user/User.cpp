@@ -48,11 +48,11 @@ void User::removeVehicle(Vehicle* vehicle) {
 }
 
 void User::reserveVehicle(Vehicle* vehicle) {
-	reservedVehicles.push_back(vehicle);
+    reservedVehicles.push_back(vehicle);
 }
 
 void User::cancelReserveVehicle(Vehicle* vehicle) {
-	reservedVehicles.erase(std::remove(reservedVehicles.begin(), reservedVehicles.end(), vehicle), reservedVehicles.end());
+    reservedVehicles.erase(std::remove(reservedVehicles.begin(), reservedVehicles.end(), vehicle), reservedVehicles.end());
 }
 
 bool User::checkRented(Vehicle* vehicle) {
@@ -64,11 +64,11 @@ bool User::checkRented(Vehicle* vehicle) {
 }
 
 bool User::checkReserved(Vehicle* vehicle) {
-	auto checkVehicle = find(reservedVehicles.begin(), reservedVehicles.end(), vehicle);
-	if (checkVehicle != reservedVehicles.end()) {
-		return true;
-	}
-	return false;
+    auto checkVehicle = find(reservedVehicles.begin(), reservedVehicles.end(), vehicle);
+    if (checkVehicle != reservedVehicles.end()) {
+        return true;
+    }
+    return false;
 }
 
 bool User::checkRentSpace() {

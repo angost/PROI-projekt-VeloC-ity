@@ -3,7 +3,7 @@
 //
 
 #include "src/user/User.h"
-#include "src/UserStats.h"
+#include "UserStats.h"
 
 using namespace std;
 

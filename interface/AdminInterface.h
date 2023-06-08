@@ -17,10 +17,10 @@
 
 
 class AdminInterface {
-    AdminService admin;
+    AdminService adminService;
     DataParser data;
 public:
-    AdminInterface(AdminService admin, DataParser &data);
+    AdminInterface(AdminService adminService, DataParser &data);
     void mainInterface();
     static int getAction();
     Station* getStation();

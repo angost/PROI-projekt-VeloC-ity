@@ -42,7 +42,7 @@ public:
     bool reserveVehicle(Vehicle* vehicle, Station* station);
     bool returnVehicle(Vehicle* vehicle, Station* station);
     bool addCredits(float amount);
-    bool cancelReservation(Vehicle* vehicle, Station* station);
+    bool cancelReservation(Vehicle* vehicle);
     void printNearestStation();
     void printDistanceToAllStations();
 };
