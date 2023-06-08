@@ -3,6 +3,7 @@
 //
 
 #include "createAccount.h"
+#include "interface/interface_functions.h"
 const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
 const string CREDENTIAL_FILE_NAME = "../data/inputTxtFiles/credentials.txt";
 
@@ -11,6 +12,15 @@ int createAccount(){
     cout << "Creating new account" << endl;
     cout << "Enter username >> ";
     cin >> username;
+
+    map <string, string> existingUsers =getAllCredentials(CREDENTIAL_FILE_NAME);
+    for (auto credentials : existingUsers){
+        if (credentials.first == username){
+            cout << "Username already in use...";
+            return 0;
+        }
+    }
+
     cout << "Enter password >> ";
     cin >> password;
     cout << "Enter profile type (Standard/Silver/Golden) >> ";
