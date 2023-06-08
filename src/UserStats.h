@@ -19,10 +19,10 @@ public:
     float balance;
     string drivingLicense;
     string username;
-    vector <Vehicle*> reservedVehicles;
-    vector <Vehicle*> rentedVehicles;
+    vector <Vehicle*> &reservedVehicles;
+    vector <Vehicle*> &rentedVehicles;
 
-    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> reservedVehicles, vector <Vehicle*> rentedVehicles);
+    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> &reservedVehicles, vector <Vehicle*> &rentedVehicles);
 };
 
 

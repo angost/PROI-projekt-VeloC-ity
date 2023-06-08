@@ -11,9 +11,15 @@ void saveUserStats(User* &user, const int &userIndex, vector<UserStats> &allStat
     allStats[userIndex].balance = user->balance;
     allStats[userIndex].drivingLicense = user->drivingLicense;
     allStats[userIndex].userClass = user->type;
+    allStats[userIndex].reservedVehicles = user->reservedVehicles;
+    allStats[userIndex].reservedVehicles = user->reservedVehicles;
     ofstream outputFile(USER_STATS_FILE_NAME);
     for (const auto& stats : allStats) {
-        outputFile << stats.username+' ' << stats.userClass+' ' << to_string(stats.vehicleCounter)+' ' << to_string(stats.balance)+' ' << stats.drivingLicense << '\n';
+        outputFile << stats.username+' ' << stats.userClass+' ' << to_string(stats.vehicleCounter)+' ' << to_string(stats.balance)+' ' << stats.drivingLicense;
+//        for (auto reservedVehicle : allStats[userIndex].reservedVehicles){
+//            outputFile << reservedVehicle->type << ' ' << reservedVehicle->id << ' '; // TODO jeszcze stacja na jakiej jest vehicle
+//        }
+        outputFile << '\n';
     }
     outputFile.close();
 }
