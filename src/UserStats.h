@@ -3,6 +3,8 @@
 //
 
 #include <string>
+#include <vector>
+#include "src/vehicle/Vehicle.h"
 
 using namespace std;
 
@@ -17,7 +19,10 @@ public:
     float balance;
     string drivingLicense;
     string username;
-    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense);
+    vector <Vehicle*> reservedVehicles;
+    vector <Vehicle*> rentedVehicles;
+
+    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> reservedVehicles, vector <Vehicle*> rentedVehicles);
 };
 
 
