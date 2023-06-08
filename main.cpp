@@ -180,16 +180,12 @@ int main(int argc, char **argv) {
         password = "";
     }
 
-
+    // PREVENTING MEMORY LEAK
+    for (auto station : stations) {
+        for (auto vehicle : *station) {
+            delete vehicle;
+        }
+        delete station;
+    }
+    return 0;
 }
-
-//
-//    // PREVENTING MEMORY LEAK
-//    for (auto station : stations) {
-//        for (auto vehicle : *station) {
-//            delete vehicle;
-//        }
-//        delete station;
-//    }
-//    return 0;
-//}
