@@ -3,6 +3,23 @@
 //
 #include "interface_functions.h"
 
+int getMainMenuOption(){
+    cout << "VeloC++ity 2023";
+    string action;
+    cin.clear();
+    cout << "       MENU        " << endl;
+    cout << "1. Log in (existing User)" << endl;
+    cout << "2. Create new account" << endl;
+    cout << "3. Service Interface" << endl;
+    cout << "3. Admin Interface" << endl;
+
+    cout << "Enter number to define action > ";
+    cin >> action;
+    cout << endl;
+    int actionInt = stoi(action);
+    return actionInt;
+}
+
 void loginInterface(string &username, string &password){
     cout << "Enter username >> ";
     cin >> username;
@@ -37,6 +54,30 @@ map < string, string > getAllCredentials(const string& credentialFilename){
     }
     return credentials;
 }
+
+int log_in(const map <string, string >& credentials, string &username, string &password){
+    int logCounter = 0;
+    while (logCounter < 2){
+        loginInterface(username, password);
+        if (!checkCredentials(credentials, username, password)) {
+            cout << "Incorrect credentials..." << endl;
+            logCounter++;
+        } else{
+            return 1;
+        }
+    }
+    return 0;
+}
+
+//void sign_up(){
+//    cout << "Do you want to create account? (y/n) >> ";
+//    cin >> newAccount;
+//    if (newAccount == 'y'){
+//        createAccount();
+//        return 0;
+//    }
+//}
+
 
 Service getServiceTeam(const vector < Service >& serviceCrews, const string& id) {
     for (auto i : serviceCrews) {

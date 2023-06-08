@@ -59,30 +59,12 @@ int main(int argc, char **argv) {
     vector<UserStats> userStats = getUserStats(USER_STATS_FILE_NAME);
     string username, password;
     char newAccount;
+    // MAIN MENU
     if (argc == 1) {
-        // login interface
-        int logCounter = 0;
-        bool loginRunning = true;
-        while (loginRunning) {
-            loginInterface(username, password);
-            if (!checkCredentials(credentials, username, password)) {
-                cout << "Incorrect credentials..." << endl;
-                if (logCounter == 2){
-                    loginRunning = false;
-                    cout << "Do you want to create account? (y/n) >> ";
-                    cin >> newAccount;
-                    if (newAccount == 'y'){
-                        createAccount();
-                        return 0;
-                    }
-                }
-                logCounter++;
-            }
-            else {
-                correctUserData = true;
-                loginRunning = false;
-            }
-        }
+//        while (true){
+//
+//        }
+//        correctUserData = log_in(credentials, username, password);
     }
     //UserInterface userIface;
     if (in.cmdOptionExists("-s") && argc == 3) {
@@ -145,19 +127,12 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-int getMenuOption(){
-    cout << "VeloC++ity 2023";
-    string action;
-    cin.clear();
-    cout << "       MENU        " << endl;
-    cout << "1. Log in (existing User)" << endl;
-    cout << "2. Create new account" << endl;
-    cout << "3. Service Interface" << endl;
-    cout << "3. Admin Interface" << endl;
-
-    cout << "Enter number to define action > ";
-    cin >> action;
-    cout << endl;
-    int actionInt = stoi(action);
-    return actionInt;
-}
+/*
+ main(){
+    getMainMenuOption()
+    if 1 -> log_in
+    if 2 -> new_account
+    if 3 -> service_interface
+    if 4 -> admin_interface
+ }
+ */
