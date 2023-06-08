@@ -69,7 +69,7 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = changeStationLimit(newLimitInt, station);
-            data.changeStationLimitLocation(station);
+            data.changeStationLimit(station);
         } else if (option == 5) {
             Station* station;
             Location location;
@@ -82,12 +82,13 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = changeStationLocation(station, location);
-            data.changeStationLimitLocation(station);
+            data.changeStationLocation(station);
         } else if (option == 6) {
             cout << "Insert station code and id of vehicle you want to repair..." << endl;
             Vehicle* vehicle;
+            Station* station;
             try {
-                Station* station = getStation();
+                station = getStation();
                 vehicle = getVehicle(station);
             }
             catch (invalid_argument &err) {
@@ -95,6 +96,7 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = repairVehicle(vehicle);
+            data.changeVehicleTechnicalCondition(station, vehicle);
         } else if (option == 7){
             cout << "First insert source station code, then vehicle id and finally destination station code" << endl;
             Station* fromStation;

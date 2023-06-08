@@ -51,8 +51,12 @@ public:
     void deleteAssignment(Station* station, const Service& serviceCrew);
 
     // SERVICE
-    void changeStationLimitLocation(Station* changedStation);
-
+    void changeStationLimit(Station* changedStation);
+    void changeStationLocation(Station* changedStation);
+    void changeVehicleRentedStatus(Station* station, Vehicle* changedVehicle);
+    void changeVehicleReservedStatus(Station* station, Vehicle* changedVehicle);
+    void changeVehicleTechnicalCondition(Station* station, Vehicle* changedVehicle);
+    void changeVehicleNumberOfRentals(Station* station, Vehicle* changedVehicle);
     vector < string > getFilenames();
 };
 
