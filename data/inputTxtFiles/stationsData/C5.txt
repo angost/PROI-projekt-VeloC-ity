@@ -1,6 +1,6 @@
 LocalStation localStation5 C5 29 20 5 0
-Bike 118
-Bike 100
-ElectricScooter 330
-Scooter 208
-Scooter 209
+Bike 118 0 0 5 0
+Bike 100 0 0 5 0
+ElectricScooter 330 0 0 5 0
+Scooter 208 0 0 5 0
+Scooter 209 0 0 5 0

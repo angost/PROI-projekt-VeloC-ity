@@ -1,6 +1,6 @@
 LocalStation localStation1 C1 20 6 5 0
-Scooter 246
-Bike 148
-Scooter 231
-Bike 139
-Scooter 286
+Scooter 246 0 0 5 0
+Bike 148 0 0 5 0
+Scooter 231 0 0 5 0
+Bike 139 0 0 5 0
+Scooter 286 0 0 5 0

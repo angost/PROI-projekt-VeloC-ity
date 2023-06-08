@@ -1,41 +1,41 @@
 MainStation mainStation1 A1 18 29 50 0
-Scooter 269
-Scooter 217
-Bike 136
-Scooter 251
-Scooter 278
-Bike 149
-Bike 150
-Bike 116
-Bike 115
-ElectricScooter 333
-Bike 151
-Bike 112
-Scooter 224
-Bike 168
-Bike 172
-Scooter 267
-Scooter 210
-Scooter 256
-Scooter 241
-Scooter 220
-Bike 129
-Scooter 227
-ElectricScooter 359
-ElectricScooter 332
-ElectricScooter 349
-Scooter 238
-Bike 114
-Bike 101
-Bike 110
-ElectricScooter 335
-ElectricScooter 342
-Scooter 282
-Bike 128
-Bike 111
-ElectricScooter 348
-Scooter 285
-ElectricScooter 326
-Scooter 268
-Scooter 248
-Scooter 255
+Scooter 269 0 0 5 0
+Scooter 217 0 0 5 0
+Bike 136 0 0 5 0
+Scooter 251 0 0 5 0
+Scooter 278 0 0 5 0
+Bike 149 0 0 5 0
+Bike 150 0 0 5 0
+Bike 116 0 0 5 0
+Bike 115 0 0 5 0
+ElectricScooter 333 0 0 5 0
+Bike 151 0 0 5 0
+Bike 112 0 0 5 0
+Scooter 224 0 0 5 0
+Bike 168 0 0 5 0
+Bike 172 0 0 5 0
+Scooter 267 0 0 5 0
+Scooter 210 0 0 5 0
+Scooter 256 0 0 5 0
+Scooter 241 0 0 5 0
+Scooter 220 0 0 5 0
+Bike 129 0 0 5 0
+Scooter 227 0 0 5 0
+ElectricScooter 359 0 0 5 0
+ElectricScooter 332 0 0 5 0
+ElectricScooter 349 0 0 5 0
+Scooter 238 0 0 5 0
+Bike 114 0 0 5 0
+Bike 101 0 0 5 0
+Bike 110 0 0 5 0
+ElectricScooter 335 0 0 5 0
+ElectricScooter 342 0 0 5 0
+Scooter 282 0 0 5 0
+Bike 128 0 0 5 0
+Bike 111 0 0 5 0
+ElectricScooter 348 0 0 5 0
+Scooter 285 0 0 5 0
+ElectricScooter 326 0 0 5 0
+Scooter 268 0 0 5 0
+Scooter 248 0 0 5 0
+Scooter 255 0 0 5 0

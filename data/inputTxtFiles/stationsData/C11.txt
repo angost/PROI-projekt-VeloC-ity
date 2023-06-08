@@ -1,6 +1,6 @@
 LocalStation localStation11 C11 47 1 5 0
-Scooter 288
-Bike 113
-Bike 166
-Scooter 202
-Bike 132
+Scooter 288 0 0 5 0
+Bike 113 0 0 5 0
+Bike 166 0 0 5 0
+Scooter 202 0 0 5 0
+Bike 132 0 0 5 0

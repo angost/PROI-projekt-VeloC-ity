@@ -1,6 +1,6 @@
 LocalStation localStation7 C7 6 35 5 0
-Scooter 221
-ElectricScooter 301
-Bike 125
-ElectricScooter 358
-Bike 171
+Scooter 221 0 0 5 0
+ElectricScooter 301 0 0 5 0
+Bike 125 0 0 5 0
+ElectricScooter 358 0 0 5 0
+Bike 171 0 0 5 0

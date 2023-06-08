@@ -1,16 +1,16 @@
 SubStation subStation4 B4 33 46 25 0
-Bike 103
-Bike 147
-ElectricScooter 343
-Scooter 205
-Scooter 254
-ElectricScooter 300
-Bike 146
-Bike 126
-Scooter 237
-ElectricScooter 320
-Bike 107
-ElectricScooter 328
-ElectricScooter 354
-Scooter 283
-Scooter 261
+Bike 103 0 0 5 0
+Bike 147 0 0 5 0
+ElectricScooter 343 0 0 5 0
+Scooter 205 0 0 5 0
+Scooter 254 0 0 5 0
+ElectricScooter 300 0 0 5 0
+Bike 146 0 0 5 0
+Bike 126 0 0 5 0
+Scooter 237 0 0 5 0
+ElectricScooter 320 0 0 5 0
+Bike 107 0 0 5 0
+ElectricScooter 328 0 0 5 0
+ElectricScooter 354 0 0 5 0
+Scooter 283 0 0 5 0
+Scooter 261 0 0 5 0

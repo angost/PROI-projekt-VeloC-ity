@@ -1,16 +1,16 @@
 SubStation subStation2 B2 12 40 25 0
-Scooter 277
-Scooter 250
-Bike 160
-Scooter 242
-Bike 141
-ElectricScooter 315
-Scooter 211
-Bike 169
-Scooter 200
-ElectricScooter 339
-ElectricScooter 353
-Scooter 212
-Scooter 262
-ElectricScooter 347
-ElectricScooter 310
+Scooter 277 0 0 5 0
+Scooter 250 0 0 5 0
+Bike 160 0 0 5 0
+Scooter 242 0 0 5 0
+Bike 141 0 0 5 0
+ElectricScooter 315 0 0 5 0
+Scooter 211 0 0 5 0
+Bike 169 0 0 5 0
+Scooter 200 0 0 5 0
+ElectricScooter 339 0 0 5 0
+ElectricScooter 353 0 0 5 0
+Scooter 212 0 0 5 0
+Scooter 262 0 0 5 0
+ElectricScooter 347 0 0 5 0
+ElectricScooter 310 0 0 5 0

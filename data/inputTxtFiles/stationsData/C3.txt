@@ -1,6 +1,6 @@
 LocalStation localStation3 C3 14 46 5 0
-Bike 134
-ElectricScooter 311
-Scooter 244
-Bike 153
-Scooter 236
+Bike 134 0 0 5 0
+ElectricScooter 311 0 0 5 0
+Scooter 244 0 0 5 0
+Bike 153 0 0 5 0
+Scooter 236 0 0 5 0
