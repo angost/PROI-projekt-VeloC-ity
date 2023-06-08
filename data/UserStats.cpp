@@ -4,5 +4,8 @@
 
 #include "UserStats.h"
 
-UserStats::UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> &reservedVehicles, vector <Vehicle*> &rentedVehicles) :
-    username(username), userClass(userClass), vehicleCounter(vehicleCounter), balance(balance), drivingLicense(drivingLicense), reservedVehicles(reservedVehicles), rentedVehicles(rentedVehicles) {}
+//UserStats::UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> &reservedVehicles, vector <Vehicle*> &rentedVehicles) :
+//    username(username), userClass(userClass), vehicleCounter(vehicleCounter), balance(balance), drivingLicense(drivingLicense), reservedVehicles(reservedVehicles), rentedVehicles(rentedVehicles) {}
+
+UserStats::UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense) :
+        username(username), userClass(userClass), vehicleCounter(vehicleCounter), balance(balance), drivingLicense(drivingLicense) {}
