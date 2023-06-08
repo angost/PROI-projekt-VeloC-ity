@@ -8,8 +8,9 @@
 
 using namespace std;
 
-AdminInterface::AdminInterface(AdminService admin){
+AdminInterface::AdminInterface(AdminService admin, DataParser &data){
     this->admin = std::move(admin);
+    this->data = data;
 }
 
 
@@ -48,6 +49,7 @@ void AdminInterface::mainInterface() {
             try {
                 Station* newStation = getNewStation();
                 success = addNewStation(newStation);
+                data.insertNewStation(newStation);
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -66,6 +68,9 @@ void AdminInterface::mainInterface() {
             if (success) {
                 unassignRemovedStation(station);
             }
+            data.deleteAllAssignments(station);
+            data.deleteStation(station);
+            delete station;
         } else if (option == 6) {
             Station* station;
             try {
@@ -78,12 +83,16 @@ void AdminInterface::mainInterface() {
             try {
                 Service& serviceCrew = getServiceCrew();
                 success = assignStation(station, serviceCrew);
+                data.assignStation(station, serviceCrew);
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
         } else if (option == 7) {
+            data.refreshData(admin.stations, admin.serviceTeams);
+            continue;
+        } else if (option == 8) {
             break;
         } else {
             cout << "Wrong option..." << endl;
@@ -102,7 +111,8 @@ int AdminInterface::getAction() {
     cout << "          1. Print all Stations                    |           4. Add new Station  " << endl;
     cout << "          2. Print Vehicles in Station             |           5. Remove current station " << endl;
     cout << "          3. Print Station assignment              |           6. Assign Station                " << endl;
-    cout << "                                                   |           7. EXIT" << endl;
+    cout << "                                                   |           7. REFRESH" << endl;
+    cout << "                                                   |           8. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;

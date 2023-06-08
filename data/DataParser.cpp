@@ -3,13 +3,57 @@
 //
 
 #include "DataParser.h"
-using namespace std;
-//TODO przekazac do dataparsera locations i potem sprawdzac czy podane wspolrzedne istnieja, w pliku nie podawac nazw ulic tylko koordynaty (?)
 
-DataParser::DataParser(vector<string> stationFilenames, vector <Location> existingLocations) {
-    this->stationFilenames = std::move(stationFilenames);
-    this->existingLocations = existingLocations;
+#include <utility>
+using namespace std;
+
+DataParser::DataParser() {
+    this->serviceCrewAssignmentFilename = "";
+    this->stationFilenamesPath = "";
+    this->userLocationFilePath = "";
+    this->stationFilenames = vector < string > ();
+    this->existingLocations = vector < Location > ();
 }
+
+
+DataParser::DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations) {
+    this->serviceCrewAssignmentFilename = std::move(serviceCrewAssignmentFilepath);
+    this->stationFilenamesPath = std::move(pathToStationNames);
+    this->stationsDataPath = std::move(stationsDataPath);
+    this->userLocationFilePath = std::move(userLocationFilepath);
+    this->stationFilenames = getFilenames();
+    this->existingLocations = std::move(locations);
+}
+
+void DataParser::refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews) {
+    this->stationFilenames = getFilenames();
+    for (auto& station : currentStations) {
+        for (auto& vehicle : *station) {
+            delete vehicle;
+        }
+        delete station;
+    }
+    currentStations = getAllStations();
+    serviceCrews = assignStationsToServiceCrews(currentStations);
+}
+
+
+vector < string > DataParser::getFilenames() {
+    std::ifstream file(stationFilenamesPath);
+    std::string line, filename;
+    vector < string > filenames;
+
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            std::istringstream iss(line);
+            iss >> filename;
+            filenames.push_back(filename);
+        }
+    }
+    file.close();
+    return filenames;
+}
+
 
 Location DataParser::getLocation(int x, int y){
     for (auto loc : existingLocations) {
@@ -24,7 +68,7 @@ vector<Station *> DataParser::getAllStations() {
     vector < Station* > stations;
     for (const auto& filename : stationFilenames) {
         try {
-            Station* station = getStation(filename);
+            Station* station = getStation(stationsDataPath + filename);
             stations.push_back(station);
         } catch (invalid_argument& err) {
             cout << err.what() << endl;
@@ -84,34 +128,40 @@ Station* DataParser::getStation(const string& filename) {
     return nullptr;
 }
 
-vector<Service> DataParser::assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station* > stations, const vector < Location > locations) {
+vector<Service> DataParser::assignStationsToServiceCrews(const vector <Station* >& stations) {
     vector < Service > serviceCrews;
     std::ifstream file(serviceCrewAssignmentFilename);
     string line;
-    map < string, vector < int > > assignment;
+    map < string, vector < string > > assignment;
     if (file.is_open()) {
         while (std::getline(file, line)) {
             string identifier;
-            int number;
+            string code;
             std::istringstream iss(line);
-            iss >> number >> identifier;
-            assignment[identifier].push_back(number);
+            iss >> code >> identifier;
+            assignment[identifier].push_back(code);
         }
     }
+    file.close();
     for (const auto& crew : assignment) {
         vector < Station* > thisCrewStations;
-        for (auto i : crew.second) {
-            thisCrewStations.push_back(stations[i - 1]);
+        for (const auto& code : crew.second) {
+            for (auto &station : stations) {
+                if (station->code == code) {
+                    thisCrewStations.push_back(station);
+                    break;
+                }
+            }
         }
-        Service newCrew(crew.first, thisCrewStations, locations);
+        Service newCrew(crew.first, thisCrewStations, existingLocations);
         serviceCrews.push_back(newCrew);
     }
     return serviceCrews;
 }
 
 
-Location DataParser::getUserLocation(const string& filename){
-    std::ifstream file(filename);
+Location DataParser::getUserLocation(){
+    std::ifstream file(userLocationFilePath);
     string line;
     string city, district, streetName, streetNumber;
     int x, y;
@@ -121,5 +171,83 @@ Location DataParser::getUserLocation(const string& filename){
         iss >> city >> district >> streetName >> streetNumber >> x >> y;
         return {city, district, streetName, streetNumber, x, y};
     }
+    file.close();
     throw invalid_argument("Could not open the file");
+}
+
+void DataParser::insertNewStation(Station *station) {
+    std::ofstream file(stationsDataPath + "/" + station->code + ".txt");
+    Location loc = station->getStationLocation();
+    file << station->type << " " << station->name << " " << station->code << " "
+    << loc.x_coord << " " << loc.y_coord << endl;
+    for (auto &vehicle : *station) {
+        file << vehicle->type << " " << vehicle->id << endl;
+    }
+    file.close();
+    std::ofstream stationNames(stationFilenamesPath, std::ios::app);
+    stationNames << "/" + station->code + ".txt" << endl;
+}
+
+
+void DataParser::assignStation(Station *station, const Service& serviceCrew) {
+    std::ofstream file(serviceCrewAssignmentFilename, std::ios::app);
+    file << station->code << " " << serviceCrew.identifier << endl;
+    file.close();
+}
+
+
+void DataParser::deleteAllAssignments(Station *station) {
+    std::ifstream file(serviceCrewAssignmentFilename);
+    string line, stationCode, serviceId;
+    string newFile;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        iss >> stationCode >> serviceId;
+        if (!(stationCode == station->code)) {
+            newFile += line;
+            newFile += "\n";
+        }
+    }
+    file.close();
+    std::ofstream changedFile(serviceCrewAssignmentFilename);
+    changedFile << newFile;
+    changedFile.close();
+}
+
+void DataParser::deleteAssignment(Station *station, const Service& serviceCrew) {
+    std::ifstream file(serviceCrewAssignmentFilename);
+    string line, stationCode, serviceId;
+    string newFile;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        iss >> stationCode >> serviceId;
+        if (!(stationCode == station->code) && !(serviceId == serviceCrew.identifier)) {
+            newFile += line;
+            newFile += "\n";
+        }
+    }
+    file.close();
+    std::ofstream changedFile(serviceCrewAssignmentFilename);
+    changedFile << newFile;
+}
+
+bool DataParser::deleteStation(Station *station) {
+    if (std::remove((stationsDataPath + "/" + station->code + ".txt").c_str()) != 0) {
+        throw invalid_argument("Could not find station file");
+    }
+    std::ifstream file(stationFilenamesPath);
+    string line, filename;
+    string newFile;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        iss >> filename;
+        if (!(filename == "/" + station->code + ".txt")) {
+            newFile += line;
+            newFile += "\n";
+        }
+    }
+    file.close();
+    std::ofstream changedFile(stationFilenamesPath);
+    changedFile << newFile;
+    return true;
 }

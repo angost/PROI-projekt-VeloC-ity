@@ -4,8 +4,11 @@
 
 #include "ServiceInterface.h"
 
-ServiceInterface::ServiceInterface(Service service) {
+#include <utility>
+
+ServiceInterface::ServiceInterface(Service service, DataParser &data) {
     this->serviceClass = std::move(service);
+    this->data = data;
 }
 
 
