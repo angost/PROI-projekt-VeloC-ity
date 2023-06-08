@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
             }
             // Exit
             else if (mainMenuOption == 4) {
-                cout << "Thank you for using our services." << endl;
+                cout << "Exiting..." << endl;
                 break;
             }
         }
