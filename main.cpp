@@ -83,6 +83,23 @@ int main(int argc, char **argv) {
                 createAccount();
                 continue;
             }
+            // Service Interface
+            else if (mainMenuOption == 3) {
+                string serviceIdentifier;
+                cout << "Enter service identifier > ";
+                cin >> serviceIdentifier;
+
+                Service serviceTeam;
+                try {
+                    serviceTeam = getServiceTeam(admin.serviceTeams, serviceIdentifier);
+                }
+                catch (invalid_argument& err) {
+                    cout << "Invalid identifier" << endl;
+                    continue;
+                }
+                ServiceInterface iface(serviceTeam);
+                iface.mainInterface();
+            }
             // Exit
             else if (mainMenuOption == 4) {
                 cout << "Exiting..." << endl;
@@ -137,13 +154,3 @@ int main(int argc, char **argv) {
 //    }
 //    return 0;
 //}
-
-/*
- main(){
-    getMainMenuOption()
-    if 1 -> log_in
-    if 2 -> new_account
-    if 3 -> service_interface
-    if 4 -> admin_interface
- }
- */
