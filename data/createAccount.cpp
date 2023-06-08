@@ -4,7 +4,7 @@
 
 #include "createAccount.h"
 #include "interface/interface_functions.h"
-const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
+const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 const string CREDENTIAL_FILE_NAME = "../data/inputTxtFiles/credentials.txt";
 
 int createAccount(){
@@ -29,8 +29,11 @@ int createAccount(){
         cout << "Incorrect profile type...";
         return 0;
     }
-    ofstream file1(USER_STATS_FILE_NAME, ios::app);
+    string userStatsFileName = USER_STATS_DIR + username + ".txt";
+
+    ofstream file1(userStatsFileName, ios::app);
     file1 << username+' ' << type+" 0 0 None\n";
+    file1 << "0 \n" << "0 \n";
     file1.close();
     ofstream file2(CREDENTIAL_FILE_NAME, ios::app);
     file2 << username+' ' << password << '\n';
