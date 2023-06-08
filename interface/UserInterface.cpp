@@ -141,14 +141,7 @@ void UserInterface::mainInterface(){
                 continue;
             }
 
-            Station* chosenStation;
-            try {
-                chosenStation = getStation();
-            } catch (invalid_argument& err){
-                cout << err.what() << endl;
-                continue;
-            }
-            success = cancelReservation(chosenVehicle, chosenStation);
+            success = cancelReservation(chosenVehicle);
 
         // Show rented Vehicles
         } else if (option == 9){
@@ -434,8 +427,8 @@ bool UserInterface::addCredits(float amount){
     return this->velocity.addCredits(amount);
 }
 
-bool UserInterface::cancelReservation(Vehicle* vehicle, Station* station){
-    return this->velocity.cancelReservation(vehicle, station);
+bool UserInterface::cancelReservation(Vehicle* vehicle){
+    return this->velocity.cancelReservation(vehicle);
 }
 
 void UserInterface::printNearestStation(){

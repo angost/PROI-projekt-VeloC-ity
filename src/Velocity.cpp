@@ -109,7 +109,7 @@ bool Velocity::returnVehicle(Vehicle *vehicle, Station *station) {
 }
 
 
-bool Velocity::cancelReservation(Vehicle *vehicle, Station *station) {
+bool Velocity::cancelReservation(Vehicle *vehicle) {
     if (!vehicle->checkReservedStatus()){
         return false;
     }
