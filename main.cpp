@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
                 serviceIdentifier = "";
                 continue;
             }
-            ServiceInterface iface(serviceTeam);
+            ServiceInterface iface(serviceTeam, data);
             iface.mainInterface();
         }
         // Admin Interface
@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
                 adminIdentifier = "";
                 continue;
             }
-            AdminInterface iface(admin);
+            AdminInterface iface(admin, data);
             iface.mainInterface();
         }
         // Exit
