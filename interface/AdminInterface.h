@@ -16,9 +16,9 @@
 
 
 class AdminInterface {
-    AdminService admin;
+    AdminService adminService;
 public:
-    explicit AdminInterface(AdminService admin);
+    explicit AdminInterface(AdminService adminService);
     void mainInterface();
     static int getAction();
     Station* getStation();

@@ -9,8 +9,8 @@
 
 using namespace std;
 
-AdminInterface::AdminInterface(AdminService admin){
-    this->admin = std::move(admin);
+AdminInterface::AdminInterface(AdminService adminService){
+    this->adminService = std::move(adminService);
 }
 
 
@@ -113,11 +113,11 @@ int AdminInterface::getAction() {
 
 
 void AdminInterface::displayStations() {
-    admin.displayStations();
+    adminService.displayStations();
 }
 
 void AdminInterface::displayStationAssignment() {
-    admin.displayStationAssignment();
+    adminService.displayStationAssignment();
 }
 
 
@@ -126,7 +126,7 @@ Station *AdminInterface::getStation() {
     cout << "Enter station code > ";
     cin >> code;
     cout << endl;
-    for (auto i : admin.stations){
+    for (auto i : adminService.stations){
         if (i->code == code) {
             return i;
         }
@@ -140,7 +140,7 @@ Service& AdminInterface::getServiceCrew() {
     cout << "Enter service crew identifier > ";
     cin >> identifier;
     cout << endl;
-    for (auto& i : admin.serviceTeams) {
+    for (auto& i : adminService.serviceTeams) {
         if (i.identifier == identifier) {
             return i;
         }
@@ -163,7 +163,7 @@ Station *AdminInterface::getNewStation() {
         std::istringstream iss(line);
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
-        Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
+        Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
         station->changeLocation(recognisedLocation);
         return station;
     } else if (type == "SubStation") {
@@ -176,7 +176,7 @@ Station *AdminInterface::getNewStation() {
         std::istringstream iss(line);
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
-        Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
+        Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
         station->changeLocation(recognisedLocation);
         return station;
     } else if (type == "LocalStation") {
@@ -189,7 +189,7 @@ Station *AdminInterface::getNewStation() {
         std::istringstream iss(line);
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
-        Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
+        Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
         station->changeLocation(recognisedLocation);
         return station;
     } else {
@@ -208,15 +208,15 @@ Location AdminInterface::getLocation(const vector < Location >& existingLocation
 
 
 bool AdminInterface::addNewStation(Station* newStation) {
-    return admin.addNewStation(newStation);
+    return adminService.addNewStation(newStation);
 }
 
 bool AdminInterface::removeExistingStation(Station* station) {
-    return admin.removeExistingStation(station);
+    return adminService.removeExistingStation(station);
 }
 
 void AdminInterface::unassignRemovedStation(Station* station){
-    admin.unassignRemovedStation(station);
+    adminService.unassignRemovedStation(station);
 }
 
 bool AdminInterface::assignStation(Station* station, Service& serviceTeam) {
