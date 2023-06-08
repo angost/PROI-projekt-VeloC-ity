@@ -120,22 +120,7 @@ int main(int argc, char **argv) {
 //        if (!checkCredentials(credentials, username, password)) {
 //            cout << "Incorrect credentials" << endl;
 //        } else {
-//            int userIndex = findUser(userStats, username);
-//            if (userStats[userIndex].userClass == "Standard"){
-//                StandardUser user(username, currentUserLocation);
-//                startSession(userStats[userIndex], &user, stations, locations);
-//                saveSessionProgress(&user, userIndex, userStats);
-//            }
-//            else if (userStats[userIndex].userClass == "Silver"){
-//                SilverUser user(username, currentUserLocation);
-//                startSession(userStats[userIndex], &user, stations, locations);
-//                saveSessionProgress(&user, userIndex, userStats);
-//            }
-//            else {
-//                GoldenUser user(username, currentUserLocation);
-//                startSession(userStats[userIndex], &user, stations, locations);
-//                saveSessionProgress(&user, userIndex, userStats);
-//            }
+//
 //
 //        }
 //    } else {

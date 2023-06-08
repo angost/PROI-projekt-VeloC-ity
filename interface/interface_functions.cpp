@@ -2,6 +2,7 @@
 // Created by Adrian Murawski on 30/05/2023.
 //
 #include "interface_functions.h"
+#include "data/SaveProgress.h"
 
 int getMainMenuOption(){
     cout << endl << endl << "VeloC++ity 2023" << endl;
@@ -126,4 +127,23 @@ void startSession(UserStats &stats, User* user, vector<Station*> &stations, vect
     initPreviousSession(stats, user);
     UserInterface userIface(stations, locations, user);
     userIface.mainInterface();
+}
+
+void logUserIn(string username, Location &currentUserLocation, vector<UserStats> &userStats, vector<Station*> &stations, vector<Location> &locations){
+    int userIndex = findUser(userStats, username);
+    if (userStats[userIndex].userClass == "Standard"){
+        StandardUser user(username, currentUserLocation);
+        startSession(userStats[userIndex], &user, stations, locations);
+        saveSessionProgress(&user, userIndex, userStats);
+    }
+    else if (userStats[userIndex].userClass == "Silver"){
+        SilverUser user(username, currentUserLocation);
+        startSession(userStats[userIndex], &user, stations, locations);
+        saveSessionProgress(&user, userIndex, userStats);
+    }
+    else {
+        GoldenUser user(username, currentUserLocation);
+        startSession(userStats[userIndex], &user, stations, locations);
+        saveSessionProgress(&user, userIndex, userStats);
+    }
 }
