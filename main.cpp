@@ -100,8 +100,21 @@ int main(int argc, char **argv) {
                 ServiceInterface iface(serviceTeam);
                 iface.mainInterface();
             }
+            // Admin Interface
+            else if (mainMenuOption == 4){
+                string adminIdentifier;
+                cout << "Enter admin identifier > ";
+                cin >> adminIdentifier;
+
+                if (adminIdentifier != ADMIN_ID) {
+                    cout << "Invalid identifier" << endl;
+                    continue;
+                }
+                AdminInterface iface(admin);
+                iface.mainInterface();
+            }
             // Exit
-            else if (mainMenuOption == 4) {
+            else if (mainMenuOption == 5) {
                 cout << "Exiting..." << endl;
                 break;
             }

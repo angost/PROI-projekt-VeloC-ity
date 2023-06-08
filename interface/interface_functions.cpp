@@ -13,8 +13,8 @@ int getMainMenuOption(){
     cout << "1. Log in (existing User)" << endl;
     cout << "2. Create new account" << endl;
     cout << "3. Service Interface" << endl;
-    cout << "3. Admin Interface" << endl;
-    cout << "4. EXIT" << endl;
+    cout << "4. Admin Interface" << endl;
+    cout << "5. EXIT" << endl;
 
     cout << "Enter number to define action > ";
     cin >> action;
