@@ -170,6 +170,14 @@ Station *AdminInterface::getNewStation() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
+        string stationType, stationName, stationCode, x, y;
+        iss >> stationType >> stationName >> stationCode >> x >> y;
+        if (!(stationType == "MainStation")) {
+            throw invalid_argument("Wrong station type given");
+        }
+        if (stationCode[0] != 'A') {
+            throw invalid_argument("Wrong station code");
+        }
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
@@ -183,6 +191,14 @@ Station *AdminInterface::getNewStation() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
+        string stationType, stationName, stationCode, x, y;
+        iss >> stationType >> stationName >> stationCode >> x >> y;
+        if (!(stationType == "SubStation")) {
+            throw invalid_argument("Wrong station type given");
+        }
+        if (stationCode[0] != 'B') {
+            throw invalid_argument("Wrong station code");
+        }
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
@@ -196,6 +212,14 @@ Station *AdminInterface::getNewStation() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
+        string stationType, stationName, stationCode, x, y;
+        iss >> stationType >> stationName >> stationCode >> x >> y;
+        if (!(stationType == "LocalStation")) {
+            throw invalid_argument("Wrong station type given");
+        }
+        if (stationCode[0] != 'C') {
+            throw invalid_argument("Wrong station code");
+        }
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(admin.locations, currentLocation.x_coord, currentLocation.y_coord);
