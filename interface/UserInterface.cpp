@@ -258,12 +258,6 @@ int UserInterface::getAction(){
     cout << "                                9. Show rented Vehicles                                  18. EXIT " << endl;
     cout << "                               10. Show reserved Vehicles                                         " << endl;
 
-//    cout << " 1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
-//    cout << " 4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
-//    cout << " 7. Cancel Reservation     8. Show rented Vehicles            9. Show reserved Vehicles" << endl;
-//    cout << "10. Show balance          11. Add credits                    12. Show current coords" << endl;
-//    cout << "13. Show all coords       14. Go to coords                   15. Go to station" << endl;
-//    cout << "16. Add driving license   17. Exit" << endl << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
