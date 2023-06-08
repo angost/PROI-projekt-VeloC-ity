@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
                 serviceTeam = getServiceTeam(admin.serviceTeams, serviceIdentifier);
             }
             catch (invalid_argument& err) {
-                cout << "Invalid identifier" << endl;
+                cout << "Invalid service identifier" << endl;
                 // Set to default values
                 mainMenuOption = -1;
                 serviceIdentifier = "";
@@ -138,7 +138,7 @@ int main(int argc, char **argv) {
             }
 
             if (adminIdentifier != ADMIN_ID) {
-                cout << "Invalid identifier" << endl;
+                cout << "Invalid admin identifier" << endl;
                 // Set to default values
                 mainMenuOption = -1;
                 adminIdentifier = "";
