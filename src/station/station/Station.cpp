@@ -126,12 +126,10 @@ ostream &operator<<(ostream &out, const Station &station) {
         type = "Unknown";
     }
     out << type << " " << station.name << " "
-    << station.code << " " << station.location.city << " "
-    << station.location.district << " " << station.location.street_name
-    << " " << station.location.street_number << " " << station.location.x_coord
-    << " " << station.location.y_coord << endl;
+    << station.code << " " << station.location.x_coord
+    << " " << station.location.y_coord << " " << station.maxVehiclesNumber << " " << station.numberOfRentals << endl;
     for (auto i : station.currentVehicles) {
-        out << i->type << " " << i->id << endl;
+        out << i->type << " " << i->id << " " << i->rentedStatus << " " << i->reservedStatus << " " << i->technicalCondition << " " << i->numberOfRentals << endl;
     }
     return out;
 }
@@ -145,20 +143,27 @@ istream& operator>>(istream& in, Station& station) {
 //       >> station.location.street_number >> station.location.x_coord
 //       >> station.location.y_coord;
     iss >> type >> station.name >> station.code >> station.location.x_coord
-        >> station.location.y_coord;
+        >> station.location.y_coord >> station.maxVehiclesNumber >> station.numberOfRentals;
     while (getline(in, line)) {
         string vehicleType;
-        int id;
+        int id, technicalCondition, numberOfRentals;
+        bool reservedStatus, rentedStatus;
         std::istringstream is(line);
-        is >> vehicleType >> id;
+        is >> vehicleType >> id >> rentedStatus >> reservedStatus >> technicalCondition >> numberOfRentals;
         if (vehicleType == "Bike") {
-            auto* vehicle = new Bike(id);
+            auto* vehicle = new Bike(id, numberOfRentals, technicalCondition);
+            vehicle->setReservedStatus(reservedStatus);
+            vehicle->setRentedStatus(rentedStatus);
             station.currentVehicles.push_back(vehicle);
         } else if (vehicleType == "Scooter") {
-            auto* vehicle = new Scooter(id);
+            auto* vehicle = new Scooter(id, numberOfRentals, technicalCondition);
+            vehicle->setReservedStatus(reservedStatus);
+            vehicle->setRentedStatus(rentedStatus);
             station.currentVehicles.push_back(vehicle);
         } else if (vehicleType == "ElectricScooter") {
-            auto* vehicle = new ElectricScooter(id);
+            auto* vehicle = new ElectricScooter(id, numberOfRentals, technicalCondition);
+            vehicle->setReservedStatus(reservedStatus);
+            vehicle->setRentedStatus(rentedStatus);
             station.currentVehicles.push_back(vehicle);
         } else {
             throw std::invalid_argument("Wrong vehicle type");

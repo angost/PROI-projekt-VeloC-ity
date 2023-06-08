@@ -1,0 +1,6 @@
+LocalStation localStation14 C14 36 42 5 0
+Scooter 235 0 0 5 0
+Bike 106 0 0 5 0
+ElectricScooter 355 0 0 5 0
+ElectricScooter 327 0 0 5 0
+Scooter 271 0 0 5 0

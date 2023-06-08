@@ -1,0 +1,6 @@
+SubStation subStation6 B6 23 1 25 0
+Bike 162 0 0 5 0
+Bike 108 0 0 5 0
+Scooter 253 0 0 5 0
+Bike 123 0 0 5 0
+Scooter 260 0 0 5 0

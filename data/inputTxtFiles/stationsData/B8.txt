@@ -1,0 +1,6 @@
+SubStation subStation8 B8 47 42 25 0
+Scooter 201 0 0 5 0
+Bike 135 0 0 5 0
+ElectricScooter 341 0 0 5 0
+Bike 157 0 0 5 0
+ElectricScooter 309 0 0 5 0

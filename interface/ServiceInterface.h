@@ -13,11 +13,14 @@
 #include "src/vehicle/Scooter.h"
 #include "src/vehicle/ElectricScooter.h"
 
+#include "data/DataParser.h"
+
 
 class ServiceInterface {
 public:
     Service serviceClass;
-    explicit ServiceInterface(Service service);
+    DataParser data;
+    ServiceInterface(Service service, DataParser &data);
     void mainInterface();
     static int getAction();
     void printSupportedStations();

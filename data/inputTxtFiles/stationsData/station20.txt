@@ -1,6 +1,0 @@
-LocalStation localStation9 C9 43 0
-Scooter 273
-Scooter 206
-Bike 122
-ElectricScooter 313
-Scooter 229

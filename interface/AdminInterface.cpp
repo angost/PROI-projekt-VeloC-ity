@@ -9,8 +9,10 @@
 
 using namespace std;
 
-AdminInterface::AdminInterface(AdminService adminService){
+
+AdminInterface::AdminInterface(AdminService admin, DataParser &data){
     this->adminService = std::move(adminService);
+    this->data = data;
 }
 
 
@@ -49,6 +51,7 @@ void AdminInterface::mainInterface() {
             try {
                 Station* newStation = getNewStation();
                 success = addNewStation(newStation);
+                data.insertNewStation(newStation);
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -67,6 +70,9 @@ void AdminInterface::mainInterface() {
             if (success) {
                 unassignRemovedStation(station);
             }
+            data.deleteAllAssignments(station);
+            data.deleteStation(station);
+            delete station;
         } else if (option == 6) {
             Station* station;
             try {
@@ -79,12 +85,16 @@ void AdminInterface::mainInterface() {
             try {
                 Service& serviceCrew = getServiceCrew();
                 success = assignStation(station, serviceCrew);
+                data.assignStation(station, serviceCrew);
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
         } else if (option == 7) {
+            data.refreshData(admin.stations, admin.serviceTeams);
+            continue;
+        } else if (option == 8) {
             break;
         } else {
             cout << "Wrong option..." << endl;
@@ -103,7 +113,8 @@ int AdminInterface::getAction() {
     cout << "          1. Print all Stations                    |           4. Add new Station  " << endl;
     cout << "          2. Print Vehicles in Station             |           5. Remove current station " << endl;
     cout << "          3. Print Station assignment              |           6. Assign Station                " << endl;
-    cout << "                                                   |           7. EXIT" << endl;
+    cout << "                                                   |           7. REFRESH" << endl;
+    cout << "                                                   |           8. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
@@ -161,6 +172,14 @@ Station *AdminInterface::getNewStation() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
+        string stationType, stationName, stationCode, x, y;
+        iss >> stationType >> stationName >> stationCode >> x >> y;
+        if (!(stationType == "MainStation")) {
+            throw invalid_argument("Wrong station type given");
+        }
+        if (stationCode[0] != 'A') {
+            throw invalid_argument("Wrong station code");
+        }
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
@@ -174,6 +193,14 @@ Station *AdminInterface::getNewStation() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
+        string stationType, stationName, stationCode, x, y;
+        iss >> stationType >> stationName >> stationCode >> x >> y;
+        if (!(stationType == "SubStation")) {
+            throw invalid_argument("Wrong station type given");
+        }
+        if (stationCode[0] != 'B') {
+            throw invalid_argument("Wrong station code");
+        }
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
@@ -187,6 +214,14 @@ Station *AdminInterface::getNewStation() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, line);
         std::istringstream iss(line);
+        string stationType, stationName, stationCode, x, y;
+        iss >> stationType >> stationName >> stationCode >> x >> y;
+        if (!(stationType == "LocalStation")) {
+            throw invalid_argument("Wrong station type given");
+        }
+        if (stationCode[0] != 'C') {
+            throw invalid_argument("Wrong station code");
+        }
         iss >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);

@@ -1,6 +1,0 @@
-LocalStation localStation8 C8 4 7
-ElectricScooter 321
-Scooter 225
-Bike 105
-Scooter 276
-ElectricScooter 338
