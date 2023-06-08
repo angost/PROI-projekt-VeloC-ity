@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
             if (mainMenuOption == 1) {
                 correctUserData = logInInterface(credentials, username, password);
                 if (correctUserData) {
-
+                    logUserIn(username, currentUserLocation, userStats, stations, locations);
                 } else {
                     cout << "Failed to log in..." << endl;
                     continue;
