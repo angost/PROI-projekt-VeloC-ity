@@ -234,7 +234,7 @@ void UserInterface::mainInterface(){
 
         // EXIT
         } else if (option == 18) {
-            cout << "Thank you for using our services" << endl;
+            cout << "Thank you for using our services" << endl << endl;
             break;
 
         } else {
