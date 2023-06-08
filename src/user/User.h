@@ -18,7 +18,7 @@ public:
 	float balance;
 	float minBalance;
 	string drivingLicense;
-    map <Vehicle*, Station*> reservedVehicles;
+    vector<Vehicle*> reservedVehicles;
 	vector <Vehicle*> rentedVehicles;
 	int vehicleCounter;
 	int maxResVehicles;
@@ -46,7 +46,7 @@ public:
     bool changeLocation(Location newLocation);
     virtual void accountStats() = 0;
     vector< Vehicle* > getRentedVehicles();
-    map <Vehicle*, Station*> getReservedVehicles();
+    vector<Vehicle*> getReservedVehicles();
 //    template <typename V, typename T>
 //    void print(V value, T text);
 };

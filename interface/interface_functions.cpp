@@ -91,21 +91,33 @@ vector<string> splitString(const string& input) {
     return tokens;
 }
 
-vector<UserStats> getUserStats(const string &userStatFilename){
-    vector<UserStats> stats;
+UserStats getUserStats(const string &userStatFilename){
 
     ifstream file(userStatFilename);
 
     string line;
-    while (getline(file, line)) {
-        vector<string> parts = splitString(line);
-        string username = parts[0], uClass = parts[1], license = parts[4];
-        float balance = stof(parts[3]);
-        int vehCounter = stoi(parts[2]);
-        UserStats userArguments(username, uClass, vehCounter, balance, license);
-        stats.push_back(userArguments);
+    // User info
+    getline(file, line);
+    vector<string> partsUserInfo = splitString(line);
+    string username = partsUserInfo[0], uClass = partsUserInfo[1], license = partsUserInfo[4];
+    float balance = stof(partsUserInfo[3]);
+    int vehCounter = stoi(partsUserInfo[2]);
+
+    // Reserved Vehicles
+    getline(file, line);
+    vector<string> partsReservedVehicles = splitString(line);
+    int numberOfResVeh = stoi(partsReservedVehicles[0]);
+    map<int, string> reservedVehicles;
+    for (int vehNr = 0; vehNr < partsReservedVehicles.size(); vehNr++){
+        string type = partsReservedVehicles[1+vehNr*3];
+        int id = stoi(partsReservedVehicles[1+vehNr*3+1]);
+        string stationCode = partsReservedVehicles[1+vehNr*3+2];
+
+        reservedVehicles[id] = stationCode;
     }
-    return stats;
+
+    UserStats userStats(username, uClass, vehCounter, balance, license, reservedVehicles);
+    return userStats;
 }
 
 int findUser(vector<UserStats> &stats, const string &username){
@@ -117,10 +129,25 @@ int findUser(vector<UserStats> &stats, const string &username){
     throw invalid_argument("User not found");
 }
 
-void initPreviousSession(UserStats &stats, User* user){
+void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations){
     user->drivingLicense = stats.drivingLicense;
     user->balance = stats.balance;
     user->vehicleCounter = stats.vehicleCounter;
+
+    // Adds reserved vehicles to user
+    for (auto resVeh : stats.reservedVehicles){
+        for (auto station : stations){
+            // Reserved Vehicle is on this station
+            if (station->code == resVeh.second){
+                for (auto vehicle : *station){
+                    if (vehicle->id == resVeh.first){
+                        user->reserveVehicle(vehicle, station);
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations){

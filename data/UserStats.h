@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "src/vehicle/Vehicle.h"
 
 using namespace std;
@@ -19,11 +20,12 @@ public:
     float balance;
     string drivingLicense;
     string username;
+    map<int, string> &reservedVehicles;
 //    vector <Vehicle*> &reservedVehicles;
 //    vector <Vehicle*> &rentedVehicles;
 
 //    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> &reservedVehicles, vector <Vehicle*> &rentedVehicles);
-    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense);
+    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, map<int, string> &reservedVehicles);
 
 };
 

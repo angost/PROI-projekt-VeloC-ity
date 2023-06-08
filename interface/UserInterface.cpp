@@ -126,8 +126,7 @@ void UserInterface::mainInterface(){
 
         // Cancel Reservation
         } else if (option == 8){
-            map <Vehicle*, Station*> reservedVehicles = user->getReservedVehicles();
-            if (reservedVehicles.size() == 0){
+            vector<Vehicle*> reservedVehicles = user->getReservedVehicles();            if (reservedVehicles.size() == 0){
                 cout << "You don't have any reserved vehicles" << endl;
                 continue;
             }
@@ -299,19 +298,6 @@ Vehicle* UserInterface::getVehicle(vector<Vehicle*>* vehicles){
     throw invalid_argument("Wrong vehicle id");
 }
 
-Vehicle* UserInterface::getVehicle(map<Vehicle*, Station*>* vehicles){
-    string id;
-    cout << endl << "Enter vehicle id > ";
-    cin >> id;
-    cout << endl;
-    int id_number = stoi(id);
-    for (auto vehicle : *vehicles) {
-        if (vehicle.first->id == id_number) {
-            return vehicle.first;
-        }
-    }
-    throw invalid_argument("Wrong vehicle id");
-}
 
 float UserInterface::getAmount(){
     string amount;
@@ -387,18 +373,18 @@ void UserInterface::printRentedVehicles() {
 
 void UserInterface::printReservedVehicles(){
     //TODO zmienic, bo vehicle maja juz type jako atrybut
-    for (auto reservedVehicle : user->getReservedVehicles()) {
+    for (auto vehicle : user->getReservedVehicles()) {
         string type;
-        if (reservedVehicle.first->id > 300) {
+        if (vehicle->id > 300) {
             type = "ElectricScooter";
-        } else if (reservedVehicle.first->id > 200) {
+        } else if (vehicle->id > 200) {
             type = "Scooter";
-        } else if (reservedVehicle.first->id > 100) {
+        } else if (vehicle->id > 100) {
             type = "Bike";
         } else {
             type = "Unknown";
         }
-        cout << "Type: " << type << "   ID: " << reservedVehicle.first->id << endl;
+        cout << "Type: " << type << "   ID: " << vehicle->id << endl;
     }
 }
 
