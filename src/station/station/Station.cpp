@@ -126,10 +126,8 @@ ostream &operator<<(ostream &out, const Station &station) {
         type = "Unknown";
     }
     out << type << " " << station.name << " "
-    << station.code << " " << station.location.city << " "
-    << station.location.district << " " << station.location.street_name
-    << " " << station.location.street_number << " " << station.location.x_coord
-    << " " << station.location.y_coord << endl;
+    << station.code << " " << station.location.x_coord
+    << " " << station.location.y_coord << " " << station.maxVehiclesNumber << " " << station.numberOfRentals << endl;
     for (auto i : station.currentVehicles) {
         out << i->type << " " << i->id << endl;
     }
@@ -145,7 +143,7 @@ istream& operator>>(istream& in, Station& station) {
 //       >> station.location.street_number >> station.location.x_coord
 //       >> station.location.y_coord;
     iss >> type >> station.name >> station.code >> station.location.x_coord
-        >> station.location.y_coord;
+        >> station.location.y_coord >> station.maxVehiclesNumber >> station.numberOfRentals;
     while (getline(in, line)) {
         string vehicleType;
         int id;

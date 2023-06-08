@@ -1,4 +1,4 @@
-MainStation mainStation2 A2 17 43
+MainStation mainStation2 A2 17 43 50 0
 ElectricScooter 304
 ElectricScooter 312
 Bike 167

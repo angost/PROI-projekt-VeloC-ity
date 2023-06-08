@@ -1,4 +1,4 @@
-LocalStation localStation8 C8 4 7
+LocalStation localStation8 C8 4 7 5 0
 ElectricScooter 321
 Scooter 225
 Bike 105

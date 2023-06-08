@@ -1,4 +1,4 @@
-SubStation subStation5 B5 33 7
+SubStation subStation5 B5 33 7 25 0
 ElectricScooter 346
 Scooter 252
 ElectricScooter 307

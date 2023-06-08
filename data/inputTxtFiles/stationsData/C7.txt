@@ -1,4 +1,4 @@
-LocalStation localStation7 C7 6 35
+LocalStation localStation7 C7 6 35 5 0
 Scooter 221
 ElectricScooter 301
 Bike 125

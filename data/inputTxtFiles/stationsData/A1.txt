@@ -1,4 +1,4 @@
-MainStation mainStation1 A1 18 29
+MainStation mainStation1 A1 18 29 50 0
 Scooter 269
 Scooter 217
 Bike 136

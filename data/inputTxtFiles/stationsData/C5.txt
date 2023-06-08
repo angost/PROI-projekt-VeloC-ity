@@ -1,4 +1,4 @@
-LocalStation localStation5 C5 29 20
+LocalStation localStation5 C5 29 20 5 0
 Bike 118
 Bike 100
 ElectricScooter 330

@@ -1,4 +1,4 @@
-LocalStation localStation3 C3 14 46
+LocalStation localStation3 C3 14 46 5 0
 Bike 134
 ElectricScooter 311
 Scooter 244

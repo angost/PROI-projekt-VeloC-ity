@@ -1,4 +1,4 @@
-LocalStation localStation11 C11 47 1
+LocalStation localStation11 C11 47 1 5 0
 Scooter 288
 Bike 113
 Bike 166

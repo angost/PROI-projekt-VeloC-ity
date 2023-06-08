@@ -1,4 +1,4 @@
-SubStation subStation2 B2 12 40
+SubStation subStation2 B2 12 40 25 0
 Scooter 277
 Scooter 250
 Bike 160

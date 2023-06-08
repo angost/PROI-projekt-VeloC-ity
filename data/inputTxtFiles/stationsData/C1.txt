@@ -1,4 +1,4 @@
-LocalStation localStation1 C1 20 6
+LocalStation localStation1 C1 20 6 5 0
 Scooter 246
 Bike 148
 Scooter 231

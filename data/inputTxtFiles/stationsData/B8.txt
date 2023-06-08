@@ -1,4 +1,4 @@
-SubStation subStation8 B8 47 42
+SubStation subStation8 B8 47 42 25 0
 Scooter 201
 Bike 135
 ElectricScooter 341

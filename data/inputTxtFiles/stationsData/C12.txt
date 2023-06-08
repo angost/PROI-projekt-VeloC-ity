@@ -1,4 +1,4 @@
-LocalStation localStation12 C12 29 23
+LocalStation localStation12 C12 29 23 5 0
 Bike 155
 Bike 164
 Bike 145

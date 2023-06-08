@@ -1,4 +1,4 @@
-SubStation subStation6 B6 23 1
+SubStation subStation6 B6 23 1 25 0
 Bike 162
 Bike 108
 Scooter 253
