@@ -40,13 +40,14 @@ int main(int argc, char **argv) {
     setupMap(locations);
 
     // DATA
-    vector < string > filenames;
-    for (const auto& filename : FILENAMES) {
+    vector<string> filenames;
+    for (const auto &filename: FILENAMES) {
         filenames.push_back(STATIONS_DATA_PATH + filename);
     }
     DataParser data(filenames, locations);
-    vector < Station* > stations = data.getAllStations();
-    vector < Service > serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations, locations);
+    vector<Station *> stations = data.getAllStations();
+    vector<Service> serviceCrews = DataParser::assignStationsToServiceCrews(SERVICE_CREW_FILE_NAME, stations,
+                                                                            locations);
     AdminService admin(ADMIN_ID, serviceCrews, stations, locations);
     Location currentUserLocation = data.getUserLocation(USER_LOCATION_FILE_NAME);
 
@@ -62,89 +63,95 @@ int main(int argc, char **argv) {
     int mainMenuOption;
     // MAIN MENU
     if (argc == 1) {
-        while (true){
+        while (true) {
             credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
             userStats = getUserStats(USER_STATS_FILE_NAME);
 
             mainMenuOption = getMainMenuOption();
             // Log in
-            if (mainMenuOption == 1){
+            if (mainMenuOption == 1) {
                 correctUserData = log_in(credentials, username, password);
-                if (correctUserData){
+                if (correctUserData) {
 
                 } else {
                     cout << "Failed to log in..." << endl;
                     continue;
                 }
             }
-            // Create new account
-            else if (mainMenuOption == 2){
+                // Create new account
+            else if (mainMenuOption == 2) {
                 createAccount();
                 continue;
             }
-        }
-//
-    }
-    //UserInterface userIface;
-    if (in.cmdOptionExists("-s") && argc == 3) {
-        Service serviceTeam;
-        try {
-            serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
-        }
-        catch (invalid_argument& err) {
-            cout << "Invalid identifier" << endl;
-            return 1;
-        }
-        ServiceInterface iface(serviceTeam);
-        iface.mainInterface();
-    } else if (in.cmdOptionExists("-a") && argc == 3) {
-        if (!(argv[2] == ADMIN_ID)) {
-            cout << "Invalid identifier" << endl;
-            return 1;
-        }
-        AdminInterface iface(admin);
-        iface.mainInterface();
-    } else if (argc == 3 || correctUserData) {
-        // logged user interface
-        if (!correctUserData){
-            username = argv[1];
-            password = argv[2];
-        }
-        if (!checkCredentials(credentials, username, password)) {
-            cout << "Incorrect credentials" << endl;
-        } else {
-            int userIndex = findUser(userStats, username);
-            if (userStats[userIndex].userClass == "Standard"){
-                StandardUser user(username, currentUserLocation);
-                startSession(userStats[userIndex], &user, stations, locations);
-                saveSessionProgress(&user, userIndex, userStats);
+                // Exit
+            else if (mainMenuOption == 4) {
+                cout << "Thank you for using our services." << endl;
+                break;
             }
-            else if (userStats[userIndex].userClass == "Silver"){
-                SilverUser user(username, currentUserLocation);
-                startSession(userStats[userIndex], &user, stations, locations);
-                saveSessionProgress(&user, userIndex, userStats);
-            }
-            else {
-                GoldenUser user(username, currentUserLocation);
-                startSession(userStats[userIndex], &user, stations, locations);
-                saveSessionProgress(&user, userIndex, userStats);
-            }
-
         }
-    } else {
-        cout << "Incorrect init value" << endl;
-    }
 
-
-    // PREVENTING MEMORY LEAK
-    for (auto station : stations) {
-        for (auto vehicle : *station) {
-            delete vehicle;
-        }
-        delete station;
     }
-    return 0;
 }
+//    //UserInterface userIface;
+//    if (in.cmdOptionExists("-s") && argc == 3) {
+//        Service serviceTeam;
+//        try {
+//            serviceTeam = getServiceTeam(admin.serviceTeams, argv[2]);
+//        }
+//        catch (invalid_argument& err) {
+//            cout << "Invalid identifier" << endl;
+//            return 1;
+//        }
+//        ServiceInterface iface(serviceTeam);
+//        iface.mainInterface();
+//    } else if (in.cmdOptionExists("-a") && argc == 3) {
+//        if (!(argv[2] == ADMIN_ID)) {
+//            cout << "Invalid identifier" << endl;
+//            return 1;
+//        }
+//        AdminInterface iface(admin);
+//        iface.mainInterface();
+//    } else if (argc == 3 || correctUserData) {
+//        // logged user interface
+//        if (!correctUserData){
+//            username = argv[1];
+//            password = argv[2];
+//        }
+//        if (!checkCredentials(credentials, username, password)) {
+//            cout << "Incorrect credentials" << endl;
+//        } else {
+//            int userIndex = findUser(userStats, username);
+//            if (userStats[userIndex].userClass == "Standard"){
+//                StandardUser user(username, currentUserLocation);
+//                startSession(userStats[userIndex], &user, stations, locations);
+//                saveSessionProgress(&user, userIndex, userStats);
+//            }
+//            else if (userStats[userIndex].userClass == "Silver"){
+//                SilverUser user(username, currentUserLocation);
+//                startSession(userStats[userIndex], &user, stations, locations);
+//                saveSessionProgress(&user, userIndex, userStats);
+//            }
+//            else {
+//                GoldenUser user(username, currentUserLocation);
+//                startSession(userStats[userIndex], &user, stations, locations);
+//                saveSessionProgress(&user, userIndex, userStats);
+//            }
+//
+//        }
+//    } else {
+//        cout << "Incorrect init value" << endl;
+//    }
+//
+//
+//    // PREVENTING MEMORY LEAK
+//    for (auto station : stations) {
+//        for (auto vehicle : *station) {
+//            delete vehicle;
+//        }
+//        delete station;
+//    }
+//    return 0;
+//}
 
 /*
  main(){
