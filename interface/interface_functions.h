@@ -19,10 +19,9 @@ using namespace std;
 #define PROI_PROJEKT_INTERFACE_FUNCTIONS_H
 
 int getMainMenuOption();
-void loginInterface(string &username, string &password);
 bool checkCredentials(const map <string, string >& credentials, const string& username, const string& password);
 map < string, string > getAllCredentials(const string& credentialFilename);
-int log_in(const map <string, string >& credentials, string &username, string &password);
+int logInInterface(const map <string, string >& credentials, string &username, string &password);
 Service getServiceTeam(const vector < Service >& serviceCrews, const string& id);
 vector<UserStats> getUserStats(const string &userStatFilename);
 int findUser(vector<UserStats> &stats, const string &username);

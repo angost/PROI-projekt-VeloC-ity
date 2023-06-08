@@ -22,13 +22,6 @@ int getMainMenuOption(){
     return actionInt;
 }
 
-void loginInterface(string &username, string &password){
-    cout << "Enter username >> ";
-    cin >> username;
-    cout << "Enter password >> ";
-    cin >> password;
-}
-
 bool checkCredentials(const map <string, string >& credentials, const string& username, const string& password){
     for (const auto& pair : credentials){
         if (username == pair.first){
@@ -57,10 +50,15 @@ map < string, string > getAllCredentials(const string& credentialFilename){
     return credentials;
 }
 
-int log_in(const map <string, string >& credentials, string &username, string &password){
+int logInInterface(const map <string, string >& credentials, string &username, string &password){
     int logCounter = 0;
     while (logCounter < 3){
-        loginInterface(username, password);
+
+        cout << "Enter username >> ";
+        cin >> username;
+        cout << "Enter password >> ";
+        cin >> password;
+
         if (!checkCredentials(credentials, username, password)) {
             cout << "Incorrect credentials..." << endl;
             logCounter++;

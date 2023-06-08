@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
             mainMenuOption = getMainMenuOption();
             // Log in
             if (mainMenuOption == 1) {
-                correctUserData = log_in(credentials, username, password);
+                correctUserData = logInInterface(credentials, username, password);
                 if (correctUserData) {
 
                 } else {
@@ -78,12 +78,12 @@ int main(int argc, char **argv) {
                     continue;
                 }
             }
-                // Create new account
+            // Create new account
             else if (mainMenuOption == 2) {
                 createAccount();
                 continue;
             }
-                // Exit
+            // Exit
             else if (mainMenuOption == 4) {
                 cout << "Thank you for using our services." << endl;
                 break;
