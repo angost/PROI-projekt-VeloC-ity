@@ -402,3 +402,58 @@ void DataParser::changeVehicleNumberOfRentals(Station *station, Vehicle *changed
     changedFile << newFile;
     changedFile.close();
 }
+
+
+void DataParser::removeVehicle(Station *station, Vehicle *vehicle) {
+    ifstream file(stationsDataPath + "/" + station->code + ".txt");
+    string line, newFile;
+    getline(file, line);
+    newFile += line + "\n";
+    string vehicleType;
+    int id, technicalCondition, numberOfRentals;
+    bool reservedStatus, rentedStatus;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        iss >> vehicleType >> id >> rentedStatus >> reservedStatus >> technicalCondition >> numberOfRentals;
+        if (id != vehicle->id) {
+            newFile += line;
+            newFile += "\n";
+        }
+    }
+    file.close();
+    std::ofstream changedFile(stationsDataPath + "/" + station->code + ".txt");
+    changedFile << newFile;
+    changedFile.close();
+}
+
+
+void DataParser::addVehicle(Station *station, Vehicle *vehicle) {
+    std::ofstream changedFile(stationsDataPath + "/" + station->code + ".txt", std::ios::app);
+    changedFile << vehicle->type << " " << vehicle->id << " " << vehicle->rentedStatus << " " << vehicle->reservedStatus << " " << vehicle->technicalCondition << " " << vehicle->numberOfRentals << endl;
+    changedFile.close();
+}
+
+
+void DataParser::refreshServiceData(vector<Station *>& stations, Service &service) {
+    for (auto& station : stations) {
+        for (auto& vehicle : *station) {
+            delete vehicle;
+        }
+        delete station;
+    }
+    ifstream file(serviceCrewAssignmentFilename);
+    string line, code, identifier;
+    vector < string > codes;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        iss >> code >> identifier;
+        if (identifier == service.identifier) {
+            codes.push_back(code);
+        }
+    }
+    vector < Station* > newStations;
+    for (auto& stationCode : codes) {
+        newStations.push_back(getStation(stationsDataPath + "/" + stationCode + ".txt"));
+    }
+    stations = newStations;
+}

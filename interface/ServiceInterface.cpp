@@ -113,6 +113,8 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = moveVehicle(vehicle, fromStation, toStation);
+            data.removeVehicle(fromStation, vehicle);
+            data.addVehicle(toStation, vehicle);
         } else if (option == 8) {
             Station* station;
             Vehicle* vehicle;
@@ -125,6 +127,7 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = addVehicle(station, vehicle);
+            data.addVehicle(station, vehicle);
         } else if (option == 9) {
             Station* station;
             Vehicle* vehicle;
@@ -137,7 +140,11 @@ void ServiceInterface::mainInterface() {
                 continue;
             }
             success = removeVehicle(station, vehicle);
+            data.removeVehicle(station, vehicle);
         } else if (option == 10) {
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
+            continue;
+        } else if (option == 11) {
             break;
         } else {
             cout << "Wrong option..." << endl;
@@ -156,7 +163,8 @@ int ServiceInterface::getAction() {
     cout << "  2. Print Vehicles in Station         |       5. Change station location      |     7. Move Vehicle   " << endl;
     cout << "  3. Print Vehicle details             |                                       |     8. Add new Vehicle  " << endl;
     cout << "                                       |                                       |     9. Remove Vehicle" << endl;
-    cout << "                                       |                                       |     10. EXIT" << endl;
+    cout << "                                       |                                       |     10. REFRESH" << endl;
+    cout << "                                       |                                       |     11. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;

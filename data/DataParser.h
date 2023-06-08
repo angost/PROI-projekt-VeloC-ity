@@ -57,6 +57,10 @@ public:
     void changeVehicleReservedStatus(Station* station, Vehicle* changedVehicle);
     void changeVehicleTechnicalCondition(Station* station, Vehicle* changedVehicle);
     void changeVehicleNumberOfRentals(Station* station, Vehicle* changedVehicle);
+    void removeVehicle(Station* station, Vehicle* vehicle);
+    void addVehicle(Station* station, Vehicle* vehicle);
+    void refreshServiceData(vector < Station* >& stations, Service &service);
+
     vector < string > getFilenames();
 };
 
