@@ -26,6 +26,7 @@ public:
     Station* getStation();
     Vehicle* getVehicle(Station* station);
     Vehicle* getVehicle(vector<Vehicle*>* vehicles);
+    Vehicle* getVehicle(map<Vehicle*, Station*>* vehicles);
     float getAmount();
     int getCoord(string coord_type);
     string getDrivingLicence();
