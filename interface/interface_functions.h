@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 #include "src/station/service/Service.h"
-#include "src/UserStats.h"
+#include "data/UserStats.h"
 #include "src/user/User.h"
 #include "interface/UserInterface.h"
 

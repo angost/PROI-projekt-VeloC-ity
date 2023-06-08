@@ -18,7 +18,7 @@
 #include "interface/ServiceInterface.h"
 #include "interface/AdminInterface.h"
 
-#include "src/InputParser.h"
+#include "data/InputParser.h"
 #include "data/DataParser.h"
 #include "data/setup_functions.h"
 #include "data/SaveProgress.h"
