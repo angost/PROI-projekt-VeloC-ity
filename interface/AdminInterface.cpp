@@ -5,6 +5,7 @@
 #include "AdminInterface.h"
 
 #include <utility>
+#include <limits>
 
 using namespace std;
 
