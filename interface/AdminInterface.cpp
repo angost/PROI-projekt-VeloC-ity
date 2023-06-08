@@ -10,7 +10,7 @@
 using namespace std;
 
 
-AdminInterface::AdminInterface(AdminService admin, DataParser &data){
+AdminInterface::AdminInterface(AdminService adminService, DataParser &data){
     this->adminService = std::move(adminService);
     this->data = data;
 }
@@ -92,7 +92,7 @@ void AdminInterface::mainInterface() {
                 continue;
             }
         } else if (option == 7) {
-            data.refreshData(admin.stations, admin.serviceTeams);
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             continue;
         } else if (option == 8) {
             break;

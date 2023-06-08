@@ -35,7 +35,7 @@ public:
 	void makeDeposit(float amount);
 	void addVehicle(Vehicle* vehicle);
 	void removeVehicle(Vehicle* vehicle);
-	void reserveVehicle(Vehicle* vehicle, Station* vehicleStation);
+	void reserveVehicle(Vehicle* vehicle);
 	void cancelReserveVehicle(Vehicle* vehicle);
 	bool checkRented(Vehicle* vehicle);
 	bool checkReserved(Vehicle* vehicle);
