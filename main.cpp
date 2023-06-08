@@ -144,3 +144,20 @@ int main(int argc, char **argv) {
     }
     return 0;
 }
+
+int getMenuOption(){
+    cout << "VeloC++ity 2023";
+    string action;
+    cin.clear();
+    cout << "       MENU        " << endl;
+    cout << "1. Log in (existing User)" << endl;
+    cout << "2. Create new account" << endl;
+    cout << "3. Service Interface" << endl;
+    cout << "3. Admin Interface" << endl;
+
+    cout << "Enter number to define action > ";
+    cin >> action;
+    cout << endl;
+    int actionInt = stoi(action);
+    return actionInt;
+}
