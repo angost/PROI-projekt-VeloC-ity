@@ -65,13 +65,21 @@ int main(int argc, char **argv) {
 
 
     // Extra launch options from command line
+    // Service
     if (in.cmdOptionExists("-s") && argc == 3){
         serviceIdentifier = argv[2];
         mainMenuOption = 3;
     }
+    // Admin
     else if (in.cmdOptionExists("-a") && argc == 3){
         adminIdentifier = argv[2];
         mainMenuOption = 4;
+    }
+    // Login
+    else if (argc == 3) {
+        username = argv[1];
+        password = argv[2];
+        mainMenuOption = 1;
     }
 
     // MAIN MENU
@@ -93,13 +101,21 @@ int main(int argc, char **argv) {
 
         // Log in
         if (mainMenuOption == 1) {
-            correctUserData = logInInterface(credentials, username, password);
+            // No extra launch option used
+            if (username == ""){
+                correctUserData = logInInterface(credentials, username, password);
+            } else {
+                correctUserData = checkCredentials(credentials, username, password);
+            }
+
             if (correctUserData) {
                 logUserIn(username, currentUserLocation, userStats, stations, locations);
             } else {
                 cout << "Failed to log in..." << endl;
                 // Set to default values
                 mainMenuOption = -1;
+                username = "";
+                password = "";
                 continue;
             }
         }
@@ -153,34 +169,20 @@ int main(int argc, char **argv) {
             break;
         }
         else {
-            cout << "Wrong option number" << endl;
+            cout << "Wrong option number..." << endl;
         }
 
         // Set to default values
         mainMenuOption = -1;
         serviceIdentifier = "";
         adminIdentifier = "";
+        username = "";
+        password = "";
     }
 
 
 }
-//
-//    } else if (argc == 3 || correctUserData) {
-//        // logged user interface
-//        if (!correctUserData){
-//            username = argv[1];
-//            password = argv[2];
-//        }
-//        if (!checkCredentials(credentials, username, password)) {
-//            cout << "Incorrect credentials" << endl;
-//        } else {
-//
-//
-//        }
-//    } else {
-//        cout << "Incorrect init value" << endl;
-//    }
-//
+
 //
 //    // PREVENTING MEMORY LEAK
 //    for (auto station : stations) {
