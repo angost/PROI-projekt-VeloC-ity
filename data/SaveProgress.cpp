@@ -6,9 +6,8 @@
 #include <iomanip>
 const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 
-//TODO rozdzielic na updateStats i saveStats
-void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations){
-    //UPDATE
+
+void updateUserStats(User* user, UserStats &userStats, vector<Station*>& stations){
     userStats.vehicleCounter = user->vehicleCounter;
     userStats.balance = user->balance;
     userStats.drivingLicense = user->drivingLicense;
@@ -23,8 +22,9 @@ void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations)
             }
         }
     }
+}
 
-    // SAVE
+void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations){
     string userStatsFileName = USER_STATS_DIR + userStats.username + ".txt";
     ofstream outputFile(userStatsFileName);
     outputFile << userStats.username+' ' << userStats.userClass+' ' << to_string(userStats.vehicleCounter)+' ' << to_string(userStats.balance)+' ' << userStats.drivingLicense<< '\n';
@@ -48,5 +48,6 @@ void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations)
 }
 
 void saveSessionProgress(User* user, UserStats &userStats, vector<Station*>& stations){
+    updateUserStats(user, userStats, stations);
     saveUserStats(user, userStats, stations);
 }

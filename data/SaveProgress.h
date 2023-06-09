@@ -10,7 +10,7 @@ using namespace std;
 #ifndef PROI_PROJEKT_SAVEPROGRESS_H
 #define PROI_PROJEKT_SAVEPROGRESS_H
 
-
+void updateUserStats(User* user, UserStats &userStats, vector<Station*>& stations);
 void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations);
 void saveSessionProgress(User* user, UserStats &userStats, vector<Station*>& stations);
 
