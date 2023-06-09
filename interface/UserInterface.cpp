@@ -372,19 +372,8 @@ void UserInterface::printRentedVehicles() {
 }
 
 void UserInterface::printReservedVehicles(){
-    //TODO zmienic, bo vehicle maja juz type jako atrybut
     for (auto vehicle : user->getReservedVehicles()) {
-        string type;
-        if (vehicle->id > 300) {
-            type = "ElectricScooter";
-        } else if (vehicle->id > 200) {
-            type = "Scooter";
-        } else if (vehicle->id > 100) {
-            type = "Bike";
-        } else {
-            type = "Unknown";
-        }
-        cout << "Type: " << type << "   ID: " << vehicle->id << endl;
+        cout << "Type: " << vehicle->type << "   ID: " << vehicle->id << endl;
     }
 }
 
