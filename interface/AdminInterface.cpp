@@ -10,7 +10,7 @@
 using namespace std;
 
 
-AdminInterface::AdminInterface(AdminService adminService, DataParser &data){
+AdminInterface::AdminInterface(AdminService &adminService, DataParser &data){
     this->adminService = std::move(adminService);
     this->data = data;
 }
