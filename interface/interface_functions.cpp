@@ -146,29 +146,30 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
             }
         }
     }
-
 }
 
-void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations){
-    initPreviousSession(stats, user, stations);
+void startSession(User* user, vector<Station*> &stations, vector<Location> &locations){
     UserInterface userIface(stations, locations, user);
     userIface.mainInterface();
+}
+
+void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations){
+    initPreviousSession(userStats, user, stations);
+    startSession(user, stations, locations);
+    saveSessionProgress(user, userStats, stations);
 }
 
 void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations){
     if (userStats.userClass == "Standard"){
         StandardUser user(username, currentUserLocation);
-        startSession(userStats, &user, stations, locations);
-        saveSessionProgress(&user, userStats, stations);
+        session(userStats, &user, stations, locations);
     }
     else if (userStats.userClass == "Silver"){
         SilverUser user(username, currentUserLocation);
-        startSession(userStats, &user, stations, locations);
-        saveSessionProgress(&user, userStats, stations);
+        session(userStats, &user, stations, locations);
     }
     else {
         GoldenUser user(username, currentUserLocation);
-        startSession(userStats, &user, stations, locations);
-        saveSessionProgress(&user, userStats, stations);
+        session(userStats, &user, stations, locations);
     }
 }

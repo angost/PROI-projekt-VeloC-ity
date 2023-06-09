@@ -24,9 +24,10 @@ map < string, string > getAllCredentials(const string& credentialFilename);
 int logInInterface(const map <string, string >& credentials, string &username, string &password);
 Service getServiceTeam(const vector < Service >& serviceCrews, const string& id);
 UserStats getUserStats(const string &userStatFilename);
-int findUser(vector<UserStats> &stats, const string &username);
-void initPreviousSession(UserStats &stats, User* user);
-void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations);
+//int findUser(vector<UserStats> &stats, const string &username);
+void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations);
+void startSession(User* user, vector<Station*> &stations, vector<Location> &locations);
+void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations);
 void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations);
 
 #endif //PROI_PROJEKT_INTERFACE_FUNCTIONS_H
