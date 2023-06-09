@@ -20,12 +20,12 @@ public:
     float balance;
     string drivingLicense;
     string username;
-    map<int, string> &reservedVehicles;
+    map<int, string> reservedVehicles;
 //    vector <Vehicle*> &reservedVehicles;
 //    vector <Vehicle*> &rentedVehicles;
 
 //    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> &reservedVehicles, vector <Vehicle*> &rentedVehicles);
-    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, map<int, string> &reservedVehicles);
+    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, map<int, string> reservedVehicles);
 
 };
 

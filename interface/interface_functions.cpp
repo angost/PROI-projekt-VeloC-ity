@@ -108,7 +108,7 @@ UserStats getUserStats(const string &userStatFilename){
     vector<string> partsReservedVehicles = splitString(line);
     int numberOfResVeh = stoi(partsReservedVehicles[0]);
     map<int, string> reservedVehicles;
-    for (int vehNr = 0; vehNr < partsReservedVehicles.size(); vehNr++){
+    for (int vehNr = 0; vehNr < numberOfResVeh; vehNr++){
         string type = partsReservedVehicles[1+vehNr*3];
         int id = stoi(partsReservedVehicles[1+vehNr*3+1]);
         string stationCode = partsReservedVehicles[1+vehNr*3+2];
@@ -141,7 +141,7 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
             if (station->code == resVeh.second){
                 for (auto vehicle : *station){
                     if (vehicle->id == resVeh.first){
-                        user->reserveVehicle(vehicle, station);
+                        user->reserveVehicle(vehicle);
                     }
                 }
             }
@@ -151,7 +151,7 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
 }
 
 void startSession(UserStats &stats, User* user, vector<Station*> &stations, vector<Location> &locations){
-    initPreviousSession(stats, user);
+    initPreviousSession(stats, user, stations);
     UserInterface userIface(stations, locations, user);
     userIface.mainInterface();
 }

@@ -29,7 +29,7 @@ using namespace std;
 const string STATIONS_DATA_PATH = "../data/inputTxtFiles/stationsData";
 const string CREDENTIAL_FILE_NAME = "../data/inputTxtFiles/credentials.txt";
 const string SERVICE_CREW_FILE_NAME = "../data/inputTxtFiles/serviceCrewAssignment.txt";
-const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
+const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 const string USER_LOCATION_FILE_NAME = "../data/inputTxtFiles/userLocation.txt";
 const string STATION_NAMES_FILE_PATH = "../data/inputTxtFiles/stationNames.txt";
 const string ADMIN_ID = "X01";
@@ -53,7 +53,6 @@ int main(int argc, char **argv) {
     // ACTUAL MAIN
     InputParser in(argc, argv);
     map<string, string> credentials;
-    vector<UserStats> userStats;
     string username, password;
     char newAccount;
     int mainMenuOption = -1;
@@ -81,8 +80,6 @@ int main(int argc, char **argv) {
 
     // MAIN MENU
     while (true) {
-        credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
-        userStats = getUserStats(USER_STATS_FILE_NAME);
 
         // No extra launch option used
         if (mainMenuOption == -1){
@@ -98,6 +95,8 @@ int main(int argc, char **argv) {
 
         // Log in
         if (mainMenuOption == 1) {
+
+            credentials = getAllCredentials(CREDENTIAL_FILE_NAME);
             // No extra launch option used
             if (username == ""){
                 correctUserData = logInInterface(credentials, username, password);
@@ -106,7 +105,9 @@ int main(int argc, char **argv) {
             }
 
             if (correctUserData) {
-                logUserIn(username, currentUserLocation, userStats, stations, locations);
+                string userStatsFileName = USER_STATS_DIR + username + ".txt";
+                UserStats userStats = getUserStats(userStatsFileName);
+//                logUserIn(username, currentUserLocation, userStats, stations, locations);
             } else {
                 cout << "Failed to log in..." << endl;
                 // Set to default values
