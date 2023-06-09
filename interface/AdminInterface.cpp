@@ -180,7 +180,8 @@ Station *AdminInterface::getNewStation() {
         if (stationCode[0] != 'A') {
             throw invalid_argument("Wrong station code");
         }
-        iss >> *station;
+        std::istringstream is(line);
+        is >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
         station->changeLocation(recognisedLocation);
@@ -201,7 +202,8 @@ Station *AdminInterface::getNewStation() {
         if (stationCode[0] != 'B') {
             throw invalid_argument("Wrong station code");
         }
-        iss >> *station;
+        std::istringstream is(line);
+        is >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
         station->changeLocation(recognisedLocation);
@@ -222,7 +224,8 @@ Station *AdminInterface::getNewStation() {
         if (stationCode[0] != 'C') {
             throw invalid_argument("Wrong station code");
         }
-        iss >> *station;
+        std::istringstream is(line);
+        is >> *station;
         Location currentLocation  = station->getStationLocation();
         Location recognisedLocation = getLocation(adminService.locations, currentLocation.x_coord, currentLocation.y_coord);
         station->changeLocation(recognisedLocation);
