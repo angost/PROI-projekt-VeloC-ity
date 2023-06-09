@@ -91,6 +91,7 @@ vector<string> splitString(const string& input) {
     return tokens;
 }
 
+//TODO przeniesc do DataParser
 UserStats getUserStats(const string &userStatFilename){
 
     ifstream file(userStatFilename);
@@ -120,14 +121,14 @@ UserStats getUserStats(const string &userStatFilename){
     return userStats;
 }
 
-int findUser(vector<UserStats> &stats, const string &username){
-    for (int i = 0 ; i < stats.size(); i++){
-        if (username == stats[i].username){
-             return i;
-        }
-    }
-    throw invalid_argument("User not found");
-}
+//int findUser(vector<UserStats> &stats, const string &username){
+//    for (int i = 0 ; i < stats.size(); i++){
+//        if (username == stats[i].username){
+//             return i;
+//        }
+//    }
+//    throw invalid_argument("User not found");
+//}
 
 void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations){
     user->drivingLicense = stats.drivingLicense;
@@ -139,11 +140,9 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
         for (auto station : stations){
             // Reserved Vehicle is on this station
             if (station->code == resVeh.second){
-                for (auto vehicle : *station){
-                    if (vehicle->id == resVeh.first){
-                        user->reserveVehicle(vehicle);
-                    }
-                }
+                Vehicle* vehicle = station->getVehicleById(resVeh.first);
+                user->reserveVehicle(vehicle);
+                break;
             }
         }
     }
@@ -156,21 +155,20 @@ void startSession(UserStats &stats, User* user, vector<Station*> &stations, vect
     userIface.mainInterface();
 }
 
-void logUserIn(string username, Location &currentUserLocation, vector<UserStats> &userStats, vector<Station*> &stations, vector<Location> &locations){
-    int userIndex = findUser(userStats, username);
-    if (userStats[userIndex].userClass == "Standard"){
+void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations){
+    if (userStats.userClass == "Standard"){
         StandardUser user(username, currentUserLocation);
-        startSession(userStats[userIndex], &user, stations, locations);
-        saveSessionProgress(&user, userIndex, userStats);
+        startSession(userStats, &user, stations, locations);
+        saveSessionProgress(&user, userStats, stations);
     }
-    else if (userStats[userIndex].userClass == "Silver"){
+    else if (userStats.userClass == "Silver"){
         SilverUser user(username, currentUserLocation);
-        startSession(userStats[userIndex], &user, stations, locations);
-        saveSessionProgress(&user, userIndex, userStats);
+        startSession(userStats, &user, stations, locations);
+        saveSessionProgress(&user, userStats, stations);
     }
     else {
         GoldenUser user(username, currentUserLocation);
-        startSession(userStats[userIndex], &user, stations, locations);
-        saveSessionProgress(&user, userIndex, userStats);
+        startSession(userStats, &user, stations, locations);
+        saveSessionProgress(&user, userStats, stations);
     }
 }

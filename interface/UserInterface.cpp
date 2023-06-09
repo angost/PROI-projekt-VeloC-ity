@@ -21,7 +21,6 @@ void UserInterface::mainInterface(){
         cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
-        option = 5;
         try {
             option = getAction();
         }
@@ -97,6 +96,7 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = reserveVehicle(chosenVehicle, chosenStation);
+
 
         // Return Vehicle
         } else if (option == 7){

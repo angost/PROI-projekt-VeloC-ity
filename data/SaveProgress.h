@@ -11,8 +11,7 @@ using namespace std;
 #define PROI_PROJEKT_SAVEPROGRESS_H
 
 
-void saveUserStats(User* &user, const int &userIndex, vector<UserStats> &stats);
-void saveSessionProgress(User* user, const int &userIndex, vector<UserStats> &stats);
-
+void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations);
+void saveSessionProgress(User* user, UserStats &userStats, vector<Station*>& stations);
 
 #endif //PROI_PROJEKT_SAVEPROGRESS_H
