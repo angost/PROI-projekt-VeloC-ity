@@ -116,8 +116,39 @@ UserStats getUserStats(const string &userStatFilename){
 
         reservedVehicles[id] = stationCode;
     }
+    // Rented Vehicles
+    getline(file, line);
+    vector<string> partsRentedVehicles = splitString(line);
+    int numberOfRenVeh = stoi(partsRentedVehicles[0]);
+    vector<Vehicle*> rentedVehicles;
+    for (int vehNr = 0; vehNr < numberOfRenVeh; vehNr++){
+        //iss >> vehicleType >> id >> rentedStatus >> reservedStatus >> technicalCondition >> numberOfRentals;
+        string type = partsRentedVehicles[1+vehNr*6];
+        int id = stoi(partsRentedVehicles[1+vehNr*6+1]);
+        int rentedStatus = stoi(partsRentedVehicles[1+vehNr*6+2]);
+        int reservedStatus = stoi(partsRentedVehicles[1+vehNr*6+3]);
+        int technicalCondition = stoi(partsRentedVehicles[1+vehNr*6+4]);
+        int numberOfRentals = stoi(partsRentedVehicles[1+vehNr*6+5]);
 
-    UserStats userStats(username, uClass, vehCounter, balance, license, reservedVehicles);
+        if (type == "Bike"){
+            Bike newVehicle(id, numberOfRentals, technicalCondition);
+            newVehicle.setRentedStatus(rentedStatus);
+            newVehicle.setReservedStatus(reservedStatus);
+            rentedVehicles.push_back(&newVehicle);
+        } else if (type == "Scooter"){
+            Scooter newVehicle(id, numberOfRentals, technicalCondition);
+            newVehicle.setRentedStatus(rentedStatus);
+            newVehicle.setReservedStatus(reservedStatus);
+            rentedVehicles.push_back(&newVehicle);
+        } else {
+            ElectricScooter newVehicle(id, numberOfRentals, technicalCondition);
+            newVehicle.setRentedStatus(rentedStatus);
+            newVehicle.setReservedStatus(reservedStatus);
+            rentedVehicles.push_back(&newVehicle);
+        }
+    }
+
+    UserStats userStats(username, uClass, vehCounter, balance, license, reservedVehicles, rentedVehicles);
     return userStats;
 }
 
@@ -146,6 +177,11 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
             }
         }
     }
+    // Adds rented vehicles to user
+    for (auto rentedVehicle : stats.rentedVehicles){
+        user->addVehicle(rentedVehicle);
+    }
+
 }
 
 void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations){
