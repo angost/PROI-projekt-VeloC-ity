@@ -139,7 +139,7 @@ UserStats getUserStats(const string &userStatFilename){
 //    throw invalid_argument("User not found");
 //}
 
-void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations){
+void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations, vector<Vehicle*> rentedVehiclesBuffer){
     user->drivingLicense = stats.drivingLicense;
     user->balance = stats.balance;
     user->vehicleCounter = stats.vehicleCounter;
@@ -156,9 +156,14 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
         }
     }
     // Adds rented vehicles to user
-    for (auto rentedVehicle : stats.rentedVehicles){
-        //TODO dopiero tutaj zamieniac info o pojezdzie na obiekt i dodawac go do usera(?)
-        user->addVehicle(rentedVehicle);
+    for (auto rentedVehicleId : stats.rentedVehiclesIds){
+        for (auto vehInBuffer : rentedVehiclesBuffer){
+            if (vehInBuffer->id == rentedVehicleId){
+                user->addVehicle(vehInBuffer);
+            }
+            break;
+        }
+
     }
 
 }
@@ -168,24 +173,24 @@ void startSession(UserStats &userStats, User* user, vector<Station*> &stations, 
     userIface.mainInterface();
 }
 
-void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations){
-    initPreviousSession(userStats, user, stations);
+void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer){
+    initPreviousSession(userStats, user, stations, rentedVehiclesBuffer);
     startSession(userStats, user, stations, locations);
     saveSessionProgress(user, userStats, stations);
 }
 
-void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations){
+void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer){
     string userClass = userStats.userClass;
     if (userClass == "Standard"){
         StandardUser user(username, currentUserLocation);
-        session(userStats, &user, stations, locations);
+        session(userStats, &user, stations, locations, rentedVehiclesBuffer);
     }
     else if (userClass == "Silver"){
         SilverUser user(username, currentUserLocation);
-        session(userStats, &user, stations, locations);
+        session(userStats, &user, stations, locations, rentedVehiclesBuffer);
     }
     else {
         GoldenUser user(username, currentUserLocation);
-        session(userStats, &user, stations, locations);
+        session(userStats, &user, stations, locations, rentedVehiclesBuffer);
     }
 }
