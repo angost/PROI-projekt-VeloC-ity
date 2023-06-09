@@ -196,11 +196,12 @@ void session(UserStats &userStats, User* user, vector<Station*> &stations, vecto
 }
 
 void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations){
-    if (userStats.userClass == "Standard"){
+    string userClass = userStats.userClass;
+    if (userClass == "Standard"){
         StandardUser user(username, currentUserLocation);
         session(userStats, &user, stations, locations);
     }
-    else if (userStats.userClass == "Silver"){
+    else if (userClass == "Silver"){
         SilverUser user(username, currentUserLocation);
         session(userStats, &user, stations, locations);
     }
