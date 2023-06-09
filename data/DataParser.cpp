@@ -3,6 +3,7 @@
 //
 
 #include "DataParser.h"
+#include "interface/interface_functions.h"
 
 #include <utility>
 using namespace std;
@@ -458,6 +459,46 @@ void DataParser::refreshServiceData(vector<Station *>& stations, Service &servic
     stations = newStations;
 }
 
-vector <Vehicle*> DataParser::getVehiclesBuffer(){
+void DataParser::saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffer){
+    const string RENTED_VEHICLES_BUFFER_FILE_PATH = "../data/inputTxtFiles/rentedVehiclesBuffer.txt";
+    ofstream file(RENTED_VEHICLES_BUFFER_FILE_PATH);
+    for (auto vehicle : rentedVehiclesBuffer){
+        file << vehicle->type << ' ' << to_string(vehicle->id) << ' ' << to_string(vehicle->rentedStatus) << ' ' << to_string(vehicle->reservedStatus) << ' ' << to_string(vehicle->technicalCondition) << ' ' << to_string(vehicle->numberOfRentals) << '\n';
+    }
+    file.close();
+}
+
+vector <Vehicle*> DataParser::getRentedVehiclesBuffer(){
     //TODO tworz obiekty z listy danych o wypozyczonych pojazdach
+    const string RENTED_VEHICLES_BUFFER_FILE_PATH = "../data/inputTxtFiles/rentedVehiclesBuffer.txt";
+    string line;
+    ifstream file(RENTED_VEHICLES_BUFFER_FILE_PATH);
+
+    vector<Vehicle*> rentedVehicles;
+    while (getline(file, line)){
+        vector<string> parts = splitString(line);
+        string type = parts[0];
+        int id = stoi(parts[1]);
+        int rentedStatus = stoi(parts[2]);
+        int reservedStatus = stoi(parts[3]);
+        int technicalCondition = stoi(parts[4]);
+        int numberOfRentals = stoi(parts[5]);
+        if (type == "Bike"){
+            Bike newVehicle(id, numberOfRentals, technicalCondition);
+            newVehicle.setRentedStatus(rentedStatus);
+            newVehicle.setReservedStatus(reservedStatus);
+            rentedVehicles.push_back(&newVehicle);
+        } else if (type == "Scooter"){
+            Scooter newVehicle(id, numberOfRentals, technicalCondition);
+            newVehicle.setRentedStatus(rentedStatus);
+            newVehicle.setReservedStatus(reservedStatus);
+            rentedVehicles.push_back(&newVehicle);
+        } else {
+            ElectricScooter newVehicle(id, numberOfRentals, technicalCondition);
+            newVehicle.setRentedStatus(rentedStatus);
+            newVehicle.setReservedStatus(reservedStatus);
+            rentedVehicles.push_back(&newVehicle);
+        }
+    }
+    return rentedVehicles;
 }

@@ -64,7 +64,9 @@ public:
     vector < string > getFilenames();
 
     // USER
-    vector <Vehicle*> getVehiclesBuffer();
+    void saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffer);
+    vector <Vehicle*> getRentedVehiclesBuffer();
+    }
 };
 
 
