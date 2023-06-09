@@ -77,6 +77,7 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = rentVehicle(chosenVehicle, chosenStation);
+            saveSessionProgress(user, userStats, stations);
 
         // Reserve Vehicle
         } else if (option == 6){
@@ -124,6 +125,7 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = returnVehicle(chosenVehicle, chosenStation);
+            saveSessionProgress(user, userStats, stations);
 
         // Cancel Reservation
         } else if (option == 8){

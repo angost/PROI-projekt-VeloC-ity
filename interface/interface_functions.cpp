@@ -179,6 +179,7 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
     }
     // Adds rented vehicles to user
     for (auto rentedVehicle : stats.rentedVehicles){
+        //TODO dopiero tutaj zamieniac info o pojezdzie na obiekt i dodawac go do usera(?)
         user->addVehicle(rentedVehicle);
     }
 
