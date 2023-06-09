@@ -3,12 +3,13 @@
 //
 
 #include "UserInterface.h"
+#include "data/SaveProgress.h"
 #include <iostream>
 
 // TODO dodac info dlaczego cos sie nie powiodlo (za maly balans itp)
 // TODO lepiej, spojniej wyswietlac lokalizacje, pojazdy itd
 
-UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user) : stations(stations), locations(locations), user(user) {
+UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats) : stations(stations), locations(locations), user(user), userStats(userStats) {
     Velocity vel(stations, user);
     this->velocity = vel;
 }
@@ -96,7 +97,7 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = reserveVehicle(chosenVehicle, chosenStation);
-
+            saveSessionProgress(user, userStats, stations);
 
         // Return Vehicle
         } else if (option == 7){
@@ -141,6 +142,7 @@ void UserInterface::mainInterface(){
             }
 
             success = cancelReservation(chosenVehicle);
+            saveSessionProgress(user, userStats, stations);
 
         // Show rented Vehicles
         } else if (option == 9){

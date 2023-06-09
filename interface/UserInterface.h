@@ -11,6 +11,7 @@
 #include "src/user/GoldenUser.h"
 #include "src/station/station/LocalStation.h"
 #include "src/Velocity.h"
+#include "data/UserStats.h"
 
 
 class UserInterface {
@@ -19,7 +20,8 @@ public:
     vector<Station*> stations;
     vector<Location> locations;
     Velocity velocity;
-    UserInterface(vector<Station*> stations, vector<Location> locations, User* user);
+    UserStats &userStats;
+    UserInterface(vector<Station*> stations, vector<Location> locations, User* user, UserStats &userStats);
 
     void mainInterface();
     int getAction();
