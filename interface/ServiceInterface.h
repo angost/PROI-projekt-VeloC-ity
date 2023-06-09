@@ -20,7 +20,7 @@ class ServiceInterface {
 public:
     Service serviceClass;
     DataParser data;
-    ServiceInterface(Service service, DataParser &data);
+    ServiceInterface(Service &service, DataParser &data);
     void mainInterface();
     static int getAction();
     void printSupportedStations();
