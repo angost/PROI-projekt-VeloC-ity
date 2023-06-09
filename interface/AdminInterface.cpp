@@ -70,8 +70,20 @@ void AdminInterface::mainInterface() {
             if (success) {
                 unassignRemovedStation(station);
             }
-            data.deleteAllAssignments(station);
-            data.deleteStation(station);
+            try {
+                data.deleteAllAssignments(station);
+                data.deleteStation(station);
+            }
+            catch  (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
+                cout << "REFRESH DATA" << endl;
+                continue;
+            }
+            catch (...) {
+                cout << "UNEXPECTED ERROR OCCURRED" << endl;
+                cout << "MAYBE YOU NEED TO REFRESH DATA" << endl;
+                continue;
+            }
             delete station;
         } else if (option == 6) {
             Station* station;
