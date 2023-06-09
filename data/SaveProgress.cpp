@@ -22,10 +22,10 @@ void updateUserStats(User* user, UserStats &userStats, vector<Station*>& station
             }
         }
     }
-    vector<Vehicle*> newRentedVehicles;
-    userStats.rentedVehicles = newRentedVehicles;
+    vector<int> newRentedVehiclesIds;
+    userStats.rentedVehiclesIds = newRentedVehiclesIds;
     for (auto rentedVehicle : user->rentedVehicles){
-        userStats.rentedVehicles.push_back(rentedVehicle);
+        userStats.rentedVehiclesIds.push_back(rentedVehicle->id);
     }
 }
 
@@ -47,10 +47,10 @@ void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations)
     }
     outputFile << '\n';
     // Rented Vehicles
-    outputFile << to_string(userStats.rentedVehicles.size()) << ' ';
-    for (auto rentedVehicle : userStats.rentedVehicles){
+    outputFile << to_string(userStats.rentedVehiclesIds.size()) << ' ';
+    for (auto rentedVehicleId : userStats.rentedVehiclesIds){
         //iss >> vehicleType >> id >> rentedStatus >> reservedStatus >> technicalCondition >> numberOfRentals;
-        outputFile << rentedVehicle->type << ' ' << rentedVehicle->id << ' ' << rentedVehicle->rentedStatus << ' ' << rentedVehicle->reservedStatus << ' ' << rentedVehicle->technicalCondition << ' ' << rentedVehicle->numberOfRentals << ' ';
+        outputFile << to_string(rentedVehicleId) << ' ';
     }
 
     outputFile.close();
