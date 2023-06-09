@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     AdminService admin(ADMIN_ID, serviceCrews, stations, locations);
     Location currentUserLocation = data.getUserLocation();
 
-    vector<Vehicle*> rentedVehiclesBuffer;
+    vector<Vehicle*> rentedVehiclesBuffer = data.getVehiclesBuffer();
 
     bool correctUserData = false;
 

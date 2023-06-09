@@ -62,6 +62,9 @@ public:
     void refreshServiceData(vector < Station* >& stations, Service &service);
 
     vector < string > getFilenames();
+
+    // USER
+    vector <Vehicle*> getVehiclesBuffer();
 };
 
 

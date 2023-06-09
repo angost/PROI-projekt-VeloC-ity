@@ -457,3 +457,7 @@ void DataParser::refreshServiceData(vector<Station *>& stations, Service &servic
     }
     stations = newStations;
 }
+
+vector <Vehicle*> DataParser::getVehiclesBuffer(){
+    //TODO tworz obiekty z listy danych o wypozyczonych pojazdach
+}
