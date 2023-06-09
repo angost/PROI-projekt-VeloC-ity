@@ -4,9 +4,11 @@
 
 #include "SaveProgress.h"
 #include <iomanip>
-const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
+const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 
+//TODO rozdzielic na updateStats i saveStats
 void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations){
+    //UPDATE
     userStats.vehicleCounter = user->vehicleCounter;
     userStats.balance = user->balance;
     userStats.drivingLicense = user->drivingLicense;
@@ -22,20 +24,27 @@ void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations)
         }
     }
 
+    // SAVE
+    string userStatsFileName = USER_STATS_DIR + userStats.username + ".txt";
+    ofstream outputFile(userStatsFileName);
+    outputFile << userStats.username+' ' << userStats.userClass+' ' << to_string(userStats.vehicleCounter)+' ' << to_string(userStats.balance)+' ' << userStats.drivingLicense<< '\n';
+    // Reserved Vehciles
+    outputFile << to_string(userStats.reservedVehicles.size()) << ' ';
+    for (auto resVeh : userStats.reservedVehicles){
+        string type;
+        if (100 <= resVeh.first <= 199)
+            type = "Bike";
+        else if (200 <= resVeh.first <= 299)
+            type = "Scooter";
+        else
+            type = "Electric Scooter";
+        outputFile << type << ' ' << resVeh.first << ' ' << resVeh.second << ' ';
+    }
+    outputFile << '\n';
+    // Rented Vehicles
+    outputFile << '0';
 
-
-
-
-////    allStats[userIndex].reservedVehicles = user->reservedVehicles;
-//    ofstream outputFile(USER_STATS_FILE_NAME);
-//    for (const auto& stats : allStats) {
-//        outputFile << stats.username+' ' << stats.userClass+' ' << to_string(stats.vehicleCounter)+' ' << to_string(stats.balance)+' ' << stats.drivingLicense;
-////        for (auto reservedVehicle : allStats[userIndex].reservedVehicles){
-////            outputFile << reservedVehicle->type << ' ' << reservedVehicle->id << ' '; // TODO jeszcze stacja na jakiej jest vehicle
-////        }
-//        outputFile << '\n';
-//    }
-//    outputFile.close();
+    outputFile.close();
 }
 
 void saveSessionProgress(User* user, UserStats &userStats, vector<Station*>& stations){
