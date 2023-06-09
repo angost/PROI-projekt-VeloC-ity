@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     AdminService admin(ADMIN_ID, serviceCrews, stations, locations);
     Location currentUserLocation = data.getUserLocation();
 
-    vector<Vehicle*> rentedVehiclesBuffer = data.getVehiclesBuffer();
+    vector<Vehicle*> rentedVehiclesBuffer = data.getRentedVehiclesBuffer();
 
     bool correctUserData = false;
 
@@ -109,7 +109,10 @@ int main(int argc, char **argv) {
             if (correctUserData) {
                 string userStatsFileName = USER_STATS_DIR + username + ".txt";
                 UserStats userStats = getUserStats(userStatsFileName);
+                rentedVehiclesBuffer = data.getRentedVehiclesBuffer();
                 logUserIn(username, currentUserLocation, userStats, stations, locations, rentedVehiclesBuffer);
+                data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
+
             } else {
                 cout << "Failed to log in..." << endl;
                 // Set to default values

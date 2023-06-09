@@ -66,7 +66,7 @@ public:
     // USER
     void saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffer);
     vector <Vehicle*> getRentedVehiclesBuffer();
-    }
+
 };
 
 
