@@ -168,14 +168,14 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
 
 }
 
-void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations){
-    UserInterface userIface(stations, locations, user, userStats);
+void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer){
+    UserInterface userIface(stations, locations, user, userStats, rentedVehiclesBuffer);
     userIface.mainInterface();
 }
 
 void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer){
     initPreviousSession(userStats, user, stations, rentedVehiclesBuffer);
-    startSession(userStats, user, stations, locations);
+    startSession(userStats, user, stations, locations, rentedVehiclesBuffer);
     saveSessionProgress(user, userStats, stations);
 }
 

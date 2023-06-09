@@ -21,7 +21,8 @@ public:
     vector<Location> locations;
     Velocity velocity;
     UserStats &userStats;
-    UserInterface(vector<Station*> stations, vector<Location> locations, User* user, UserStats &userStats);
+    vector<Vehicle*> &rentedVehiclesBuffer;
+    UserInterface(vector<Station*> stations, vector<Location> locations, User* user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer);
 
     void mainInterface();
     int getAction();

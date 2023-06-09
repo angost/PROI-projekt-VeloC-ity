@@ -26,7 +26,7 @@ Service getServiceTeam(const vector < Service >& serviceCrews, const string& id)
 UserStats getUserStats(const string &userStatFilename);
 //int findUser(vector<UserStats> &stats, const string &username);
 void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations, vector<Vehicle*> rentedVehiclesBuffer);
-void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations);
+void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer);
 void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer);
 void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer);
 

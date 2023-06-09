@@ -9,7 +9,7 @@
 // TODO dodac info dlaczego cos sie nie powiodlo (za maly balans itp)
 // TODO lepiej, spojniej wyswietlac lokalizacje, pojazdy itd
 
-UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats) : stations(stations), locations(locations), user(user), userStats(userStats) {
+UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer) : stations(stations), locations(locations), user(user), userStats(userStats), rentedVehiclesBuffer(rentedVehiclesBuffer) {
     Velocity vel(stations, user);
     this->velocity = vel;
 }
