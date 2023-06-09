@@ -105,6 +105,15 @@ void Station::printVehiclesInStation() {
     cout << "Available spots: " << spots << endl;
 }
 
+Vehicle* Station::getVehicleById(int id){
+    for (auto vehicle : currentVehicles){
+        if (vehicle->id == id) {
+            return vehicle;
+        }
+    }
+    throw invalid_argument("Vehicle not in station");
+}
+
 vector<Vehicle *>::iterator Station::begin() {
     return currentVehicles.begin();
 }
