@@ -176,13 +176,6 @@ void session(UserStats &userStats, User* user, vector<Station*> &stations, vecto
     startSession(userStats, user, stations, locations, rentedVehiclesBuffer, data);
     saveSessionProgress(user, userStats, stations);
 
-    // PREVENTING MEMORY LEAK
-    for (auto vehicle : user->rentedVehicles) {
-        delete vehicle;
-    }
-    for (auto vehicle : user->reservedVehicles) {
-        delete vehicle;
-    }
 }
 
 void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data){

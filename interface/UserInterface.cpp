@@ -81,8 +81,8 @@ void UserInterface::mainInterface(){
             saveSessionProgress(user, userStats, stations);
             if (success)
                 rentedVehiclesBuffer.push_back(chosenVehicle);
-                data.removeVehicle(chosenStation, chosenVehicle);
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
+                data.removeVehicle(chosenStation, chosenVehicle);
 
 
         // Reserve Vehicle
@@ -138,8 +138,9 @@ void UserInterface::mainInterface(){
             saveSessionProgress(user, userStats, stations);
             if (success)
                 rentedVehiclesBuffer.erase(remove(rentedVehiclesBuffer.begin(), rentedVehiclesBuffer.end(), chosenVehicle), rentedVehiclesBuffer.end());
-                data.addVehicle(chosenStation, chosenVehicle);
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
+                data.addVehicle(chosenStation, chosenVehicle);
+
 
         // Cancel Reservation
         } else if (option == 8){
@@ -250,7 +251,6 @@ void UserInterface::mainInterface(){
         // EXIT
         } else if (option == 18) {
             cout << "Thank you for using our services" << endl << endl;
-            data.refreshStationsData(stations);
             break;
 
         } else {

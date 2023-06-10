@@ -37,9 +37,9 @@ void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations)
     outputFile << to_string(userStats.reservedVehicles.size()) << ' ';
     for (auto resVeh : userStats.reservedVehicles){
         string type;
-        if (100 <= resVeh.first <= 199)
+        if (resVeh.first <= 199)
             type = "Bike";
-        else if (200 <= resVeh.first <= 299)
+        else if (resVeh.first <= 299)
             type = "Scooter";
         else
             type = "Electric Scooter";
