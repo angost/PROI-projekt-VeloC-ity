@@ -104,7 +104,7 @@ void AdminInterface::mainInterface() {
                 continue;
             }
         } else if (option == 7) {
-            data.refreshData(adminService.stations, adminService.serviceTeams);
+//            data.refreshData(adminService.stations, adminService.serviceTeams);
             continue;
         } else if (option == 8) {
             break;

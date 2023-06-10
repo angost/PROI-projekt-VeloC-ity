@@ -35,7 +35,9 @@ void DataParser::refreshData(vector < Station* > &currentStations, vector < Serv
         }
         delete station;
     }
+    currentStations.clear();
     currentStations = getAllStations();
+    serviceCrews.clear();
     serviceCrews = assignStationsToServiceCrews(currentStations);
 }
 
