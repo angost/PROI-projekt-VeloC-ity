@@ -3,14 +3,17 @@
 //
 
 #include "UserInterface.h"
+#include "data/SaveProgress.h"
 #include <iostream>
+#include <algorithm>
 
 // TODO dodac info dlaczego cos sie nie powiodlo (za maly balans itp)
 // TODO lepiej, spojniej wyswietlac lokalizacje, pojazdy itd
 
-UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user) : stations(stations), locations(locations), user(user) {
+UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data) : stations(stations), locations(locations), user(user), userStats(userStats), rentedVehiclesBuffer(rentedVehiclesBuffer), data(data) {
     Velocity vel(stations, user);
     this->velocity = vel;
+    errorInfo = "";
 }
 
 void UserInterface::mainInterface(){
@@ -21,7 +24,6 @@ void UserInterface::mainInterface(){
         cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
-        option = 5;
         try {
             option = getAction();
         }
@@ -77,6 +79,12 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = rentVehicle(chosenVehicle, chosenStation);
+            saveSessionProgress(user, userStats, stations);
+            if (success) {
+                rentedVehiclesBuffer.push_back(chosenVehicle);
+                data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
+                data.removeVehicle(chosenStation, chosenVehicle);
+            }
 
         // Reserve Vehicle
         } else if (option == 6){
@@ -97,6 +105,11 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = reserveVehicle(chosenVehicle, chosenStation);
+            if (success){
+                saveSessionProgress(user, userStats, stations);
+                data.changeVehicleReservedStatus(chosenStation, chosenVehicle);
+            }
+
 
         // Return Vehicle
         } else if (option == 7){
@@ -123,6 +136,12 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = returnVehicle(chosenVehicle, chosenStation);
+            saveSessionProgress(user, userStats, stations);
+            if (success){
+                rentedVehiclesBuffer.erase(remove(rentedVehiclesBuffer.begin(), rentedVehiclesBuffer.end(), chosenVehicle), rentedVehiclesBuffer.end());
+                data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
+                data.addVehicle(chosenStation, chosenVehicle);
+            }
 
         // Cancel Reservation
         } else if (option == 8){
@@ -141,23 +160,27 @@ void UserInterface::mainInterface(){
                 continue;
             }
 
-            Station* chosenStation;
-            try {
-                chosenStation = getStation();
-            } catch (invalid_argument& err){
-                cout << err.what() << endl;
-                continue;
+            success = cancelReservation(chosenVehicle);
+            if (success){
+                string stationCode = userStats.reservedVehicles[chosenVehicle->id];
+                saveSessionProgress(user, userStats, stations);
+                data.changeVehicleReservedStatus(stationCode, chosenVehicle);
             }
-            success = cancelReservation(chosenVehicle, chosenStation);
 
         // Show rented Vehicles
         } else if (option == 9){
             printRentedVehicles();
+            if (user->rentedVehicles.size() == 0){
+                cout << "You don't have any rented Vehicles." << endl;
+            }
             continue;
 
         // Show reserved Vehicles
         } else if (option == 10){
             printReservedVehicles();
+            if (user->reservedVehicles.size() == 0){
+                cout << "You don't have any reserved Vehicles." << endl;
+            }
             continue;
 
         // Show current coords - TODO add to velocity
@@ -234,6 +257,7 @@ void UserInterface::mainInterface(){
 
         // EXIT
         } else if (option == 18) {
+            cout << "Thank you for using our services" << endl << endl;
             break;
 
         } else {
@@ -242,6 +266,8 @@ void UserInterface::mainInterface(){
         }
         //TODO dodac kilka z tych metod do Velocity (?) zeby byly mozliwe do zrobienia nie tylko z poziomu interfejsu
         printSuccess(success);
+        if (!success)
+            cout << errorInfo << endl;
         cout << endl;
     }
 }
@@ -253,16 +279,10 @@ int UserInterface::getAction(){
     cout << "1. Show all Stations            5. Rent Vehicle                11. Show current coords   14. Show account info " << endl;
     cout << "2. Show nearest Station         6. Reserve Vehicle             12. Go to coords          15. Show balance " << endl;
     cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to station         16. Add credits " << endl;
-    cout << "4. Show Vehicles on Station     8. Cancel                                                17. Add driving license " << endl;
+    cout << "4. Show Vehicles on Station     8. Cancel reservation                                    17. Add driving license " << endl;
     cout << "                                9. Show rented Vehicles                                  18. EXIT " << endl;
     cout << "                               10. Show reserved Vehicles                                         " << endl;
 
-//    cout << " 1. Show all Stations      2. Show Vehicles in Station        3. Show nearest Station" << endl;
-//    cout << " 4. Rent Vehicle           5. Reserve Vehicle                 6. Return Vehicle" << endl;
-//    cout << " 7. Cancel Reservation     8. Show rented Vehicles            9. Show reserved Vehicles" << endl;
-//    cout << "10. Show balance          11. Add credits                    12. Show current coords" << endl;
-//    cout << "13. Show all coords       14. Go to coords                   15. Go to station" << endl;
-//    cout << "16. Add driving license   17. Exit" << endl << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
@@ -310,6 +330,7 @@ Vehicle* UserInterface::getVehicle(vector<Vehicle*>* vehicles){
     }
     throw invalid_argument("Wrong vehicle id");
 }
+
 
 float UserInterface::getAmount(){
     string amount;
@@ -385,17 +406,7 @@ void UserInterface::printRentedVehicles() {
 
 void UserInterface::printReservedVehicles(){
     for (auto vehicle : user->getReservedVehicles()) {
-        string type;
-        if (vehicle->id > 300) {
-            type = "ElectricScooter";
-        } else if (vehicle->id > 200) {
-            type = "Scooter";
-        } else if (vehicle->id > 100) {
-            type = "Bike";
-        } else {
-            type = "Unknown";
-        }
-        cout << "Type: " << type << "   ID: " << vehicle->id << endl;
+        cout << "Type: " << vehicle->type << "   ID: " << vehicle->id << endl;
     }
 }
 
@@ -409,23 +420,23 @@ bool UserInterface::addDrivingLicence(string drivingLicense){
 }
 
 bool UserInterface::rentVehicle(Vehicle* vehicle, Station* station) {
-    return this->velocity.rentVehicle(vehicle, station);
+    return this->velocity.rentVehicle(vehicle, station, errorInfo);
 }
 
 bool UserInterface::reserveVehicle(Vehicle* vehicle, Station* station){
-    return this->velocity.reserveVehicle(vehicle, station);
+    return this->velocity.reserveVehicle(vehicle, station, errorInfo);
 }
 
 bool UserInterface::returnVehicle(Vehicle* vehicle, Station* station){
-    return this->velocity.returnVehicle(vehicle, station);
+    return this->velocity.returnVehicle(vehicle, station, errorInfo);
 }
 
 bool UserInterface::addCredits(float amount){
     return this->velocity.addCredits(amount);
 }
 
-bool UserInterface::cancelReservation(Vehicle* vehicle, Station* station){
-    return this->velocity.cancelReservation(vehicle, station);
+bool UserInterface::cancelReservation(Vehicle* vehicle){
+    return this->velocity.cancelReservation(vehicle, errorInfo);
 }
 
 void UserInterface::printNearestStation(){

@@ -3,14 +3,24 @@
 //
 
 #include "createAccount.h"
-const string USER_STATS_FILE_NAME = "../data/userstats.txt";
-const string CREDENTIAL_FILE_NAME = "../data/credentials.txt";
+#include "interface/interface_functions.h"
+const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
+const string CREDENTIAL_FILE_NAME = "../data/inputTxtFiles/credentials.txt";
 
 int createAccount(){
     string username, password, type;
     cout << "Creating new account" << endl;
     cout << "Enter username >> ";
     cin >> username;
+
+    map <string, string> existingUsers =getAllCredentials(CREDENTIAL_FILE_NAME);
+    for (auto credentials : existingUsers){
+        if (credentials.first == username){
+            cout << "Username already in use...";
+            return 0;
+        }
+    }
+
     cout << "Enter password >> ";
     cin >> password;
     cout << "Enter profile type (Standard/Silver/Golden) >> ";
@@ -19,12 +29,15 @@ int createAccount(){
         cout << "Incorrect profile type...";
         return 0;
     }
-    ofstream file1(USER_STATS_FILE_NAME, ios::app);
+    string userStatsFileName = USER_STATS_DIR + username + ".txt";
+
+    ofstream file1(userStatsFileName, ios::app);
     file1 << username+' ' << type+" 0 0 None\n";
+    file1 << "0 \n" << "0 \n";
     file1.close();
     ofstream file2(CREDENTIAL_FILE_NAME, ios::app);
     file2 << username+' ' << password << '\n';
     file2.close();
     cout << "Account created succesfully!";
-    return 0;
+    return 1;
 }

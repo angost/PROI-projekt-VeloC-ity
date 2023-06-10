@@ -1,0 +1,25 @@
+MainStation mainStation2 A2 17 43 50 0
+ElectricScooter 304 0 0 5 0
+ElectricScooter 312 0 0 5 0
+Bike 167 0 0 5 0
+Bike 152 0 0 5 0
+ElectricScooter 350 0 0 5 0
+Scooter 264 0 0 5 0
+ElectricScooter 316 0 0 5 0
+ElectricScooter 322 0 0 5 0
+Scooter 258 0 0 5 0
+Scooter 203 0 0 5 0
+Bike 102 0 0 5 0
+Scooter 279 0 0 5 0
+Scooter 265 0 0 5 0
+Scooter 263 0 0 5 0
+Bike 130 0 0 5 0
+Bike 156 0 0 5 0
+Bike 178 0 0 5 0
+Scooter 219 0 0 5 0
+ElectricScooter 351 0 0 5 0
+Scooter 223 0 0 5 0
+Scooter 284 0 0 5 0
+Scooter 234 0 0 5 0
+Scooter 243 0 0 5 0
+ElectricScooter 337 0 0 5 0

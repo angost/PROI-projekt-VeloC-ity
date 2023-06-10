@@ -10,6 +10,7 @@
 #include <memory>
 #include <utility>
 #include <map>
+#include <cstdio>
 
 #include "src/station/station/Station.h"
 #include "src/station/station/MainStation.h"
@@ -25,15 +26,50 @@
 using namespace std;
 
 class DataParser {
+    string stationFilenamesPath;
+    string serviceCrewAssignmentFilename;
+    string userLocationFilePath;
+    string stationsDataPath;
     vector < string > stationFilenames;
     vector <Location> existingLocations;
 public:
-    explicit DataParser(vector < string > stationFilenames, vector <Location> existingLocations);
+    DataParser();
+    DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations);
     Location getLocation(int x, int y);
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
-    static vector < Service > assignStationsToServiceCrews(const string& serviceCrewAssignmentFilename, const vector <Station*> stations, const vector < Location > locations);
-    Location getUserLocation(const string& filename);
+    vector < Service > assignStationsToServiceCrews(const vector <Station*>& stations);
+    Location getUserLocation();
+
+    void refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews);
+    void refreshStationsData(vector < Station* > &currentStations);
+
+    // ADMIN
+    void insertNewStation(Station* station);
+    void assignStation(Station* station, const Service& serviceCrew);
+    bool deleteStation(Station* station);
+    void deleteAllAssignments(Station* station);
+    void deleteAssignment(Station* station, const Service& serviceCrew);
+
+    // SERVICE
+    void changeStationLimit(Station* changedStation);
+    void changeStationLocation(Station* changedStation);
+    void changeVehicleRentedStatus(Station* station, Vehicle* changedVehicle);
+    void changeVehicleReservedStatus(Station* station, Vehicle* changedVehicle);
+    void changeVehicleReservedStatus(string stationCode, Vehicle *changedVehicle);
+    void changeVehicleTechnicalCondition(Station* station, Vehicle* changedVehicle);
+    void changeVehicleNumberOfRentals(Station* station, Vehicle* changedVehicle);
+    void removeVehicle(Station* station, Vehicle* vehicle);
+    void addVehicle(Station* station, Vehicle* vehicle);
+    void refreshServiceData(vector < Station* >& stations, Service &service);
+
+    vector < string > getFilenames();
+
+    // USER
+    void saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffer);
+    Vehicle* recreateVehicleInBuffer(string type, int id, int numberOfRentals, int technicalCondition, int rentedStatus, int reservedStatus);
+    vector <Vehicle*> getRentedVehiclesBuffer();
+
 };
 
 

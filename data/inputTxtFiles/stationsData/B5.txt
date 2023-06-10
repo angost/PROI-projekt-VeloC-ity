@@ -1,0 +1,16 @@
+SubStation subStation5 B5 33 7 25 0
+ElectricScooter 346 0 0 5 0
+Scooter 252 0 0 5 0
+ElectricScooter 307 0 0 5 0
+ElectricScooter 319 0 0 5 0
+Scooter 249 0 0 5 0
+Bike 159 0 0 5 0
+Bike 161 0 0 5 0
+Bike 143 0 0 5 0
+ElectricScooter 308 0 0 5 0
+Scooter 275 0 0 5 0
+Scooter 204 0 0 5 0
+ElectricScooter 303 0 0 5 0
+Scooter 257 0 0 5 0
+Scooter 218 0 0 5 0
+Scooter 239 0 0 5 0

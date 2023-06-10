@@ -11,6 +11,8 @@
 #include "src/user/GoldenUser.h"
 #include "src/station/station/LocalStation.h"
 #include "src/Velocity.h"
+#include "data/UserStats.h"
+#include "data/DataParser.h"
 
 
 class UserInterface {
@@ -19,7 +21,11 @@ public:
     vector<Station*> stations;
     vector<Location> locations;
     Velocity velocity;
-    UserInterface(vector<Station*> stations, vector<Location> locations, User* user);
+    UserStats &userStats;
+    vector<Vehicle*> &rentedVehiclesBuffer;
+    DataParser data;
+    string errorInfo;
+    UserInterface(vector<Station*> stations, vector<Location> locations, User* user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data);
 
     void mainInterface();
     int getAction();
@@ -42,7 +48,7 @@ public:
     bool reserveVehicle(Vehicle* vehicle, Station* station);
     bool returnVehicle(Vehicle* vehicle, Station* station);
     bool addCredits(float amount);
-    bool cancelReservation(Vehicle* vehicle, Station* station);
+    bool cancelReservation(Vehicle* vehicle);
     void printNearestStation();
     void printDistanceToAllStations();
 };

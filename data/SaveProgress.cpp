@@ -4,20 +4,52 @@
 
 #include "SaveProgress.h"
 #include <iomanip>
-const string USER_STATS_FILE_NAME = "../data/inputTxtFiles/userstats.txt";
+const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 
-void saveUserStats(User* &user, const int &userIndex, vector<UserStats> &allStats){
-    allStats[userIndex].vehicleCounter = user->vehicleCounter;
-    allStats[userIndex].balance = user->balance;
-    allStats[userIndex].drivingLicense = user->drivingLicense;
-    allStats[userIndex].userClass = user->type;
-    ofstream outputFile(USER_STATS_FILE_NAME);
-    for (const auto& stats : allStats) {
-        outputFile << stats.username+' ' << stats.userClass+' ' << to_string(stats.vehicleCounter)+' ' << to_string(stats.balance)+' ' << stats.drivingLicense << '\n';
+
+void updateUserStats(User* user, UserStats &userStats, vector<Station*>& stations){
+    userStats.vehicleCounter = user->vehicleCounter;
+    userStats.balance = user->balance;
+    userStats.drivingLicense = user->drivingLicense;
+    userStats.userClass = user->type;
+    map<int, string> newReservedVehicles;
+    userStats.reservedVehicles = newReservedVehicles;
+    for (auto reservedVehicle : user->reservedVehicles){
+        for (auto station : stations){
+            if (station->checkIfVehicleInStation(reservedVehicle)){
+                userStats.reservedVehicles[reservedVehicle->id] = station->code;
+                break;
+            }
+        }
     }
+    vector<int> newRentedVehiclesIds;
+    userStats.rentedVehiclesIds = newRentedVehiclesIds;
+    for (auto rentedVehicle : user->rentedVehicles){
+        userStats.rentedVehiclesIds.push_back(rentedVehicle->id);
+    }
+}
+
+void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations){
+    string userStatsFileName = USER_STATS_DIR + userStats.username + ".txt";
+    ofstream outputFile(userStatsFileName);
+    outputFile << userStats.username+' ' << userStats.userClass+' ' << to_string(userStats.vehicleCounter)+' ' << to_string(userStats.balance)+' ' << userStats.drivingLicense<< '\n';
+    // Reserved Vehciles
+    outputFile << to_string(userStats.reservedVehicles.size()) << ' ';
+    for (auto resVeh : userStats.reservedVehicles){
+        outputFile << resVeh.first << ' ' << resVeh.second << ' ';
+    }
+    outputFile << '\n';
+    // Rented Vehicles
+    outputFile << to_string(userStats.rentedVehiclesIds.size()) << ' ';
+    for (auto rentedVehicleId : userStats.rentedVehiclesIds){
+        //iss >> vehicleType >> id >> rentedStatus >> reservedStatus >> technicalCondition >> numberOfRentals;
+        outputFile << to_string(rentedVehicleId) << ' ';
+    }
+
     outputFile.close();
 }
 
-void saveSessionProgress(User* user, const int &userIndex, vector<UserStats> &stats){
-    saveUserStats(user, userIndex, stats);
+void saveSessionProgress(User* user, UserStats &userStats, vector<Station*>& stations){
+    updateUserStats(user, userStats, stations);
+    saveUserStats(user, userStats, stations);
 }

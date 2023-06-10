@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "src/vehicle/Vehicle.h"
 #include "src/station/station/Station.h"
 #include "src/Location.h"
@@ -17,7 +18,7 @@ public:
 	float balance;
 	float minBalance;
 	string drivingLicense;
-	vector <Vehicle*> reservedVehicles;
+    vector<Vehicle*> reservedVehicles;
 	vector <Vehicle*> rentedVehicles;
 	int vehicleCounter;
 	int maxResVehicles;
@@ -45,7 +46,7 @@ public:
     bool changeLocation(Location newLocation);
     virtual void accountStats() = 0;
     vector< Vehicle* > getRentedVehicles();
-    vector< Vehicle* > getReservedVehicles();
+    vector<Vehicle*> getReservedVehicles();
 //    template <typename V, typename T>
 //    void print(V value, T text);
 };

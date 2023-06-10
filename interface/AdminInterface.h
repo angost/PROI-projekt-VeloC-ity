@@ -13,12 +13,14 @@
 #include "src/station/station/SubStation.h"
 #include "src/station/station/LocalStation.h"
 
+#include "data/DataParser.h"
 
 
 class AdminInterface {
-    AdminService admin;
+    AdminService adminService;
+    DataParser data;
 public:
-    explicit AdminInterface(AdminService admin);
+    AdminInterface(AdminService &adminService, DataParser &data);
     void mainInterface();
     static int getAction();
     Station* getStation();

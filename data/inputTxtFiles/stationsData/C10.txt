@@ -1,0 +1,6 @@
+LocalStation localStation10 C10 6 32 5 0
+ElectricScooter 306 0 0 5 0
+Bike 158 0 0 5 0
+ElectricScooter 318 0 0 5 0
+Scooter 266 0 0 5 0
+ElectricScooter 305 0 0 5 0

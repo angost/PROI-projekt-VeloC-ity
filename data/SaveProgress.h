@@ -3,16 +3,15 @@
 //
 
 #include "src/user/User.h"
-#include "src/UserStats.h"
+#include "UserStats.h"
 
 using namespace std;
 
 #ifndef PROI_PROJEKT_SAVEPROGRESS_H
 #define PROI_PROJEKT_SAVEPROGRESS_H
 
-
-void saveUserStats(User* &user, const int &userIndex, vector<UserStats> &stats);
-void saveSessionProgress(User* user, const int &userIndex, vector<UserStats> &stats);
-
+void updateUserStats(User* user, UserStats &userStats, vector<Station*>& stations);
+void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations);
+void saveSessionProgress(User* user, UserStats &userStats, vector<Station*>& stations);
 
 #endif //PROI_PROJEKT_SAVEPROGRESS_H

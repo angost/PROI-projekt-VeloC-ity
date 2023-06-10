@@ -1,0 +1,16 @@
+SubStation subStation3 B3 38 9 25 0
+Scooter 215 0 0 5 0
+Scooter 228 0 0 5 0
+Bike 142 0 0 5 0
+Bike 144 0 0 5 0
+Bike 176 0 0 5 0
+Scooter 232 0 0 5 0
+Bike 133 0 0 5 0
+ElectricScooter 323 0 0 5 0
+Scooter 270 0 0 5 0
+Scooter 259 0 0 5 0
+Scooter 272 0 0 5 0
+Scooter 213 0 0 5 0
+Bike 138 0 0 5 0
+ElectricScooter 317 0 0 5 0
+Scooter 280 0 0 5 0
