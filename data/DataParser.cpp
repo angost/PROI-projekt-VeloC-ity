@@ -47,6 +47,7 @@ void DataParser::refreshStationsData(vector < Station* > &currentStations) {
         }
         delete station;
     }
+    currentStations.clear();
     currentStations = getAllStations();
 }
 

@@ -39,7 +39,7 @@ bool Station::changeLimit(int newLimit) {
 }
 
 bool Station::checkIfVehicleInStation(Vehicle* veh){
-    for (int i = 0; i <= currentVehicles.size(); i++){
+    for (int i = 0; i < currentVehicles.size(); i++){
         if (currentVehicles[i] == veh){
             return true;
         }
@@ -48,7 +48,7 @@ bool Station::checkIfVehicleInStation(Vehicle* veh){
 }
 
 bool Station::deleteVehicle(Vehicle* vehicle) {
-    for (int i = 0; i <= currentVehicles.size(); i++){
+    for (int i = 0; i < currentVehicles.size(); i++){
         if (currentVehicles[i] == vehicle){
             if (deleteVehicleByIndex(i)){
                 return true;
