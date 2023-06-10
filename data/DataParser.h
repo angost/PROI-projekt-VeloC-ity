@@ -65,6 +65,7 @@ public:
 
     // USER
     void saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffer);
+    Vehicle* recreateVehicleInBuffer(string type, int id, int numberOfRentals, int technicalCondition, int rentedStatus, int reservedStatus);
     vector <Vehicle*> getRentedVehiclesBuffer();
 
 };

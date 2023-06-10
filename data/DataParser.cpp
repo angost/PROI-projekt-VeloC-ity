@@ -468,6 +468,26 @@ void DataParser::saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffe
     file.close();
 }
 
+Vehicle* DataParser::recreateVehicleInBuffer(string type, int id, int numberOfRentals, int technicalCondition, int rentedStatus, int reservedStatus){
+    if (type == "Bike"){
+        auto* newVehicle = new Bike(id, numberOfRentals, technicalCondition);
+        newVehicle->setRentedStatus(rentedStatus);
+        newVehicle->setReservedStatus(reservedStatus);
+        return newVehicle;
+    } else if (type == "Scooter"){
+        auto* newVehicle = new Scooter(id, numberOfRentals, technicalCondition);
+        newVehicle->setRentedStatus(rentedStatus);
+        newVehicle->setReservedStatus(reservedStatus);
+        return newVehicle;
+    } else {
+        auto* newVehicle = new ElectricScooter(id, numberOfRentals, technicalCondition);
+        newVehicle->setRentedStatus(rentedStatus);
+        newVehicle->setReservedStatus(reservedStatus);
+        return newVehicle;
+    }
+    return nullptr;
+}
+
 vector <Vehicle*> DataParser::getRentedVehiclesBuffer(){
     //TODO tworz obiekty z listy danych o wypozyczonych pojazdach
     const string RENTED_VEHICLES_BUFFER_FILE_PATH = "../data/inputTxtFiles/rentedVehiclesBuffer.txt";
@@ -483,22 +503,8 @@ vector <Vehicle*> DataParser::getRentedVehiclesBuffer(){
         int reservedStatus = stoi(parts[3]);
         int technicalCondition = stoi(parts[4]);
         int numberOfRentals = stoi(parts[5]);
-        if (type == "Bike"){
-            Bike newVehicle(id, numberOfRentals, technicalCondition);
-            newVehicle.setRentedStatus(rentedStatus);
-            newVehicle.setReservedStatus(reservedStatus);
-            rentedVehicles.push_back(&newVehicle);
-        } else if (type == "Scooter"){
-            Scooter newVehicle(id, numberOfRentals, technicalCondition);
-            newVehicle.setRentedStatus(rentedStatus);
-            newVehicle.setReservedStatus(reservedStatus);
-            rentedVehicles.push_back(&newVehicle);
-        } else {
-            ElectricScooter newVehicle(id, numberOfRentals, technicalCondition);
-            newVehicle.setRentedStatus(rentedStatus);
-            newVehicle.setReservedStatus(reservedStatus);
-            rentedVehicles.push_back(&newVehicle);
-        }
+        Vehicle* newVehicle = recreateVehicleInBuffer(type, id, numberOfRentals, technicalCondition, rentedStatus, reservedStatus);
+        rentedVehicles.push_back(newVehicle);
     }
     return rentedVehicles;
 }

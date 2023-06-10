@@ -160,8 +160,9 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
         for (auto vehInBuffer : rentedVehiclesBuffer){
             if (vehInBuffer->id == rentedVehicleId){
                 user->addVehicle(vehInBuffer);
+                break;
             }
-            break;
+
         }
 
     }
