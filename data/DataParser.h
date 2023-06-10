@@ -42,7 +42,7 @@ public:
     Location getUserLocation();
 
     void refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews);
-    void refreshStationData(vector < Station* > &currentStations, Station* station);
+    void refreshStationsData(vector < Station* > &currentStations);
 
     // ADMIN
     void insertNewStation(Station* station);
@@ -56,6 +56,7 @@ public:
     void changeStationLocation(Station* changedStation);
     void changeVehicleRentedStatus(Station* station, Vehicle* changedVehicle);
     void changeVehicleReservedStatus(Station* station, Vehicle* changedVehicle);
+    void changeVehicleReservedStatus(string stationCode, Vehicle *changedVehicle);
     void changeVehicleTechnicalCondition(Station* station, Vehicle* changedVehicle);
     void changeVehicleNumberOfRentals(Station* station, Vehicle* changedVehicle);
     void removeVehicle(Station* station, Vehicle* vehicle);

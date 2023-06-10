@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
                 string userStatsFileName = USER_STATS_DIR + username + ".txt";
                 UserStats userStats = getUserStats(userStatsFileName);
                 rentedVehiclesBuffer = data.getRentedVehiclesBuffer();
-                logUserIn(username, currentUserLocation, userStats, stations, locations, rentedVehiclesBuffer);
+                logUserIn(username, currentUserLocation, userStats, stations, locations, rentedVehiclesBuffer, data);
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
 
             } else {
@@ -183,6 +183,7 @@ int main(int argc, char **argv) {
         password = "";
     }
 
+    data.refreshStationsData(stations);
     // PREVENTING MEMORY LEAK
     for (auto station : stations) {
         for (auto vehicle : *station) {
@@ -190,5 +191,7 @@ int main(int argc, char **argv) {
         }
         delete station;
     }
+
+
     return 0;
 }

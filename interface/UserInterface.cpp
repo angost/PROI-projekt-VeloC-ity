@@ -10,7 +10,7 @@
 // TODO dodac info dlaczego cos sie nie powiodlo (za maly balans itp)
 // TODO lepiej, spojniej wyswietlac lokalizacje, pojazdy itd
 
-UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer) : stations(stations), locations(locations), user(user), userStats(userStats), rentedVehiclesBuffer(rentedVehiclesBuffer) {
+UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data) : stations(stations), locations(locations), user(user), userStats(userStats), rentedVehiclesBuffer(rentedVehiclesBuffer), data(data) {
     Velocity vel(stations, user);
     this->velocity = vel;
 }
@@ -81,6 +81,9 @@ void UserInterface::mainInterface(){
             saveSessionProgress(user, userStats, stations);
             if (success)
                 rentedVehiclesBuffer.push_back(chosenVehicle);
+                data.removeVehicle(chosenStation, chosenVehicle);
+                data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
+
 
         // Reserve Vehicle
         } else if (option == 6){
@@ -101,7 +104,11 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = reserveVehicle(chosenVehicle, chosenStation);
-            saveSessionProgress(user, userStats, stations);
+            if (success){
+                saveSessionProgress(user, userStats, stations);
+                data.changeVehicleReservedStatus(chosenStation, chosenVehicle);
+            }
+
 
         // Return Vehicle
         } else if (option == 7){
@@ -131,10 +138,13 @@ void UserInterface::mainInterface(){
             saveSessionProgress(user, userStats, stations);
             if (success)
                 rentedVehiclesBuffer.erase(remove(rentedVehiclesBuffer.begin(), rentedVehiclesBuffer.end(), chosenVehicle), rentedVehiclesBuffer.end());
+                data.addVehicle(chosenStation, chosenVehicle);
+                data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
 
         // Cancel Reservation
         } else if (option == 8){
-            vector<Vehicle*> reservedVehicles = user->getReservedVehicles();            if (reservedVehicles.size() == 0){
+            vector<Vehicle*> reservedVehicles = user->getReservedVehicles();
+            if (reservedVehicles.size() == 0){
                 cout << "You don't have any reserved vehicles" << endl;
                 continue;
             }
@@ -149,7 +159,11 @@ void UserInterface::mainInterface(){
             }
 
             success = cancelReservation(chosenVehicle);
-            saveSessionProgress(user, userStats, stations);
+            if (success){
+                string stationCode = userStats.reservedVehicles[chosenVehicle->id];
+                saveSessionProgress(user, userStats, stations);
+                data.changeVehicleReservedStatus(stationCode, chosenVehicle);
+            }
 
         // Show rented Vehicles
         } else if (option == 9){
@@ -236,6 +250,7 @@ void UserInterface::mainInterface(){
         // EXIT
         } else if (option == 18) {
             cout << "Thank you for using our services" << endl << endl;
+            data.refreshStationsData(stations);
             break;
 
         } else {

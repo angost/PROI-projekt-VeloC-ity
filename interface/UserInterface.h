@@ -12,6 +12,7 @@
 #include "src/station/station/LocalStation.h"
 #include "src/Velocity.h"
 #include "data/UserStats.h"
+#include "data/DataParser.h"
 
 
 class UserInterface {
@@ -22,7 +23,8 @@ public:
     Velocity velocity;
     UserStats &userStats;
     vector<Vehicle*> &rentedVehiclesBuffer;
-    UserInterface(vector<Station*> stations, vector<Location> locations, User* user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer);
+    DataParser data;
+    UserInterface(vector<Station*> stations, vector<Location> locations, User* user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data);
 
     void mainInterface();
     int getAction();

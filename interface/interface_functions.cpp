@@ -162,36 +162,41 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
                 user->addVehicle(vehInBuffer);
                 break;
             }
-
         }
-
     }
-
 }
 
-void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer){
-    UserInterface userIface(stations, locations, user, userStats, rentedVehiclesBuffer);
+void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data){
+    UserInterface userIface(stations, locations, user, userStats, rentedVehiclesBuffer, data);
     userIface.mainInterface();
 }
 
-void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer){
+void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data){
     initPreviousSession(userStats, user, stations, rentedVehiclesBuffer);
-    startSession(userStats, user, stations, locations, rentedVehiclesBuffer);
+    startSession(userStats, user, stations, locations, rentedVehiclesBuffer, data);
     saveSessionProgress(user, userStats, stations);
+
+    // PREVENTING MEMORY LEAK
+    for (auto vehicle : user->rentedVehicles) {
+        delete vehicle;
+    }
+    for (auto vehicle : user->reservedVehicles) {
+        delete vehicle;
+    }
 }
 
-void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer){
+void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data){
     string userClass = userStats.userClass;
     if (userClass == "Standard"){
         StandardUser user(username, currentUserLocation);
-        session(userStats, &user, stations, locations, rentedVehiclesBuffer);
+        session(userStats, &user, stations, locations, rentedVehiclesBuffer, data);
     }
     else if (userClass == "Silver"){
         SilverUser user(username, currentUserLocation);
-        session(userStats, &user, stations, locations, rentedVehiclesBuffer);
+        session(userStats, &user, stations, locations, rentedVehiclesBuffer, data);
     }
     else {
         GoldenUser user(username, currentUserLocation);
-        session(userStats, &user, stations, locations, rentedVehiclesBuffer);
+        session(userStats, &user, stations, locations, rentedVehiclesBuffer, data);
     }
 }

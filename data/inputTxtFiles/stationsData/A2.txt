@@ -23,4 +23,3 @@ Scooter 284 0 0 5 0
 Scooter 234 0 0 5 0
 Scooter 243 0 0 5 0
 ElectricScooter 337 0 0 5 0
-ElectricScooter 357 0 0 5 0

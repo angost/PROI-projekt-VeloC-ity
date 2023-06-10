@@ -38,4 +38,4 @@ Scooter 285 0 0 5 0
 ElectricScooter 326 0 0 5 0
 Scooter 268 0 0 5 0
 Scooter 248 0 0 5 0
-Scooter 255 0 0 5 0
+Bike 162 0 0 5 1

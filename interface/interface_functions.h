@@ -27,8 +27,8 @@ vector<string> splitString(const string& input);
 UserStats getUserStats(const string &userStatFilename);
 //int findUser(vector<UserStats> &stats, const string &username);
 void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations, vector<Vehicle*> rentedVehiclesBuffer);
-void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer);
-void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer);
-void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer);
+void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data);
+void session(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data);
+void logUserIn(string username, Location &currentUserLocation, UserStats &userStats, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data);
 
 #endif //PROI_PROJEKT_INTERFACE_FUNCTIONS_H

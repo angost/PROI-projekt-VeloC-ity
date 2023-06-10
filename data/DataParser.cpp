@@ -39,15 +39,15 @@ void DataParser::refreshData(vector < Station* > &currentStations, vector < Serv
     serviceCrews = assignStationsToServiceCrews(currentStations);
 }
 
-void DataParser::refreshStationData(vector < Station* > &currentStations, Station* station) {
-    string stationFilePath = stationsDataPath + station->code + ".txt";
-    currentStations.erase(remove(currentStations.begin(), currentStations.end(), station), currentStations.end());
-    for (auto& vehicle : *station) {
+void DataParser::refreshStationsData(vector < Station* > &currentStations) {
+    this->stationFilenames = getFilenames();
+    for (auto& station : currentStations) {
+        for (auto& vehicle : *station) {
             delete vehicle;
         }
-    delete station;
-    Station* refreshedStation = getStation(stationFilePath);
-    currentStations.push_back(refreshedStation);
+        delete station;
+    }
+    currentStations = getAllStations();
 }
 
 vector < string > DataParser::getFilenames() {
@@ -359,6 +359,31 @@ void DataParser::changeVehicleReservedStatus(Station *station, Vehicle *changedV
     }
     file.close();
     std::ofstream changedFile(stationsDataPath + "/" + station->code + ".txt");
+    changedFile << newFile;
+    changedFile.close();
+}
+
+void DataParser::changeVehicleReservedStatus(string stationCode, Vehicle *changedVehicle) {
+    ifstream file(stationsDataPath + "/" + stationCode + ".txt");
+    string line, newFile;
+    getline(file, line);
+    newFile += line + "\n";
+    string vehicleType;
+    int id, technicalCondition, numberOfRentals;
+    bool reservedStatus, rentedStatus;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        iss >> vehicleType >> id >> rentedStatus >> reservedStatus >> technicalCondition >> numberOfRentals;
+        if (id != changedVehicle->id) {
+            newFile += line;
+            newFile += "\n";
+        } else {
+            newFile += vehicleType + " " + to_string(id) + " " + to_string(rentedStatus) + " " + to_string(changedVehicle->reservedStatus) + " " + to_string(technicalCondition) + " " + to_string(numberOfRentals);
+            newFile += "\n";
+        }
+    }
+    file.close();
+    std::ofstream changedFile(stationsDataPath + "/" + stationCode + ".txt");
     changedFile << newFile;
     changedFile.close();
 }
