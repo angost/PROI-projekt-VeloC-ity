@@ -36,14 +36,7 @@ void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations)
     // Reserved Vehciles
     outputFile << to_string(userStats.reservedVehicles.size()) << ' ';
     for (auto resVeh : userStats.reservedVehicles){
-        string type;
-        if (resVeh.first <= 199)
-            type = "Bike";
-        else if (resVeh.first <= 299)
-            type = "Scooter";
-        else
-            type = "Electric Scooter";
-        outputFile << type << ' ' << resVeh.first << ' ' << resVeh.second << ' ';
+        outputFile << resVeh.first << ' ' << resVeh.second << ' ';
     }
     outputFile << '\n';
     // Rented Vehicles

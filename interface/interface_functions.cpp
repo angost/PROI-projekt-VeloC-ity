@@ -110,9 +110,8 @@ UserStats getUserStats(const string &userStatFilename){
     int numberOfResVeh = stoi(partsReservedVehicles[0]);
     map<int, string> reservedVehicles;
     for (int vehNr = 0; vehNr < numberOfResVeh; vehNr++){
-        string type = partsReservedVehicles[1+vehNr*3];
-        int id = stoi(partsReservedVehicles[1+vehNr*3+1]);
-        string stationCode = partsReservedVehicles[1+vehNr*3+2];
+        int id = stoi(partsReservedVehicles[1+vehNr*2]);
+        string stationCode = partsReservedVehicles[1+vehNr*2+1];
 
         reservedVehicles[id] = stationCode;
     }
