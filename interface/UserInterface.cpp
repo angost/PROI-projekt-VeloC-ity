@@ -79,11 +79,11 @@ void UserInterface::mainInterface(){
             }
             success = rentVehicle(chosenVehicle, chosenStation);
             saveSessionProgress(user, userStats, stations);
-            if (success)
+            if (success) {
                 rentedVehiclesBuffer.push_back(chosenVehicle);
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
                 data.removeVehicle(chosenStation, chosenVehicle);
-
+            }
 
         // Reserve Vehicle
         } else if (option == 6){
@@ -136,11 +136,11 @@ void UserInterface::mainInterface(){
             }
             success = returnVehicle(chosenVehicle, chosenStation);
             saveSessionProgress(user, userStats, stations);
-            if (success)
+            if (success){
                 rentedVehiclesBuffer.erase(remove(rentedVehiclesBuffer.begin(), rentedVehiclesBuffer.end(), chosenVehicle), rentedVehiclesBuffer.end());
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
                 data.addVehicle(chosenStation, chosenVehicle);
-
+            }
 
         // Cancel Reservation
         } else if (option == 8){
