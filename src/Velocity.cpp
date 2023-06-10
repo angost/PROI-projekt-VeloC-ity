@@ -20,28 +20,35 @@ this->user = user;
 }
 
 
-bool Velocity::rentVehicle(Vehicle *vehicle, Station *station) {
+bool Velocity::rentVehicle(Vehicle *vehicle, Station *station, string &errorInfo) {
     if (vehicle->checkRentedStatus()) {
+        errorInfo = "Vehicle is already rented.";
         return false;
     }
     if (vehicle->checkReservedStatus()){
         if (!user->checkReserved(vehicle)){
+            errorInfo = "Vehicle is reserved by a different user.";
             return false;
         }
     }
     if (!vehicle->checkAbleToUse()){
+        errorInfo = "Vehicle is not able to use.";
         return false;
     }
     if (!user->checkRentSpace()){
+        errorInfo = "User has not enough space to rent Vehicle.";
         return false;
     }
     if (!user->checkSolvency()){
+        errorInfo = "User's balance is to low to rent Vehicle.";
         return false;
     }
     if (!station->checkIfVehicleInStation(vehicle)){
+        errorInfo = "Vehicle is not on provided Station.";
         return false;
     }
     if (user->getLocation().getDistanceBetweenLocations(station->getStationLocation()) > 0){
+        errorInfo = "To rent a Vehicle User has to be in the same Location as Station with Vehicle.";
         return false;
     }
     vehicle->setRentedStatus(true);
@@ -58,23 +65,29 @@ bool Velocity::rentVehicle(Vehicle *vehicle, Station *station) {
 }
 
 
-bool Velocity::reserveVehicle(Vehicle *vehicle, Station *station) {
+bool Velocity::reserveVehicle(Vehicle *vehicle, Station *station, string &errorInfo) {
     if (vehicle->checkRentedStatus()) {
+        errorInfo = "Vehicle is already rented.";
         return false;
     }
     if (vehicle->checkReservedStatus()){
+        errorInfo = "Vehicle is already reserved.";
         return false;
     }
     if (!vehicle->checkAbleToUse()){
+        errorInfo = "Vehicle is not able to use.";
         return false;
     }
     if (!user->checkReserveSpace()){
+        errorInfo = "User has not enough space to reserve Vehicle.";
         return false;
     }
     if (!user->checkSolvency()){
+        errorInfo = "User's balance is to low to reserve Vehicle.";
         return false;
     }
     if (!station->checkIfVehicleInStation(vehicle)){
+        errorInfo = "Vehicle is not on provided Station.";
         return false;
     }
     vehicle->setReservedStatus(true);
@@ -88,17 +101,21 @@ bool Velocity::addCredits(float amount) {
     return true;
 }
 
-bool Velocity::returnVehicle(Vehicle *vehicle, Station *station) {
+bool Velocity::returnVehicle(Vehicle *vehicle, Station *station, string &errorInfo) {
     if (!vehicle->checkRentedStatus()){
+        errorInfo = "Vehicle is not rented.";
         return false;
     }
     if (!user->checkRented(vehicle)){
+        errorInfo = "Vehicle is not rented by this User.";
         return false;
     }
     if (user->getLocation().getDistanceBetweenLocations(station->getStationLocation()) > 0){
+        errorInfo = "To return a Vehicle User has to be in the same Location as provided Station.";
         return false;
     }
     if (!station->checkIfSpaceAvailable()){
+        errorInfo = "No space available on provided Station.";
         return false;
     }
     vehicle->setRentedStatus(false);
@@ -109,11 +126,13 @@ bool Velocity::returnVehicle(Vehicle *vehicle, Station *station) {
 }
 
 
-bool Velocity::cancelReservation(Vehicle *vehicle) {
+bool Velocity::cancelReservation(Vehicle *vehicle, string &errorInfo) {
     if (!vehicle->checkReservedStatus()){
+        errorInfo = "Vehicle is not reserved.";
         return false;
     }
     if (!user->checkReserved(vehicle)){
+        errorInfo = "Vehicle is not reserved by this User.";
         return false;
     }
     vehicle->setReservedStatus(false);

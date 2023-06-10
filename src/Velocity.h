@@ -18,11 +18,11 @@ class Velocity {
     User* user;
     Velocity();
     Velocity(vector <Station* > stations, User* user);
-    bool rentVehicle(Vehicle* vehicle, Station* station);
-    bool reserveVehicle(Vehicle* vehicle, Station* station);
-    bool returnVehicle(Vehicle* vehicle, Station* station);
+    bool rentVehicle(Vehicle* vehicle, Station* station, string &errorInfo);
+    bool reserveVehicle(Vehicle* vehicle, Station* station, string &errorInfo);
+    bool returnVehicle(Vehicle* vehicle, Station* station, string &errorInfo);
     bool addCredits(float amount);
-    bool cancelReservation(Vehicle* vehicle);
+    bool cancelReservation(Vehicle* vehicle, string &errorInfo);
     Station* findNearestStation();
     map < int, vector < Station* > > calculateDistanceToAllStations();
     friend class UserInterface;

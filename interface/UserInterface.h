@@ -24,6 +24,7 @@ public:
     UserStats &userStats;
     vector<Vehicle*> &rentedVehiclesBuffer;
     DataParser data;
+    string errorInfo;
     UserInterface(vector<Station*> stations, vector<Location> locations, User* user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data);
 
     void mainInterface();

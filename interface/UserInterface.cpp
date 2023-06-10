@@ -13,6 +13,7 @@
 UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data) : stations(stations), locations(locations), user(user), userStats(userStats), rentedVehiclesBuffer(rentedVehiclesBuffer), data(data) {
     Velocity vel(stations, user);
     this->velocity = vel;
+    errorInfo = "";
 }
 
 void UserInterface::mainInterface(){
@@ -169,11 +170,17 @@ void UserInterface::mainInterface(){
         // Show rented Vehicles
         } else if (option == 9){
             printRentedVehicles();
+            if (user->rentedVehicles.size() == 0){
+                cout << "You don't have any rented Vehicles." << endl;
+            }
             continue;
 
         // Show reserved Vehicles
         } else if (option == 10){
             printReservedVehicles();
+            if (user->reservedVehicles.size() == 0){
+                cout << "You don't have any reserved Vehicles." << endl;
+            }
             continue;
 
         // Show current coords - TODO add to velocity
@@ -259,6 +266,8 @@ void UserInterface::mainInterface(){
         }
         //TODO dodac kilka z tych metod do Velocity (?) zeby byly mozliwe do zrobienia nie tylko z poziomu interfejsu
         printSuccess(success);
+        if (!success)
+            cout << errorInfo << endl;
         cout << endl;
     }
 }
@@ -411,15 +420,15 @@ bool UserInterface::addDrivingLicence(string drivingLicense){
 }
 
 bool UserInterface::rentVehicle(Vehicle* vehicle, Station* station) {
-    return this->velocity.rentVehicle(vehicle, station);
+    return this->velocity.rentVehicle(vehicle, station, errorInfo);
 }
 
 bool UserInterface::reserveVehicle(Vehicle* vehicle, Station* station){
-    return this->velocity.reserveVehicle(vehicle, station);
+    return this->velocity.reserveVehicle(vehicle, station, errorInfo);
 }
 
 bool UserInterface::returnVehicle(Vehicle* vehicle, Station* station){
-    return this->velocity.returnVehicle(vehicle, station);
+    return this->velocity.returnVehicle(vehicle, station, errorInfo);
 }
 
 bool UserInterface::addCredits(float amount){
@@ -427,7 +436,7 @@ bool UserInterface::addCredits(float amount){
 }
 
 bool UserInterface::cancelReservation(Vehicle* vehicle){
-    return this->velocity.cancelReservation(vehicle);
+    return this->velocity.cancelReservation(vehicle, errorInfo);
 }
 
 void UserInterface::printNearestStation(){
