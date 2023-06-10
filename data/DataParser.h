@@ -42,6 +42,7 @@ public:
     Location getUserLocation();
 
     void refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews);
+    void refreshStationData(vector < Station* > &currentStations, Station* station);
 
     // ADMIN
     void insertNewStation(Station* station);

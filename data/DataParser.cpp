@@ -6,6 +6,7 @@
 #include "interface/interface_functions.h"
 
 #include <utility>
+#include <algorithm>
 using namespace std;
 
 DataParser::DataParser() {
@@ -38,6 +39,16 @@ void DataParser::refreshData(vector < Station* > &currentStations, vector < Serv
     serviceCrews = assignStationsToServiceCrews(currentStations);
 }
 
+void DataParser::refreshStationData(vector < Station* > &currentStations, Station* station) {
+    string stationFilePath = stationsDataPath + station->code + ".txt";
+    currentStations.erase(remove(currentStations.begin(), currentStations.end(), station), currentStations.end());
+    for (auto& vehicle : *station) {
+            delete vehicle;
+        }
+    delete station;
+    Station* refreshedStation = getStation(stationFilePath);
+    currentStations.push_back(refreshedStation);
+}
 
 vector < string > DataParser::getFilenames() {
     std::ifstream file(stationFilenamesPath);
