@@ -7,11 +7,6 @@
 
 #include "src/station/service/Service.h"
 #include "src/station/service/AdminService.h"
-
-#include "src/user/StandardUser.h"
-#include "src/user/SilverUser.h"
-#include "src/user/GoldenUser.h"
-
 #include "src/Location.h"
 
 #include "interface/interface_functions.h"

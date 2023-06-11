@@ -3,6 +3,7 @@
 //
 #include "interface_functions.h"
 #include "data/SaveProgress.h"
+#include "data/setup_functions.h"
 
 int getMainMenuOption(){
     cout << endl << endl << "VeloC++ity 2023" << endl;
@@ -125,7 +126,12 @@ UserStats getUserStats(const string &userStatFilename){
         rentedVehiclesIds.push_back(stoi(partsRentedVehicles[i]));
     }
 
-    UserStats userStats(username, uClass, vehCounter, balance, license, reservedVehicles, rentedVehiclesIds);
+    getline(file, line);
+    vector<string> position = splitString(line);
+    int x_position = stoi(position[0]);
+    int y_position = stoi(position[1]);
+
+    UserStats userStats(username, uClass, vehCounter, balance, license, reservedVehicles, rentedVehiclesIds, x_position, y_position);
     return userStats;
 }
 
@@ -142,6 +148,14 @@ void initPreviousSession(UserStats &stats, User* &user, vector<Station*> &statio
     user->drivingLicense = stats.drivingLicense;
     user->balance = stats.balance;
     user->vehicleCounter = stats.vehicleCounter;
+    //init location
+    vector<Location> locations;
+    setupMap(locations);
+    for (auto loc : locations) {
+        if (loc.x_coord == stats.x_position && loc.y_coord == stats.y_position) {
+            user->changeLocation(loc);
+        }
+    }
 
     user->reservedVehicles.clear();
     // Adds reserved vehicles to user
