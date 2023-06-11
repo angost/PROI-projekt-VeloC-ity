@@ -375,6 +375,20 @@ string UserInterface::getDrivingLicence(){
     return drivingLicence;
 }
 
+string UserInterface::getProfileType() {
+    string profileType;
+    cout << "Enter profile type (Standard/Silver/Golden) >> ";
+    cin >> profileType;
+    cout << endl;
+    if (profileType != "Golden" || profileType != "Silver" || profileType != "Standard"){
+        throw invalid_argument("Invalid profile type");
+    }
+    if (user->type == profileType){
+        throw invalid_argument("Profile Type has to be different from current one");
+    }
+    return profileType;
+}
+
 void UserInterface::printSuccess(bool success){
     if (success) {
         cout << "Operation finished successfully" << endl;
