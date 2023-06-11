@@ -244,7 +244,7 @@ void DataParser::deleteAssignment(Station *station, const Service& serviceCrew) 
     while (getline(file, line)) {
         std::istringstream iss(line);
         iss >> stationCode >> serviceId;
-        if (!(stationCode == station->code) && !(serviceId == serviceCrew.identifier)) {
+        if (!(stationCode == station->code) || !(serviceId == serviceCrew.identifier)) {
             newFile += line;
             newFile += "\n";
         }

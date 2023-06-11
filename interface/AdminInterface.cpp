@@ -129,8 +129,18 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 7) {
-
-
+            data.refreshData(adminService.stations, adminService.serviceTeams);
+            Station* station;
+            try {
+                station = getStation();
+                Service& serviceCrew = getServiceCrew();
+                data.deleteAssignment(station, serviceCrew);
+                success = true;
+            }
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
 
 
 
