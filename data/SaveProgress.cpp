@@ -14,6 +14,8 @@ void updateUserStats(User* user, UserStats &userStats, vector<Station*>& station
     userStats.userClass = user->type;
     map<int, string> newReservedVehicles;
     userStats.reservedVehicles = newReservedVehicles;
+    userStats.x_position = user->userLocation.x_coord;
+    userStats.y_position = user->userLocation.y_coord;
     for (auto reservedVehicle : user->reservedVehicles){
         for (auto station : stations){
             if (station->checkIfVehicleInStation(reservedVehicle)){
@@ -45,6 +47,8 @@ void saveUserStats(User* user, UserStats &userStats, vector<Station*>& stations)
         //iss >> vehicleType >> id >> rentedStatus >> reservedStatus >> technicalCondition >> numberOfRentals;
         outputFile << to_string(rentedVehicleId) << ' ';
     }
+    outputFile << '\n';
+    outputFile << to_string(userStats.x_position) << ' ' << to_string(userStats.y_position);
 
     outputFile.close();
 }
