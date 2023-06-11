@@ -354,6 +354,9 @@ int UserInterface::getCoord(string coord_type){
 }
 
 string UserInterface::getDrivingLicence(){
+    if (user->type != "Golden"){
+        throw invalid_argument("You have to be Golden User to add driving licence");
+    }
     string drivingLicence;
     cout << "Enter your driving licence data > ";
     cin >> drivingLicence;
