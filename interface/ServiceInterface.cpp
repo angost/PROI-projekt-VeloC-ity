@@ -16,6 +16,7 @@ void ServiceInterface::mainInterface() {
     cout << "               -> Hello Team " << serviceClass.identifier << endl;
     cout << "               -> What can I do for you today?" << endl;
     while (true){
+        data.refreshServiceData(serviceClass.supportedStations, serviceClass);
         cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
@@ -27,9 +28,11 @@ void ServiceInterface::mainInterface() {
             continue;
         }
         if (option == 1) {
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             printSupportedStations();
             continue;
         } else if (option == 2){
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             Station* station;
             try {
                 station = getStation();
@@ -43,6 +46,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 3) {
             Station* station;
             Vehicle* vehicle;
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
                 vehicle = getVehicle(station);
@@ -56,6 +60,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 4) {
             int newLimitInt;
             Station* station;
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 string newLimit;
                 cout << "Enter new limit > ";
@@ -73,6 +78,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 5) {
             Station* station;
             Location location;
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
                 location = getLocation();
@@ -87,6 +93,7 @@ void ServiceInterface::mainInterface() {
             cout << "Insert station code and id of vehicle you want to repair..." << endl;
             Vehicle* vehicle;
             Station* station;
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
                 vehicle = getVehicle(station);
@@ -102,6 +109,7 @@ void ServiceInterface::mainInterface() {
             Station* fromStation;
             Vehicle* vehicle;
             Station* toStation;
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 fromStation = getStation();
                 vehicle = getVehicle(fromStation);
@@ -118,6 +126,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 8) {
             Station* station;
             Vehicle* vehicle;
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
                 vehicle = getNewVehicle();
@@ -131,6 +140,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 9) {
             Station* station;
             Vehicle* vehicle;
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
                 vehicle = getVehicle(station);

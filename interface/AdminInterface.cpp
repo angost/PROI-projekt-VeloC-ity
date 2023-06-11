@@ -20,6 +20,7 @@ void AdminInterface::mainInterface() {
     cout << "               -> Hello Admin " << endl;
     cout << "               -> What are your orders? " << endl;
     while (true){
+        data.refreshData(adminService.stations, adminService.serviceTeams);
         cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
@@ -31,12 +32,14 @@ void AdminInterface::mainInterface() {
             continue;
         }
         if (option == 1) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             displayStations();
             continue;
 
 
 
         } else if (option == 2){
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             Station* station;
             try {
                 station = getStation();
@@ -51,12 +54,14 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 3) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             displayStationAssignment();
             continue;
 
 
 
         } else if (option == 4) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             try {
                 Station* newStation = getNewStation();
                 success = addNewStation(newStation);
@@ -70,6 +75,7 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 5) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             Station* station;
             try {
                 station = getStation();
@@ -101,6 +107,7 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 6) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             Station* station;
             try {
                 station = getStation();
