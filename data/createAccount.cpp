@@ -8,21 +8,24 @@ const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 const string CREDENTIAL_FILE_NAME = "../data/inputTxtFiles/credentials.txt";
 
 int createAccount(){
+    bool success;
     string username, password, type;
     cout << "Creating new account" << endl;
     cout << "Enter username >> ";
     cin >> username;
-
-    map <string, string> existingUsers =getAllCredentials(CREDENTIAL_FILE_NAME);
-    for (auto credentials : existingUsers){
-        if (credentials.first == username){
-            cout << "Username already in use...";
-            return 0;
-        }
+    success = checkUsername(username);
+    if (!success){
+        return 0;
     }
 
     cout << "Enter password >> ";
     cin >> password;
+    success = checkPassword(password);
+    if (!success){
+        return 0;
+    }
+
+
     cout << "Enter profile type (Standard/Silver/Golden) >> ";
     cin >> type;
     if (type != "Standard" && type!="Silver" && type!="Golden"){
@@ -31,7 +34,7 @@ int createAccount(){
     }
     string userStatsFileName = USER_STATS_DIR + username + ".txt";
 
-    ofstream file1(userStatsFileName, ios::app);
+    ofstream file1(userStatsFileName);
     file1 << username+' ' << type+" 0 0 None\n";
     file1 << "0 \n" << "0 \n";
     file1.close();
@@ -40,4 +43,31 @@ int createAccount(){
     file2.close();
     cout << "Account created successfully!";
     return 1;
+}
+
+bool checkUsername(string &username){
+    map <string, string> existingUsers =getAllCredentials(CREDENTIAL_FILE_NAME);
+    for (auto credentials : existingUsers){
+        if (credentials.first == username){
+            cout << "Username already in use...";
+            return false;
+        }
+    }
+    int counter = 0;
+    for (char sign: username){
+        if (sign < 45 || sign > 122){
+            cout << "Used forbidden sign in username: '" << sign << "'" << endl;
+            return false;
+        }
+        counter++;
+    }
+    if (counter < 5){
+        cout << "Username should consist of at least 5 characters" << endl;
+        return false;
+    }
+    if (counter > 15){
+        cout << "Username should consist of a maximum of 15 characters" << endl;
+        return false;
+    }
+    return true;
 }
