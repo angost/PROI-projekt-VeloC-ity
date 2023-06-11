@@ -32,6 +32,7 @@ const string SERVICE_CREW_FILE_NAME = "../data/inputTxtFiles/serviceCrewAssignme
 const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 const string USER_LOCATION_FILE_NAME = "../data/inputTxtFiles/userLocation.txt";
 const string STATION_NAMES_FILE_PATH = "../data/inputTxtFiles/stationNames.txt";
+const string SERVICE_CREW_NAMES_PATH = "../data/inputTxtFiles/serviceCrews.txt";
 const string ADMIN_ID = "X01";
 
 int main(int argc, char **argv) {
@@ -40,7 +41,7 @@ int main(int argc, char **argv) {
     setupMap(locations);
 
     // DATA
-    DataParser data(STATION_NAMES_FILE_PATH, STATIONS_DATA_PATH, SERVICE_CREW_FILE_NAME, USER_LOCATION_FILE_NAME, locations);
+    DataParser data(STATION_NAMES_FILE_PATH, STATIONS_DATA_PATH, SERVICE_CREW_FILE_NAME, USER_LOCATION_FILE_NAME, SERVICE_CREW_NAMES_PATH, locations);
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = data.assignStationsToServiceCrews(stations);
     Location currentUserLocation = data.getUserLocation();

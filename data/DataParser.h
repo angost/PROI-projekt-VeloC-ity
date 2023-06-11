@@ -28,13 +28,14 @@ using namespace std;
 class DataParser {
     string stationFilenamesPath;
     string serviceCrewAssignmentFilename;
+    string serviceCrewNamesPath;
     string userLocationFilePath;
     string stationsDataPath;
     vector < string > stationFilenames;
     vector <Location> existingLocations;
 public:
     DataParser();
-    DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations);
+    DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, string serviceCrewNamesPath, vector <Location> locations);
     Location getLocation(int x, int y);
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
@@ -50,6 +51,8 @@ public:
     bool deleteStation(Station* station);
     void deleteAllAssignments(Station* station);
     void deleteAssignment(Station* station, const Service& serviceCrew);
+    void addNewService(string serviceId);
+    bool removeCurrentService(Service service);
 
     // SERVICE
     void changeStationLimit(Station* changedStation);
