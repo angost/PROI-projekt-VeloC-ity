@@ -35,6 +35,7 @@ public:
     float getAmount();
     int getCoord(string coord_type);
     string getDrivingLicence();
+    string getProfileType();
 
     void printSuccess(bool success);
     void printAllStations();
