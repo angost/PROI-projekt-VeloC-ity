@@ -33,6 +33,9 @@ public:
     static bool changeStationLocation(Station* station, Location location);
     static bool addVehicle(Station* station, Vehicle* vehicle);
     static bool removeVehicle(Station* station, Vehicle* vehicle);
+
+    bool checkVehicle(Vehicle* vehicle);
+
     Station* getStation();
     static Vehicle* getVehicle(Station* station);
     Location getLocation();

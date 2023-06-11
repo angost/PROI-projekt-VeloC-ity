@@ -13,6 +13,7 @@
 
 class Service {
     vector < Station* > supportedStations;
+    vector < Station* > allStations;
     vector < Location > locations;
     static bool moveVehicle(Vehicle* vehicle, Station* fromStation, Station* toStation);
     static bool repairVehicle(Vehicle* vehicle);
@@ -28,8 +29,8 @@ class Service {
     friend class AdminInterface;
 public:
     Service();
-    Service(string id, vector < Station* > &stations, vector < Location > locations);
-    Service(string id, vector < Location > locations);
+    Service(string id, vector < Station* > &stations, vector < Station* > &allStations, vector < Location > locations);
+    Service(string id, vector < Station* > &allStations, vector < Location > locations);
     string identifier;
     vector< Station* >::iterator begin();
     vector< Station* >::iterator end();

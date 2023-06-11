@@ -11,7 +11,7 @@ AdminService::AdminService() : Service() {
     this->serviceTeams = vector < Service > ();
 }
 
-AdminService::AdminService(string identifier, vector<Service> &serviceTeams, vector < Station* > &allStations, vector < Location > locations) : Service(identifier, locations){
+AdminService::AdminService(string identifier, vector<Service> &serviceTeams, vector < Station* > &allStations, vector < Location > locations) : Service(identifier, allStations, locations){
     this->serviceTeams = serviceTeams;
     this->stations = allStations;
 }
