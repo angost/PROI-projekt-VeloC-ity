@@ -143,6 +143,7 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
     user->balance = stats.balance;
     user->vehicleCounter = stats.vehicleCounter;
 
+    user->reservedVehicles.clear();
     // Adds reserved vehicles to user
     for (auto resVeh : stats.reservedVehicles){
         for (auto station : stations){
@@ -154,6 +155,8 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
             }
         }
     }
+
+    user->rentedVehicles.clear();
     // Adds rented vehicles to user
     for (auto rentedVehicleId : stats.rentedVehiclesIds){
         for (auto vehInBuffer : rentedVehiclesBuffer){

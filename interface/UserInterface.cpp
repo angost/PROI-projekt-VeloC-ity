@@ -6,6 +6,7 @@
 #include "data/SaveProgress.h"
 #include <iostream>
 #include <algorithm>
+#include "interface_functions.h"
 
 // TODO dodac info dlaczego cos sie nie powiodlo (za maly balans itp)
 // TODO lepiej, spojniej wyswietlac lokalizacje, pojazdy itd
@@ -32,6 +33,7 @@ void UserInterface::mainInterface(){
             continue;
         }
         data.refreshStationsData(stations);
+        initPreviousSession(userStats, user, stations, rentedVehiclesBuffer);
 
         // Show all Stations
         if (option == 1){
@@ -80,8 +82,8 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = rentVehicle(chosenVehicle, chosenStation);
-            saveSessionProgress(user, userStats, stations);
             if (success) {
+                saveSessionProgress(user, userStats, stations);
                 rentedVehiclesBuffer.push_back(chosenVehicle);
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
                 data.removeVehicle(chosenStation, chosenVehicle);
@@ -137,8 +139,8 @@ void UserInterface::mainInterface(){
                 continue;
             }
             success = returnVehicle(chosenVehicle, chosenStation);
-            saveSessionProgress(user, userStats, stations);
             if (success){
+                saveSessionProgress(user, userStats, stations);
                 rentedVehiclesBuffer.erase(remove(rentedVehiclesBuffer.begin(), rentedVehiclesBuffer.end(), chosenVehicle), rentedVehiclesBuffer.end());
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
                 data.addVehicle(chosenStation, chosenVehicle);
