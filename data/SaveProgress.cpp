@@ -4,6 +4,7 @@
 
 #include "SaveProgress.h"
 #include <iomanip>
+#include <iostream>
 const string USER_STATS_DIR = "../data/inputTxtFiles/userStats/";
 
 
@@ -14,14 +15,18 @@ void updateUserStats(User* user, UserStats &userStats, vector<Station*>& station
     userStats.userClass = user->type;
     map<int, string> newReservedVehicles;
     userStats.reservedVehicles = newReservedVehicles;
+
     for (auto reservedVehicle : user->reservedVehicles){
-        for (auto station : stations){
+        for(int i=0; i < stations.size(); i++){
+            Station* station = stations[i];
             if (station->checkIfVehicleInStation(reservedVehicle)){
                 userStats.reservedVehicles[reservedVehicle->id] = station->code;
                 break;
             }
         }
     }
+
+
     vector<int> newRentedVehiclesIds;
     userStats.rentedVehiclesIds = newRentedVehiclesIds;
     for (auto rentedVehicle : user->rentedVehicles){

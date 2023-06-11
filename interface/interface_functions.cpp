@@ -138,7 +138,7 @@ UserStats getUserStats(const string &userStatFilename){
 //    throw invalid_argument("User not found");
 //}
 
-void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations, vector<Vehicle*> rentedVehiclesBuffer){
+void initPreviousSession(UserStats &stats, User* &user, vector<Station*> &stations, vector<Vehicle*> rentedVehiclesBuffer){
     user->drivingLicense = stats.drivingLicense;
     user->balance = stats.balance;
     user->vehicleCounter = stats.vehicleCounter;
@@ -168,7 +168,7 @@ void initPreviousSession(UserStats &stats, User* user, vector<Station*> stations
     }
 }
 
-void startSession(UserStats &userStats, User* user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data){
+void startSession(UserStats &userStats, User* &user, vector<Station*> &stations, vector<Location> &locations, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data){
     UserInterface userIface(stations, locations, user, userStats, rentedVehiclesBuffer, data);
     userIface.mainInterface();
 }
