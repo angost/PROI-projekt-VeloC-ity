@@ -184,7 +184,7 @@ int main(int argc, char **argv) {
         password = "";
     }
 
-    data.refreshStationsData(stations);
+    //data.refreshStationsData(stations);
     // PREVENTING MEMORY LEAK
     for (auto station : stations) {
         for (auto vehicle : *station) {

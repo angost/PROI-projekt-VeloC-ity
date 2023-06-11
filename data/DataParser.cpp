@@ -35,7 +35,9 @@ void DataParser::refreshData(vector < Station* > &currentStations, vector < Serv
         }
         delete station;
     }
+    currentStations.clear();
     currentStations = getAllStations();
+    serviceCrews.clear();
     serviceCrews = assignStationsToServiceCrews(currentStations);
 }
 
@@ -499,14 +501,10 @@ void DataParser::refreshServiceData(vector<Station *>& stations, Service &servic
 void DataParser::saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffer){
     const string RENTED_VEHICLES_BUFFER_FILE_PATH = "../data/inputTxtFiles/rentedVehiclesBuffer.txt";
     ofstream file(RENTED_VEHICLES_BUFFER_FILE_PATH);
-    if (rentedVehiclesBuffer.size() > 100){
-        file << "Something went wrong";
-    } else {
-        for (auto vehicle: rentedVehiclesBuffer) {
-            file << vehicle->type << ' ' << to_string(vehicle->id) << ' ' << to_string(vehicle->rentedStatus) << ' '
-                 << to_string(vehicle->reservedStatus) << ' ' << to_string(vehicle->technicalCondition) << ' '
-                 << to_string(vehicle->numberOfRentals) << '\n';
-        }
+    for (auto vehicle: rentedVehiclesBuffer) {
+        file << vehicle->type << ' ' << to_string(vehicle->id) << ' ' << to_string(vehicle->rentedStatus) << ' '
+             << to_string(vehicle->reservedStatus) << ' ' << to_string(vehicle->technicalCondition) << ' '
+             << to_string(vehicle->numberOfRentals) << '\n';
     }
     file.close();
 }
