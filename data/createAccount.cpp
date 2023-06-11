@@ -12,34 +12,42 @@ int createAccount(){
     string username, password, type;
     int tries = 0;
     while (running) {
-        cout << "Creating new account" << endl;
-        cout << "Enter username >> ";
-        cin >> username;
-        success = checkUsername(username);
-        if (!success) {
-            tries++;
+        if (!nameBool) {
+            cout << "Creating new account" << endl;
+            cout << "Enter username >> ";
+            cin >> username;
+            success = checkUsername(username);
+            if (!success) {
+                tries++;
+            } else {
+                tries = 0;
+                nameBool = true;
+            }
         }
-        else{
-            tries = 0;
+        else if (!passwordBool) {
+            cout << "Enter password >> ";
+            cin >> password;
+            success = checkPassword(password);
+            if (!success) {
+                tries++;
+            } else {
+                tries = 0;
+                passwordBool = true;
+            }
         }
-        cout << "Enter password >> ";
-        cin >> password;
-        success = checkPassword(password);
-        if (!success) {
-            tries++;
+        else {
+            cout << "Enter profile type (Standard/Silver/Golden) >> ";
+            cin >> type;
+            if (type != "Standard" && type != "Silver" && type != "Golden") {
+                cout << "Incorrect profile type...";
+                tries++;
+            }
         }
-        else{
-            tries = 0;
+        if (tries == 3) {
+            cout << "Too many tries..." << endl;
+            return 0;
         }
-        cout << "Enter profile type (Standard/Silver/Golden) >> ";
-        cin >> type;
-        if (type != "Standard" && type != "Silver" && type != "Golden") {
-            cout << "Incorrect profile type...";
-            tries++;
-        }
-        if (tries == 2){
-            running = false;
-        }
+
     }
     string userStatsFileName = USER_STATS_DIR + username + ".txt";
 
