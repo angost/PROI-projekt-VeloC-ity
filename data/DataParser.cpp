@@ -18,13 +18,14 @@ DataParser::DataParser() {
 }
 
 
-DataParser::DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations) {
+DataParser::DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, string serviceCrewNamesPath, vector <Location> locations) {
     this->serviceCrewAssignmentFilename = serviceCrewAssignmentFilepath;
     this->stationFilenamesPath = pathToStationNames;
     this->stationsDataPath = stationsDataPath;
     this->userLocationFilePath = userLocationFilepath;
     this->stationFilenames = getFilenames();
     this->existingLocations = locations;
+    this->serviceCrewNamesPath = serviceCrewNamesPath;
 }
 
 void DataParser::refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews) {
@@ -138,10 +139,22 @@ Station* DataParser::getStation(const string& filename) {
 }
 
 vector<Service> DataParser::assignStationsToServiceCrews(vector <Station* >& stations) {
+    map < string, vector < string > > assignment;
+    std::ifstream crews(serviceCrewNamesPath);
+    string crewLine;
+    if (crews.is_open()) {
+        while (std::getline(crews, crewLine)) {
+            string identifier;
+            std::istringstream iss(crewLine);
+            iss >> identifier;
+            assignment[identifier];
+        }
+    }
+    crews.close();
     vector < Service > serviceCrews;
     std::ifstream file(serviceCrewAssignmentFilename);
     string line;
-    map < string, vector < string > > assignment;
+
     if (file.is_open()) {
         while (std::getline(file, line)) {
             string identifier;
