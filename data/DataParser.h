@@ -38,7 +38,7 @@ public:
     Location getLocation(int x, int y);
     vector < Station* > getAllStations();
     Station* getStation(const string& filename);
-    vector < Service > assignStationsToServiceCrews(const vector <Station*>& stations);
+    vector < Service > assignStationsToServiceCrews(vector <Station*>& stations);
     Location getUserLocation();
 
     void refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews);

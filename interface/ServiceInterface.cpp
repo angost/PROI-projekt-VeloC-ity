@@ -7,7 +7,7 @@
 #include <utility>
 
 ServiceInterface::ServiceInterface(Service &service, DataParser &data) {
-    this->serviceClass = std::move(service);
+    this->serviceClass = service;
     this->data = data;
 }
 
@@ -142,7 +142,7 @@ void ServiceInterface::mainInterface() {
             success = removeVehicle(station, vehicle);
             data.removeVehicle(station, vehicle);
         } else if (option == 10) {
-            //data.refreshServiceData(serviceClass.supportedStations, serviceClass);
+            data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             continue;
         } else if (option == 11) {
             break;

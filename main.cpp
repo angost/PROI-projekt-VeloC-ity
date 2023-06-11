@@ -40,14 +40,10 @@ int main(int argc, char **argv) {
     setupMap(locations);
 
     // DATA
-
     DataParser data(STATION_NAMES_FILE_PATH, STATIONS_DATA_PATH, SERVICE_CREW_FILE_NAME, USER_LOCATION_FILE_NAME, locations);
     vector < Station* > stations = data.getAllStations();
     vector < Service > serviceCrews = data.assignStationsToServiceCrews(stations);
-
-    AdminService admin(ADMIN_ID, serviceCrews, stations, locations);
     Location currentUserLocation = data.getUserLocation();
-
     vector<Vehicle*> rentedVehiclesBuffer = data.getRentedVehiclesBuffer();
 
     bool correctUserData = false;
@@ -82,7 +78,7 @@ int main(int argc, char **argv) {
 
     // MAIN MENU
     while (true) {
-
+        data.refreshData(stations, serviceCrews);
         // No extra launch option used
         if (mainMenuOption == -1){
             try{
@@ -137,7 +133,7 @@ int main(int argc, char **argv) {
 
             Service serviceTeam;
             try {
-                serviceTeam = getServiceTeam(admin.serviceTeams, serviceIdentifier);
+                serviceTeam = getServiceTeam(serviceCrews, serviceIdentifier);
             }
             catch (invalid_argument& err) {
                 cout << "Invalid service identifier" << endl;
@@ -164,6 +160,7 @@ int main(int argc, char **argv) {
                 adminIdentifier = "";
                 continue;
             }
+            AdminService admin(ADMIN_ID, serviceCrews, stations, locations);
             AdminInterface iface(admin, data);
             iface.mainInterface();
         }
@@ -184,7 +181,8 @@ int main(int argc, char **argv) {
         password = "";
     }
 
-    //data.refreshStationsData(stations);
+
+
     // PREVENTING MEMORY LEAK
     for (auto station : stations) {
         for (auto vehicle : *station) {
@@ -192,7 +190,5 @@ int main(int argc, char **argv) {
         }
         delete station;
     }
-
-
     return 0;
 }

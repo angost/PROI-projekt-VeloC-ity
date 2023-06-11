@@ -19,22 +19,16 @@ DataParser::DataParser() {
 
 
 DataParser::DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations) {
-    this->serviceCrewAssignmentFilename = std::move(serviceCrewAssignmentFilepath);
-    this->stationFilenamesPath = std::move(pathToStationNames);
-    this->stationsDataPath = std::move(stationsDataPath);
-    this->userLocationFilePath = std::move(userLocationFilepath);
+    this->serviceCrewAssignmentFilename = serviceCrewAssignmentFilepath;
+    this->stationFilenamesPath = pathToStationNames;
+    this->stationsDataPath = stationsDataPath;
+    this->userLocationFilePath = userLocationFilepath;
     this->stationFilenames = getFilenames();
-    this->existingLocations = std::move(locations);
+    this->existingLocations = locations;
 }
 
 void DataParser::refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews) {
     this->stationFilenames = getFilenames();
-    for (auto& station : currentStations) {
-        for (auto& vehicle : *station) {
-            delete vehicle;
-        }
-        delete station;
-    }
     currentStations.clear();
     currentStations = getAllStations();
     serviceCrews.clear();
@@ -143,7 +137,7 @@ Station* DataParser::getStation(const string& filename) {
     return nullptr;
 }
 
-vector<Service> DataParser::assignStationsToServiceCrews(const vector <Station* >& stations) {
+vector<Service> DataParser::assignStationsToServiceCrews(vector <Station* >& stations) {
     vector < Service > serviceCrews;
     std::ifstream file(serviceCrewAssignmentFilename);
     string line;
@@ -158,9 +152,9 @@ vector<Service> DataParser::assignStationsToServiceCrews(const vector <Station* 
         }
     }
     file.close();
-    for (const auto& crew : assignment) {
+    for (auto& crew : assignment) {
         vector < Station* > thisCrewStations;
-        for (const auto& code : crew.second) {
+        for (auto& code : crew.second) {
             for (auto &station : stations) {
                 if (station->code == code) {
                     thisCrewStations.push_back(station);
@@ -475,12 +469,12 @@ void DataParser::addVehicle(Station *station, Vehicle *vehicle) {
 
 
 void DataParser::refreshServiceData(vector<Station *>& stations, Service &service) {
-    for (auto& station : stations) {
-        for (auto& vehicle : *station) {
-            delete vehicle;
-        }
-        delete station;
-    }
+//    for (auto& station : stations) {
+//        for (auto& vehicle : *station) {
+//            delete vehicle;
+//        }
+//        delete station;
+//    }
     ifstream file(serviceCrewAssignmentFilename);
     string line, code, identifier;
     vector < string > codes;
@@ -501,14 +495,10 @@ void DataParser::refreshServiceData(vector<Station *>& stations, Service &servic
 void DataParser::saveRentedVehiclesBuffer(vector <Vehicle*>& rentedVehiclesBuffer){
     const string RENTED_VEHICLES_BUFFER_FILE_PATH = "../data/inputTxtFiles/rentedVehiclesBuffer.txt";
     ofstream file(RENTED_VEHICLES_BUFFER_FILE_PATH);
-    if (rentedVehiclesBuffer.size() > 100){
-        file << "Something went wrong";
-    } else {
-        for (auto vehicle: rentedVehiclesBuffer) {
-            file << vehicle->type << ' ' << to_string(vehicle->id) << ' ' << to_string(vehicle->rentedStatus) << ' '
-                 << to_string(vehicle->reservedStatus) << ' ' << to_string(vehicle->technicalCondition) << ' '
-                 << to_string(vehicle->numberOfRentals) << '\n';
-        }
+    for (auto vehicle: rentedVehiclesBuffer) {
+        file << vehicle->type << ' ' << to_string(vehicle->id) << ' ' << to_string(vehicle->rentedStatus) << ' '
+             << to_string(vehicle->reservedStatus) << ' ' << to_string(vehicle->technicalCondition) << ' '
+             << to_string(vehicle->numberOfRentals) << '\n';
     }
     file.close();
 }
