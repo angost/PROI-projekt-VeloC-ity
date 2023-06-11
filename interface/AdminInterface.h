@@ -33,6 +33,8 @@ public:
     Station* getNewStation();
     static Location getLocation(const vector < Location >& existingLocations, int x, int y);
 
+    bool checkNewStation(Station* station);
+
     friend class ServiceInterface;
 };
 
