@@ -15,16 +15,18 @@ Service::Service() {
 }
 
 
-Service::Service(string identifier, vector<Station*> &stations, vector < Location > locations) {
+Service::Service(string identifier, vector<Station*> &stations, vector < Station* > &allStations, vector < Location > locations) {
     this->identifier = identifier;
     this->supportedStations = stations;
     this->locations = locations;
+    this->allStations = allStations;
 }
 
-Service::Service(string id, vector<Location> locations) {
+Service::Service(string id, vector < Station* > &allStations, vector<Location> locations) {
     this->identifier = id;
     this->supportedStations = vector < Station* > ();
     this->locations = locations;
+    this->allStations = vector < Station* > ();
 }
 
 

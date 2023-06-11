@@ -16,6 +16,7 @@ void ServiceInterface::mainInterface() {
     cout << "               -> Hello Team " << serviceClass.identifier << endl;
     cout << "               -> What can I do for you today?" << endl;
     while (true){
+        data.refreshStationsData(serviceClass.allStations);
         data.refreshServiceData(serviceClass.supportedStations, serviceClass);
         cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
@@ -28,6 +29,7 @@ void ServiceInterface::mainInterface() {
             continue;
         }
         if (option == 1) {
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             printSupportedStations();
             continue;
@@ -35,6 +37,7 @@ void ServiceInterface::mainInterface() {
 
 
         } else if (option == 2){
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             Station* station;
             try {
@@ -53,6 +56,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 3) {
             Station* station;
             Vehicle* vehicle;
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
@@ -70,6 +74,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 4) {
             int newLimitInt;
             Station* station;
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 string newLimit;
@@ -92,6 +97,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 5) {
             Station* station;
             Location location;
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
@@ -110,6 +116,7 @@ void ServiceInterface::mainInterface() {
             cout << "Insert station code and id of vehicle you want to repair..." << endl;
             Vehicle* vehicle;
             Station* station;
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
@@ -129,6 +136,7 @@ void ServiceInterface::mainInterface() {
             Station* fromStation;
             Vehicle* vehicle;
             Station* toStation;
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 fromStation = getStation();
@@ -150,10 +158,12 @@ void ServiceInterface::mainInterface() {
         } else if (option == 8) {
             Station* station;
             Vehicle* vehicle;
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
                 vehicle = getNewVehicle();
+                checkVehicle(vehicle);
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -167,6 +177,7 @@ void ServiceInterface::mainInterface() {
         } else if (option == 9) {
             Station* station;
             Vehicle* vehicle;
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             try {
                 station = getStation();
@@ -183,6 +194,7 @@ void ServiceInterface::mainInterface() {
 
 
         } else if (option == 10) {
+            data.refreshStationsData(serviceClass.allStations);
             data.refreshServiceData(serviceClass.supportedStations, serviceClass);
             continue;
 
@@ -349,4 +361,16 @@ Vehicle* ServiceInterface::getNewVehicle() {
     } else {
         throw std::invalid_argument("Wrong type");
     }
+}
+
+
+bool ServiceInterface::checkVehicle(Vehicle *vehicle) {
+    for (auto& station : serviceClass.allStations) {
+        for (auto& currentVehicle : *station) {
+            if (currentVehicle->id == vehicle->id) {
+                throw invalid_argument("Vehicle with this id already exists");
+            }
+        }
+    }
+    return true;
 }

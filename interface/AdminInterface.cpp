@@ -64,6 +64,7 @@ void AdminInterface::mainInterface() {
             data.refreshData(adminService.stations, adminService.serviceTeams);
             try {
                 Station* newStation = getNewStation();
+                checkNewStation(newStation);
                 data.insertNewStation(newStation);
                 success = true;
             }
@@ -330,4 +331,14 @@ Location AdminInterface::getLocation(const vector < Location >& existingLocation
         }
     }
     throw invalid_argument("Invalid coordinates");
+}
+
+
+bool AdminInterface::checkNewStation(Station *station) {
+    for (auto& currentStation : adminService.stations) {
+        if (currentStation->code == station->code) {
+            throw invalid_argument("Station with this code already exists");
+        }
+    }
+    return true;
 }

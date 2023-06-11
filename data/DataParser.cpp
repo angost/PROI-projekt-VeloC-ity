@@ -168,7 +168,7 @@ vector<Service> DataParser::assignStationsToServiceCrews(vector <Station* >& sta
                 }
             }
         }
-        Service newCrew(crew.first, thisCrewStations, existingLocations);
+        Service newCrew(crew.first, thisCrewStations, stations, existingLocations);
         serviceCrews.push_back(newCrew);
     }
     return serviceCrews;
