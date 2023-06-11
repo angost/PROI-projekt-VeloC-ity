@@ -16,7 +16,7 @@ using namespace std;
 class UserStats {
 public:
     string userClass;
-    int vehicleCounter;
+    int vehicleCounter, x_position, y_position;
     float balance;
     string drivingLicense;
     string username;
@@ -24,7 +24,7 @@ public:
     vector <int> rentedVehiclesIds;
 
 //    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, vector <Vehicle*> &reservedVehicles, vector <Vehicle*> &rentedVehicles);
-    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, map<int, string> reservedVehicles, vector <int> rentedVehiclesIds);
+    UserStats(string username, string userClass, int vehicleCounter, float balance, string drivingLicense, map<int, string> reservedVehicles, vector <int> rentedVehiclesIds, int x_position, int y_position);
 
 };
 
