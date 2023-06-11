@@ -122,7 +122,7 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 7) {
-//            data.refreshData(adminService.stations, adminService.serviceTeams);
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             continue;
 
 
