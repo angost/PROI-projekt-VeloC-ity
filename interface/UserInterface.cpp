@@ -11,7 +11,7 @@
 // TODO dodac info dlaczego cos sie nie powiodlo (za maly balans itp)
 // TODO lepiej, spojniej wyswietlac lokalizacje, pojazdy itd
 
-UserInterface::UserInterface(vector<Station *> stations, vector<Location> locations, User *user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data) : stations(stations), locations(locations), user(user), userStats(userStats), rentedVehiclesBuffer(rentedVehiclesBuffer), data(data) {
+UserInterface::UserInterface(vector<Station *> &stations, vector<Location> &locations, User* &user, UserStats &userStats, vector<Vehicle*> &rentedVehiclesBuffer, DataParser &data) : stations(stations), locations(locations), user(user), userStats(userStats), rentedVehiclesBuffer(rentedVehiclesBuffer), data(data) {
     Velocity vel(stations, user);
     this->velocity = vel;
     errorInfo = "";
