@@ -109,7 +109,6 @@ int main(int argc, char **argv) {
                 rentedVehiclesBuffer = data.getRentedVehiclesBuffer();
                 logUserIn(username, currentUserLocation, userStats, stations, locations, rentedVehiclesBuffer, data);
                 data.saveRentedVehiclesBuffer(rentedVehiclesBuffer);
-//                data.refreshStationsData(stations); TODO odkomntowac
 
             } else {
                 cout << "Failed to log in..." << endl;

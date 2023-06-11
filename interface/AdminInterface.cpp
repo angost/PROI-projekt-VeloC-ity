@@ -167,7 +167,7 @@ void AdminInterface::mainInterface() {
                 cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
-
+            success = true;
 
 
         } else if (option == 10) {
