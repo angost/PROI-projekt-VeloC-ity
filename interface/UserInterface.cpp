@@ -255,8 +255,19 @@ void UserInterface::mainInterface(){
             }
             success = addDrivingLicence(drivingLicence);
 
-        // EXIT
+        // Change profile type
         } else if (option == 18) {
+            string profileType;
+            try{
+                profileType = getProfileType();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = addDrivingLicence(profileType);
+
+        // EXIT
+        } else if (option == 19) {
             cout << "Thank you for using our services" << endl << endl;
             break;
 
