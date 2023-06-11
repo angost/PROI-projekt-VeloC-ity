@@ -31,6 +31,7 @@ void UserInterface::mainInterface(){
             cout << "Wrong number..." << endl;
             continue;
         }
+        data.refreshStationsData(stations);
 
         // Show all Stations
         if (option == 1){

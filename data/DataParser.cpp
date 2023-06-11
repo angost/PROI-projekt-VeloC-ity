@@ -36,13 +36,6 @@ void DataParser::refreshData(vector < Station* > &currentStations, vector < Serv
 }
 
 void DataParser::refreshStationsData(vector < Station* > &currentStations) {
-    this->stationFilenames = getFilenames();
-    for (auto& station : currentStations) {
-        for (auto& vehicle : *station) {
-            delete vehicle;
-        }
-        delete station;
-    }
     currentStations.clear();
     currentStations = getAllStations();
 }
