@@ -28,7 +28,8 @@ class Service {
     friend class AdminInterface;
 public:
     Service();
-    Service(string id, vector < Station* > stations, vector < Location > locations);
+    Service(string id, vector < Station* > &stations, vector < Location > locations);
+    Service(string id, vector < Location > locations);
     string identifier;
     vector< Station* >::iterator begin();
     vector< Station* >::iterator end();

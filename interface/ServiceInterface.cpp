@@ -6,8 +6,8 @@
 
 #include <utility>
 
-ServiceInterface::ServiceInterface(Service service, DataParser &data) {
-    this->serviceClass = std::move(service);
+ServiceInterface::ServiceInterface(Service &service, DataParser &data) {
+    this->serviceClass = service;
     this->data = data;
 }
 
