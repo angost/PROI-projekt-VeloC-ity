@@ -15,12 +15,14 @@ public:
     vector < Station* > stations;
     AdminService();
     AdminService(string identifier, vector < Service > &serviceTeams, vector < Station * > &allStations, vector < Location > locations);
-    static bool assignStation(Station* station, Service& serviceCrew);
     void displayStationAssignment();
     void displayStations();
     static void displayStationInfo(Station* station);
-    bool removeExistingStation(Station* station);
+
+    static bool assignStation(Station* station, Service& serviceCrew);
     void unassignRemovedStation(Station* station);
+
+    bool removeExistingStation(Station* station);
     bool addNewStation(Station* newStation);
     friend class AdminInterface;
 };

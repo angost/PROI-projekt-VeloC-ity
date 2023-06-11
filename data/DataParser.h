@@ -51,6 +51,8 @@ public:
     bool deleteStation(Station* station);
     void deleteAllAssignments(Station* station);
     void deleteAssignment(Station* station, const Service& serviceCrew);
+    void addNewService(string serviceId);
+    bool removeCurrentService(Service service);
 
     // SERVICE
     void changeStationLimit(Station* changedStation);
