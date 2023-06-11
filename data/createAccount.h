@@ -12,6 +12,8 @@ using namespace std;
 #define PROI_PROJEKT_CREATEACCOUNT_H
 
 int createAccount();
+bool checkPassword(string &password);
+bool checkUsername(string &username);
 
 
 #endif //PROI_PROJEKT_CREATEACCOUNT_H
