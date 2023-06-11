@@ -20,6 +20,7 @@ void AdminInterface::mainInterface() {
     cout << "               -> Hello Admin " << endl;
     cout << "               -> What are your orders? " << endl;
     while (true){
+        data.refreshData(adminService.stations, adminService.serviceTeams);
         cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
         int option;
@@ -31,12 +32,14 @@ void AdminInterface::mainInterface() {
             continue;
         }
         if (option == 1) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             displayStations();
             continue;
 
 
 
         } else if (option == 2){
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             Station* station;
             try {
                 station = getStation();
@@ -51,16 +54,18 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 3) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             displayStationAssignment();
             continue;
 
 
 
         } else if (option == 4) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             try {
                 Station* newStation = getNewStation();
-                success = addNewStation(newStation);
                 data.insertNewStation(newStation);
+                success = true;
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -70,6 +75,7 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 5) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             Station* station;
             try {
                 station = getStation();
@@ -78,13 +84,10 @@ void AdminInterface::mainInterface() {
                 cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
-            success = removeExistingStation(station);
-            if (success) {
-                unassignRemovedStation(station);
-            }
             try {
                 data.deleteAllAssignments(station);
                 data.deleteStation(station);
+                success = true;
             }
             catch  (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -101,6 +104,7 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 6) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
             Station* station;
             try {
                 station = getStation();
@@ -111,8 +115,8 @@ void AdminInterface::mainInterface() {
             }
             try {
                 Service& serviceCrew = getServiceCrew();
-                success = assignStation(station, serviceCrew);
                 data.assignStation(station, serviceCrew);
+                success = true;
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -123,11 +127,55 @@ void AdminInterface::mainInterface() {
 
         } else if (option == 7) {
             data.refreshData(adminService.stations, adminService.serviceTeams);
-            continue;
+            Station* station;
+            try {
+                station = getStation();
+                Service& serviceCrew = getServiceCrew();
+                data.deleteAssignment(station, serviceCrew);
+                success = true;
+            }
+            catch (invalid_argument &err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
 
 
 
         } else if (option == 8) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
+            string serviceId;
+            cout << "Enter service crew identifier > ";
+            cin >> serviceId;
+            try {
+                data.addNewService(serviceId);
+            }
+            catch (invalid_argument& err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
+            success = true;
+
+
+        } else if (option == 9) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
+            try {
+                Service& serviceCrew = getServiceCrew();
+                data.removeCurrentService(serviceCrew);
+            }
+            catch (invalid_argument& err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
+
+
+
+        } else if (option == 10) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
+            continue;
+
+
+
+        } else if (option == 11) {
             break;
 
 
@@ -144,16 +192,21 @@ void AdminInterface::mainInterface() {
 int AdminInterface::getAction() {
     string action;
     cin.clear();
-    cout << "                     DISPLAY                       |                   STATION      " << endl;
-    cout << "          1. Print all Stations                    |           4. Add new Station  " << endl;
-    cout << "          2. Print Vehicles in Station             |           5. Remove current station " << endl;
-    cout << "          3. Print Station assignment              |           6. Assign Station                " << endl;
-    cout << "                                                   |           7. REFRESH" << endl;
-    cout << "                                                   |           8. EXIT" << endl;
+    cout << "                     DISPLAY                       |                   STATION                 |           SERVICE     " << endl;
+    cout << "          1. Print all Stations                    |           4. Add new Station              |     8. Add new Service crew" << endl;
+    cout << "          2. Print Vehicles in Station             |           5. Remove current station       |     9. Remove current Service crew" << endl;
+    cout << "          3. Print Station assignment              |           6. Assign Station               |     10. REFRESH " << endl;
+    cout << "                                                   |           7. Remove Station assignment    |     11. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
-    int actionInt = stoi(action);
+    int actionInt;
+    try {
+        actionInt = stoi(action);
+    }
+    catch (invalid_argument& err) {
+        throw invalid_argument("Enter correct number");
+    }
     return actionInt;
 }
 
@@ -277,21 +330,4 @@ Location AdminInterface::getLocation(const vector < Location >& existingLocation
         }
     }
     throw invalid_argument("Invalid coordinates");
-}
-
-
-bool AdminInterface::addNewStation(Station* newStation) {
-    return adminService.addNewStation(newStation);
-}
-
-bool AdminInterface::removeExistingStation(Station* station) {
-    return adminService.removeExistingStation(station);
-}
-
-void AdminInterface::unassignRemovedStation(Station* station){
-    adminService.unassignRemovedStation(station);
-}
-
-bool AdminInterface::assignStation(Station* station, Service& serviceTeam) {
-    return AdminService::assignStation(station, serviceTeam);
 }

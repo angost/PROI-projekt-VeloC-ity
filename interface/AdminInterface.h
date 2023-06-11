@@ -22,17 +22,17 @@ class AdminInterface {
 public:
     AdminInterface(AdminService &adminService, DataParser &data);
     void mainInterface();
+
+    void displayStationAssignment();
+    void displayStations();
+
+
     static int getAction();
     Station* getStation();
     Service& getServiceCrew();
-    void displayStationAssignment();
-    void displayStations();
     Station* getNewStation();
     static Location getLocation(const vector < Location >& existingLocations, int x, int y);
-    bool addNewStation(Station* newStation);
-    bool removeExistingStation(Station* station);
-    void unassignRemovedStation(Station* station);
-    static bool assignStation(Station* station, Service& serviceTeam);
+
     friend class ServiceInterface;
 };
 

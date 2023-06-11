@@ -18,13 +18,14 @@ DataParser::DataParser() {
 }
 
 
-DataParser::DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations) {
+DataParser::DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, string serviceCrewNamesPath, vector <Location> locations) {
     this->serviceCrewAssignmentFilename = serviceCrewAssignmentFilepath;
     this->stationFilenamesPath = pathToStationNames;
     this->stationsDataPath = stationsDataPath;
     this->userLocationFilePath = userLocationFilepath;
     this->stationFilenames = getFilenames();
     this->existingLocations = locations;
+    this->serviceCrewNamesPath = serviceCrewNamesPath;
 }
 
 void DataParser::refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews) {
@@ -131,10 +132,22 @@ Station* DataParser::getStation(const string& filename) {
 }
 
 vector<Service> DataParser::assignStationsToServiceCrews(vector <Station* >& stations) {
+    map < string, vector < string > > assignment;
+    std::ifstream crews(serviceCrewNamesPath);
+    string crewLine;
+    if (crews.is_open()) {
+        while (std::getline(crews, crewLine)) {
+            string identifier;
+            std::istringstream iss(crewLine);
+            iss >> identifier;
+            assignment[identifier];
+        }
+    }
+    crews.close();
     vector < Service > serviceCrews;
     std::ifstream file(serviceCrewAssignmentFilename);
     string line;
-    map < string, vector < string > > assignment;
+
     if (file.is_open()) {
         while (std::getline(file, line)) {
             string identifier;
@@ -224,7 +237,7 @@ void DataParser::deleteAssignment(Station *station, const Service& serviceCrew) 
     while (getline(file, line)) {
         std::istringstream iss(line);
         iss >> stationCode >> serviceId;
-        if (!(stationCode == station->code) && !(serviceId == serviceCrew.identifier)) {
+        if (!(stationCode == station->code) || !(serviceId == serviceCrew.identifier)) {
             newFile += line;
             newFile += "\n";
         }
@@ -254,6 +267,65 @@ bool DataParser::deleteStation(Station *station) {
     std::ofstream changedFile(stationFilenamesPath);
     changedFile << newFile;
     changedFile.close();
+    return true;
+}
+
+void DataParser::addNewService(string serviceId) {
+    std::ifstream crews(serviceCrewNamesPath);
+    string crewLine;
+    if (crews.is_open()) {
+        while (std::getline(crews, crewLine)) {
+            string identifier;
+            std::istringstream iss(crewLine);
+            iss >> identifier;
+            if (identifier == serviceId) {
+                throw invalid_argument("Service with this id already exists");
+            }
+        }
+    }
+    crews.close();
+    std::ofstream file(serviceCrewNamesPath, std::ios::app);
+    file << serviceId << endl;
+    file.close();
+}
+
+
+bool DataParser::removeCurrentService(Service service) {
+    std::ifstream crews(serviceCrewNamesPath);
+    string crewLine;
+    string newFile;
+    if (crews.is_open()) {
+        while (std::getline(crews, crewLine)) {
+            string identifier;
+            std::istringstream iss(crewLine);
+            iss >> identifier;
+            if (!(identifier == service.identifier)) {
+                newFile += crewLine;
+                newFile += "\n";
+            }
+        }
+    }
+    crews.close();
+    std::ofstream changedFile(serviceCrewNamesPath);
+    changedFile << newFile;
+    changedFile.close();
+
+    std::ifstream file(serviceCrewAssignmentFilename);
+    string line, stationCode, serviceId;
+    string newAssignmentFile;
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        iss >> stationCode >> serviceId;
+        if (!(serviceId == service.identifier)) {
+            newAssignmentFile += line;
+            newAssignmentFile += "\n";
+        }
+    }
+    file.close();
+    std::ofstream changedAssignmentFile(serviceCrewAssignmentFilename);
+    changedAssignmentFile << newAssignmentFile;
+    changedFile.close();
+
     return true;
 }
 
