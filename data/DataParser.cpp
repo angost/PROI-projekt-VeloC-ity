@@ -19,12 +19,12 @@ DataParser::DataParser() {
 
 
 DataParser::DataParser(string pathToStationNames, string stationsDataPath, string serviceCrewAssignmentFilepath, string userLocationFilepath, vector <Location> locations) {
-    this->serviceCrewAssignmentFilename = std::move(serviceCrewAssignmentFilepath);
-    this->stationFilenamesPath = std::move(pathToStationNames);
-    this->stationsDataPath = std::move(stationsDataPath);
-    this->userLocationFilePath = std::move(userLocationFilepath);
+    this->serviceCrewAssignmentFilename = serviceCrewAssignmentFilepath;
+    this->stationFilenamesPath = pathToStationNames;
+    this->stationsDataPath = stationsDataPath;
+    this->userLocationFilePath = userLocationFilepath;
     this->stationFilenames = getFilenames();
-    this->existingLocations = std::move(locations);
+    this->existingLocations = locations;
 }
 
 void DataParser::refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews) {
@@ -143,7 +143,7 @@ Station* DataParser::getStation(const string& filename) {
     return nullptr;
 }
 
-vector<Service> DataParser::assignStationsToServiceCrews(const vector <Station* >& stations) {
+vector<Service> DataParser::assignStationsToServiceCrews(vector <Station* >& stations) {
     vector < Service > serviceCrews;
     std::ifstream file(serviceCrewAssignmentFilename);
     string line;
@@ -158,9 +158,9 @@ vector<Service> DataParser::assignStationsToServiceCrews(const vector <Station* 
         }
     }
     file.close();
-    for (const auto& crew : assignment) {
+    for (auto& crew : assignment) {
         vector < Station* > thisCrewStations;
-        for (const auto& code : crew.second) {
+        for (auto& code : crew.second) {
             for (auto &station : stations) {
                 if (station->code == code) {
                     thisCrewStations.push_back(station);

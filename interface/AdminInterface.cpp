@@ -11,7 +11,7 @@ using namespace std;
 
 
 AdminInterface::AdminInterface(AdminService &adminService, DataParser &data){
-    this->adminService = std::move(adminService);
+    this->adminService = adminService;
     this->data = data;
 }
 
@@ -33,6 +33,9 @@ void AdminInterface::mainInterface() {
         if (option == 1) {
             displayStations();
             continue;
+
+
+
         } else if (option == 2){
             Station* station;
             try {
@@ -44,9 +47,15 @@ void AdminInterface::mainInterface() {
             }
             ServiceInterface::printVehiclesInStation(station);
             continue;
+
+
+
         } else if (option == 3) {
             displayStationAssignment();
             continue;
+
+
+
         } else if (option == 4) {
             try {
                 Station* newStation = getNewStation();
@@ -57,6 +66,9 @@ void AdminInterface::mainInterface() {
                 cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
+
+
+
         } else if (option == 5) {
             Station* station;
             try {
@@ -85,6 +97,9 @@ void AdminInterface::mainInterface() {
                 continue;
             }
             delete station;
+
+
+
         } else if (option == 6) {
             Station* station;
             try {
@@ -103,11 +118,19 @@ void AdminInterface::mainInterface() {
                 cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
+
+
+
         } else if (option == 7) {
 //            data.refreshData(adminService.stations, adminService.serviceTeams);
             continue;
+
+
+
         } else if (option == 8) {
             break;
+
+
         } else {
             cout << "Wrong option..." << endl;
             continue;

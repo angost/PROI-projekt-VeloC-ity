@@ -15,11 +15,18 @@ Service::Service() {
 }
 
 
-Service::Service(string identifier, vector<Station*> stations, vector < Location > locations) {
-    this->identifier = std::move(identifier);
-    this->supportedStations = std::move(stations);
+Service::Service(string identifier, vector<Station*> &stations, vector < Location > locations) {
+    this->identifier = identifier;
+    this->supportedStations = stations;
     this->locations = locations;
 }
+
+Service::Service(string id, vector<Location> locations) {
+    this->identifier = id;
+    this->supportedStations = vector < Station* > ();
+    this->locations = locations;
+}
+
 
 bool Service::checkVehicleCanBeMoved(Vehicle* veh, Station* fromStation, Station* toStation){
     if (not fromStation->checkIfVehicleInStation(veh)){
