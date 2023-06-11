@@ -264,7 +264,7 @@ void UserInterface::mainInterface(){
                 cout << err.what() << endl;
                 continue;
             }
-            success = addDrivingLicence(profileType);
+            success = changeProfileType(profileType);
 
         // EXIT
         } else if (option == 19) {
@@ -445,6 +445,11 @@ bool UserInterface::addDrivingLicence(string drivingLicense){
         return true;
     }
     return false;
+}
+
+bool UserInterface::changeProfileType(string profileType) {
+    user->type = profileType;
+    return true;
 }
 
 bool UserInterface::rentVehicle(Vehicle* vehicle, Station* station) {
