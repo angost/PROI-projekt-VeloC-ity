@@ -35,6 +35,7 @@ public:
     float getAmount();
     int getCoord(string coord_type);
     string getDrivingLicence();
+    string getProfileType();
 
     void printSuccess(bool success);
     void printAllStations();
@@ -44,6 +45,7 @@ public:
     void printReservedVehicles();
 
     bool addDrivingLicence(string drivingLicense);
+    bool changeProfileType(string profileType);
     bool rentVehicle(Vehicle* vehicle, Station* station);
     bool reserveVehicle(Vehicle* vehicle, Station* station);
     bool returnVehicle(Vehicle* vehicle, Station* station);

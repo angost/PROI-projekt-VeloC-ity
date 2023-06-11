@@ -42,6 +42,9 @@ int createAccount(){
                 cout << "Incorrect profile type...";
                 tries++;
             }
+            else {
+                running = false;
+            }
         }
         if (tries == 3) {
             cout << "Too many tries..." << endl;

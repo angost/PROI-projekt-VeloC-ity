@@ -258,8 +258,19 @@ void UserInterface::mainInterface(){
             }
             success = addDrivingLicence(drivingLicence);
 
-        // EXIT
+        // Change profile type
         } else if (option == 18) {
+            string profileType;
+            try{
+                profileType = getProfileType();
+            } catch (invalid_argument& err){
+                cout << err.what() << endl;
+                continue;
+            }
+            success = changeProfileType(profileType);
+
+        // EXIT
+        } else if (option == 19) {
             cout << "Thank you for using our services" << endl << endl;
             break;
 
@@ -283,8 +294,8 @@ int UserInterface::getAction(){
     cout << "2. Show nearest Station         6. Reserve Vehicle             12. Go to coords          15. Show balance " << endl;
     cout << "3. Show Stations by distance    7. Return Vehicle              13. Go to station         16. Add credits " << endl;
     cout << "4. Show Vehicles on Station     8. Cancel reservation                                    17. Add driving license " << endl;
-    cout << "                                9. Show rented Vehicles                                  18. EXIT " << endl;
-    cout << "                               10. Show reserved Vehicles                                         " << endl;
+    cout << "                                9. Show rented Vehicles                                  18. Change profile type " << endl;
+    cout << "                               10. Show reserved Vehicles                                19. EXIT " << endl;
 
     cout << "Enter number to define action > ";
     cin >> action;
@@ -367,6 +378,20 @@ string UserInterface::getDrivingLicence(){
     return drivingLicence;
 }
 
+string UserInterface::getProfileType() {
+    string profileType;
+    cout << "Enter profile type (Standard/Silver/Golden) >> ";
+    cin >> profileType;
+    cout << endl;
+    if (profileType != "Golden" && profileType != "Silver" && profileType != "Standard"){
+        throw invalid_argument("Invalid profile type");
+    }
+    if (user->type == profileType){
+        throw invalid_argument("Profile Type has to be different from current one");
+    }
+    return profileType;
+}
+
 void UserInterface::printSuccess(bool success){
     if (success) {
         cout << "Operation finished successfully" << endl;
@@ -423,6 +448,11 @@ bool UserInterface::addDrivingLicence(string drivingLicense){
         return true;
     }
     return false;
+}
+
+bool UserInterface::changeProfileType(string profileType) {
+    user->type = profileType;
+    return true;
 }
 
 bool UserInterface::rentVehicle(Vehicle* vehicle, Station* station) {
