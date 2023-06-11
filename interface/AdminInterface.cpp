@@ -129,12 +129,46 @@ void AdminInterface::mainInterface() {
 
 
         } else if (option == 7) {
+
+
+
+
+
+        } else if (option == 8) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
+            string serviceId;
+            cout << "Enter service crew identifier > ";
+            cin >> serviceId;
+            try {
+                data.addNewService(serviceId);
+            }
+            catch (invalid_argument& err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
+            success = true;
+
+
+        } else if (option == 9) {
+            data.refreshData(adminService.stations, adminService.serviceTeams);
+            try {
+                Service& serviceCrew = getServiceCrew();
+                data.removeCurrentService(serviceCrew);
+            }
+            catch (invalid_argument& err) {
+                cout << "ERROR: " <<err.what() << endl;
+                continue;
+            }
+
+
+
+        } else if (option == 10) {
             data.refreshData(adminService.stations, adminService.serviceTeams);
             continue;
 
 
 
-        } else if (option == 8) {
+        } else if (option == 11) {
             break;
 
 
@@ -151,12 +185,11 @@ void AdminInterface::mainInterface() {
 int AdminInterface::getAction() {
     string action;
     cin.clear();
-    cout << "                     DISPLAY                       |                   STATION      " << endl;
-    cout << "          1. Print all Stations                    |           4. Add new Station  " << endl;
-    cout << "          2. Print Vehicles in Station             |           5. Remove current station " << endl;
-    cout << "          3. Print Station assignment              |           6. Assign Station                " << endl;
-    cout << "                                                   |           7. REFRESH" << endl;
-    cout << "                                                   |           8. EXIT" << endl;
+    cout << "                     DISPLAY                       |                   STATION                 |           SERVICE     " << endl;
+    cout << "          1. Print all Stations                    |           4. Add new Station              |     8. Add new Service crew" << endl;
+    cout << "          2. Print Vehicles in Station             |           5. Remove current station       |     9. Remove current Service crew" << endl;
+    cout << "          3. Print Station assignment              |           6. Assign Station               |     10. REFRESH " << endl;
+    cout << "                                                   |           7. Remove Station assignment    |     11. EXIT" << endl;
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;

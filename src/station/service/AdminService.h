@@ -24,6 +24,7 @@ public:
 
     bool removeExistingStation(Station* station);
     bool addNewStation(Station* newStation);
+
     friend class AdminInterface;
 };
 
