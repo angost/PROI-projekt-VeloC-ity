@@ -380,7 +380,7 @@ string UserInterface::getProfileType() {
     cout << "Enter profile type (Standard/Silver/Golden) >> ";
     cin >> profileType;
     cout << endl;
-    if (profileType != "Golden" || profileType != "Silver" || profileType != "Standard"){
+    if (profileType != "Golden" && profileType != "Silver" && profileType != "Standard"){
         throw invalid_argument("Invalid profile type");
     }
     if (user->type == profileType){
