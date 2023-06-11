@@ -56,7 +56,7 @@ int createAccount(){
 
     ofstream file1(userStatsFileName);
     file1 << username+' ' << type+" 0 0 None\n";
-    file1 << "0 \n" << "0 \n";
+    file1 << "0 \n" << "0 \n" << "0 0";
     file1.close();
     ofstream file2(CREDENTIAL_FILE_NAME, ios::app);
     file2 << username+' ' << password << '\n';
