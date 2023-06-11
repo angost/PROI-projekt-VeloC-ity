@@ -38,6 +38,6 @@ int createAccount(){
     ofstream file2(CREDENTIAL_FILE_NAME, ios::app);
     file2 << username+' ' << password << '\n';
     file2.close();
-    cout << "Account created succesfully!";
+    cout << "Account created successfully!";
     return 1;
 }
