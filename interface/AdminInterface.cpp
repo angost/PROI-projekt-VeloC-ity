@@ -64,8 +64,8 @@ void AdminInterface::mainInterface() {
             data.refreshData(adminService.stations, adminService.serviceTeams);
             try {
                 Station* newStation = getNewStation();
-                success = addNewStation(newStation);
                 data.insertNewStation(newStation);
+                success = true;
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -84,13 +84,10 @@ void AdminInterface::mainInterface() {
                 cout << "ERROR: " <<err.what() << endl;
                 continue;
             }
-            success = removeExistingStation(station);
-            if (success) {
-                unassignRemovedStation(station);
-            }
             try {
                 data.deleteAllAssignments(station);
                 data.deleteStation(station);
+                success = true;
             }
             catch  (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -118,8 +115,8 @@ void AdminInterface::mainInterface() {
             }
             try {
                 Service& serviceCrew = getServiceCrew();
-                success = assignStation(station, serviceCrew);
                 data.assignStation(station, serviceCrew);
+                success = true;
             }
             catch (invalid_argument &err) {
                 cout << "ERROR: " <<err.what() << endl;
@@ -203,7 +200,13 @@ int AdminInterface::getAction() {
     cout << "Enter number to define action > ";
     cin >> action;
     cout << endl;
-    int actionInt = stoi(action);
+    int actionInt;
+    try {
+        actionInt = stoi(action);
+    }
+    catch (invalid_argument& err) {
+        throw invalid_argument("Enter correct number");
+    }
     return actionInt;
 }
 
@@ -327,21 +330,4 @@ Location AdminInterface::getLocation(const vector < Location >& existingLocation
         }
     }
     throw invalid_argument("Invalid coordinates");
-}
-
-
-bool AdminInterface::addNewStation(Station* newStation) {
-    return adminService.addNewStation(newStation);
-}
-
-bool AdminInterface::removeExistingStation(Station* station) {
-    return adminService.removeExistingStation(station);
-}
-
-void AdminInterface::unassignRemovedStation(Station* station){
-    adminService.unassignRemovedStation(station);
-}
-
-bool AdminInterface::assignStation(Station* station, Service& serviceTeam) {
-    return AdminService::assignStation(station, serviceTeam);
 }

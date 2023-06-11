@@ -19,12 +19,6 @@ public:
     void displayStations();
     static void displayStationInfo(Station* station);
 
-    static bool assignStation(Station* station, Service& serviceCrew);
-    void unassignRemovedStation(Station* station);
-
-    bool removeExistingStation(Station* station);
-    bool addNewStation(Station* newStation);
-
     friend class AdminInterface;
 };
 
