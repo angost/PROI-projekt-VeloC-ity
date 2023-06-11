@@ -29,12 +29,6 @@ DataParser::DataParser(string pathToStationNames, string stationsDataPath, strin
 
 void DataParser::refreshData(vector < Station* > &currentStations, vector < Service > &serviceCrews) {
     this->stationFilenames = getFilenames();
-    for (auto& station : currentStations) {
-        for (auto& vehicle : *station) {
-            delete vehicle;
-        }
-        delete station;
-    }
     currentStations.clear();
     currentStations = getAllStations();
     serviceCrews.clear();
@@ -475,12 +469,12 @@ void DataParser::addVehicle(Station *station, Vehicle *vehicle) {
 
 
 void DataParser::refreshServiceData(vector<Station *>& stations, Service &service) {
-    for (auto& station : stations) {
-        for (auto& vehicle : *station) {
-            delete vehicle;
-        }
-        delete station;
-    }
+//    for (auto& station : stations) {
+//        for (auto& vehicle : *station) {
+//            delete vehicle;
+//        }
+//        delete station;
+//    }
     ifstream file(serviceCrewAssignmentFilename);
     string line, code, identifier;
     vector < string > codes;
