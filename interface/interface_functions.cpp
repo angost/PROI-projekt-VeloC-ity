@@ -144,6 +144,32 @@ UserStats getUserStats(const string &userStatFilename){
 //    throw invalid_argument("User not found");
 //}
 
+void refreshUserVehicles(UserStats &stats, User* &user, vector<Station*> &stations, vector<Vehicle*> rentedVehiclesBuffer){
+    user->reservedVehicles.clear();
+    // Adds reserved vehicles to user
+    for (auto resVeh : stats.reservedVehicles){
+        for (auto station : stations){
+            // Reserved Vehicle is on this station
+            if (station->code == resVeh.second){
+                Vehicle* vehicle = station->getVehicleById(resVeh.first);
+                user->reserveVehicle(vehicle);
+                break;
+            }
+        }
+    }
+
+    user->rentedVehicles.clear();
+    // Adds rented vehicles to user
+    for (auto rentedVehicleId : stats.rentedVehiclesIds){
+        for (auto vehInBuffer : rentedVehiclesBuffer){
+            if (vehInBuffer->id == rentedVehicleId){
+                user->addVehicle(vehInBuffer);
+                break;
+            }
+        }
+    }
+}
+
 void initPreviousSession(UserStats &stats, User* &user, vector<Station*> &stations, vector<Vehicle*> rentedVehiclesBuffer){
     user->drivingLicense = stats.drivingLicense;
     user->balance = stats.balance;

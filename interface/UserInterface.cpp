@@ -21,7 +21,6 @@ void UserInterface::mainInterface(){
     cin.clear();
     cout << endl << "Welcome " << user->username << "!" << endl;
     user->accountStats();
-    initPreviousSession(userStats, user, stations, rentedVehiclesBuffer);
     while (true){
         cout << endl << "----------------------------------------------------------------------------------------------------------------" << endl;
         bool success;
@@ -34,7 +33,7 @@ void UserInterface::mainInterface(){
             continue;
         }
         data.refreshStationsData(stations);
-//        initPreviousSession(userStats, user, stations, rentedVehiclesBuffer);
+        refreshUserVehicles(userStats, user, stations, rentedVehiclesBuffer);
 
         // Show all Stations
         if (option == 1){
